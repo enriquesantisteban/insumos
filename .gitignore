@@ -1,0 +1,16 @@
+# Credenciales locales (usa config.example.php como plantilla)
+config.php
+
+# Dependencias (si usas Composer en vez de copiar PHPMailer a mano)
+/vendor/
+composer.lock
+
+# Si prefieres NO subir la copia manual de PHPMailer, descomenta:
+# /PHPMailer/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs y temporales
+*.log

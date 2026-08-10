@@ -1,0 +1,47 @@
+RewriteEngine On
+RewriteBase /insumos/
+
+# ==========================================================
+# URLs amigables (fabricante/producto con slug, sin .php)
+# ==========================================================
+
+# Fabricantes
+# Ejemplo: /es/fabricante/kenogard  /en/manufacturer/kenogard  /fr/fabricant/kenogard
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(es|en|pt|fr|ca)/(fabricante|manufacturer|fabricant)/([A-Za-z0-9_-]+)/?$ fabricante.php?lang=$1&slug=$3 [QSA,L]
+
+# Productos
+# Ejemplo: /es/producto/trichoderma  /en/product/trichoderma  /fr/produit/trichoderma  /ca/producte/trichoderma
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(es|en|pt|fr|ca)/(producto|product|produto|produit|producte)/([A-Za-z0-9_-]+)/?$ producto.php?lang=$1&slug=$3 [QSA,L]
+
+# Blog
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(es|en|pt|fr|ca)/(blog|news|noticias|nouvelles|noticies)/([A-Za-z0-9_-]+)/?$ blog.php?lang=$1&slug=$3 [QSA,L]
+# ==========================================================
+# URLs normales (ej. /es/index.php)
+# ==========================================================
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(es|en|pt|fr|ca)/([A-Za-z0-9_-]+\.php)$ $2?lang=$1 [QSA,L]
+
+# ==========================================================
+# Inicio de cada idioma
+# ==========================================================
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(es|en|pt|fr|ca)/?$ index.php?lang=$1 [QSA,L]
+
+# ==========================================================
+# Redirección al idioma por defecto
+# ==========================================================
+
+RewriteCond %{HTTP_COOKIE} user_lang=(es|en|pt|fr|ca) [NC]
+RewriteRule ^$ %1/ [R=302,L]
+
+RewriteRule ^$ es/ [R=302,L]
