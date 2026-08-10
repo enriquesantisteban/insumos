@@ -6,12 +6,15 @@ require_once __DIR__ . '/db_connection.php';
 $slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 $singleNews = null;
 
+
 if ($slug !== '') {
-    $stmt = $mysqli->prepare('SELECT id, titulo, slug, resumen, contenido, imagen, fecha FROM blog WHERE slug = ?');
+    $stmt = $mysqli->prepare('SELECT id, titulo, slug, resumen, contenido, imagen, fecha 
+                              FROM blog 
+                              WHERE slug = ?');    // Preparar la consulta para obtener una noticia específica por slug
     if ($stmt) {
-        $stmt->bind_param('s', $slug);
+        $stmt->bind_param('s', $slug);  
         $stmt->execute();
-        $singleNews = $stmt->get_result()->fetch_assoc();
+        $singleNews = $stmt->get_result()->fetch_assoc(); // Obtener la noticia específica
     }
 }
 
@@ -19,9 +22,11 @@ if ($slug !== '') {
 $noticiasList = [];
 if (!$singleNews) {
     // AÑADIDO 'contenido' A LA CONSULTA:
-    $res = $mysqli->query('SELECT id, titulo, slug, resumen, contenido, imagen, fecha FROM blog ORDER BY fecha DESC');
+    $res = $mysqli->query('SELECT id, titulo, slug, resumen, contenido, imagen, fecha 
+                           FROM blog 
+                           ORDER BY fecha DESC'); // Consulta para obtener todas las noticias de forma descendiente
     if ($res) {
-        while ($row = $res->fetch_assoc()) {
+        while ($row = $res->fetch_assoc()) { // Guardamos cada noticia en el array $noticiasList
             $noticiasList[] = $row;
         }
     }
@@ -44,8 +49,8 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
                 echo __t ('blog.title', 'Blog de Noticias');
             }
         ?> | Regenerative Agro Platform
-    </title>
-    <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">
+    </title>    
+    <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">   // Agregamos un parámetro de versión para evitar problemas de caché
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
