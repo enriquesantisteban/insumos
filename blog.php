@@ -50,7 +50,7 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
             }
         ?> | Regenerative Agro Platform
     </title>    
-    <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">   // Agregamos un parámetro de versión para evitar problemas de caché
+    <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">   <!-- Agregamos un parámetro de versión para evitar problemas de caché -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
