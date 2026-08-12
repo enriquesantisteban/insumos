@@ -37,7 +37,7 @@ $totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query('SELECT COU
             <ul>
                 
                 <li><a href="<?php echo htmlspecialchars(__url('index')); ?>"><?php echo __t('nav.inicio', 'Inicio'); ?></a></li>
-                <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#impacto"><?php echo __t('nav.impacto', 'Impacto'); ?></a></li>
+                <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#impacto"><?php echo __t('footer.impacto', 'Impacto'); ?></a></li>
                 <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#fabricantes"><?php echo __t('nav.fabricantes', 'Fabricantes'); ?></a></li>
                 <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#contacto"><?php echo __t('footer.contacto', 'Contacto'); ?></a></li>
                 <li><a href="<?php echo htmlspecialchars(__url('blog')); ?>#blog"><?php echo __t('footer.blog', 'Blog'); ?></a></li>
