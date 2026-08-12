@@ -102,7 +102,7 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
                     </a>
 
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode($currentUrl); ?>" 
-                    target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="<?php echo __t('blog.share_linkedin', 'Compartir en LindenIn'); ?>">
+                    target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="<?php echo __t('blog.share_linkedin', 'Compartir en LinkedIn'); ?>">
                         <i class="fa-brands fa-linkedin-in"></i>
                     </a>
 
