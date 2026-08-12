@@ -145,4 +145,5 @@ return [
     'footer.copyright'      => 'All rights reserved.',
     'footer.contacto'       => 'Contact',
     'footer.blog'           => 'Blog',
+    'footer.impacto'       => 'Impact',
 ];

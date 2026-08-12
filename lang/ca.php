@@ -150,4 +150,6 @@ return [
     'footer.copyright'      => 'Tots els drets reservats.',
     'footer.contacto'       => 'Contacte',
     'footer.blog'           => 'Blog',
+    'footer.impacto'       => 'Impacte',
+    'footer.contacto'       => 'Contacte',
 ];

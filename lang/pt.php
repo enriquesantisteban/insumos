@@ -144,4 +144,8 @@ return [
     'footer.copyright'      => 'Todos os direitos reservados.',
     'footer.contacto'       => 'Contato',
     'footer.blog'           => 'Blog',
+    'footer.privacy_policy' => 'Política de Privacidade',
+    'footer.terms_conditions' => 'Termos e Condições',
+    'footer.social_media'   => 'Redes sociais',
+    'footer.impacto'        => 'Impacto',
 ];
