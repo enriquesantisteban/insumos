@@ -35,11 +35,11 @@ $translations = file_exists($lang_file) ? require $lang_file : [];
 
 // 4. Mapa de rutas de archivo por idioma (solo para páginas SIN slug, ej. 'index').
 $url_map = [
-    'es' => ['index' => ''],
-    'en' => ['index' => ''],
-    'pt' => ['index' => ''],
-    'fr' => ['index' => ''],
-    'ca' => ['index' => ''],
+    'es' => ['index' => 'inicio'],
+    'en' => ['index' => 'home'],
+    'pt' => ['index' => 'inicio'],
+    'fr' => ['index' => 'accueil'],
+    'ca' => ['index' => 'inici'],
 ];
 $current_url_map = $url_map[$current_lang] ?? $url_map['es'];
 
