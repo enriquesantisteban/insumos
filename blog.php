@@ -90,8 +90,12 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
             <?php endif; ?>
 
             <div class="article-content">
-                <?php echo nl2br(htmlspecialchars($contenido)); ?>
-            </div>
+    <?php 
+        // Reemplaza automáticamente ./media/ por la ruta absoluta real del proyecto
+        $contenidoConRutas = str_replace('./media/', BASE_PATH . '/media/', $contenido);
+        echo nl2br($contenidoConRutas); 
+    ?>
+</div>
 
             <div class="share-container">
                 <span class="share-title"><?php echo __t('blog.compartir', 'Compartir:'); ?></span>

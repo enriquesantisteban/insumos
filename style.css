@@ -1620,6 +1620,15 @@ footer {
     font-weight: 400;
 }
 
+.article-content video {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background-color: #000;
+}
+
 .btn-back {
     display: inline-flex;
     align-items: center;
@@ -1640,6 +1649,7 @@ footer {
     color: #ffffff;
     transform: translateX(-3px);
 }
+
 
 /* --- RESPONSIVE EN MÓVILES --- */
 @media (max-width: 768px) {
