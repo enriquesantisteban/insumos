@@ -462,6 +462,9 @@ if ($countsResult) {
                     <?php endif; ?>
                 </form>
             </div>
+            
+<!-- ====== INFORMACIÓN DE CONTACTO ====== -->
+<!--
             <div class="contact-info-container">
                 <div class="contact-info-card">
                     <i class="fas fa-phone-alt" aria-hidden="true"></i>
@@ -474,6 +477,8 @@ if ($countsResult) {
                     <p>Aquí va la dirección, CP Ciudad, País</p>
                 </div>
             </div>
+                    -->
+
         </div>
     </div>
 </section>
