@@ -430,6 +430,35 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
         btn.addEventListener('click', () => toggleCollapsible(btn));
     });
 
+    function wrapChartLabel(label) {
+        const viewportWidth = window.innerWidth;
+        const maxCharacters = viewportWidth <= 480 ? 12 : viewportWidth <= 768 ? 16 : 22;
+        const lines = [];
+
+        String(label).split(/\s+/).forEach((word) => {
+            if (word.length <= maxCharacters) {
+                lines.push(word);
+                return;
+            }
+
+            for (let start = 0; start < word.length; start += maxCharacters) {
+                lines.push(word.slice(start, start + maxCharacters));
+            }
+        });
+
+        const wrappedLines = [];
+        lines.forEach((line) => {
+            const currentLine = wrappedLines[wrappedLines.length - 1];
+            if (currentLine && (currentLine.length + line.length + 1) <= maxCharacters) {
+                wrappedLines[wrappedLines.length - 1] = currentLine + ' ' + line;
+            } else {
+                wrappedLines.push(line);
+            }
+        });
+
+        return wrappedLines;
+    }
+
     const radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
@@ -468,7 +497,16 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
                 r: {
                     angleLines: { color: 'rgba(0,0,0,0.1)' },
                     grid:        { color: 'rgba(0,0,0,0.05)' },
-                    pointLabels: { font: { size: 13, family: "'Segoe UI', sans-serif", weight: '600' }, color: '#334155' , padding: 15}, // padding --> ajusta el espacio entre el texto y el punto
+                    pointLabels: {
+                        font: (context) => ({
+                            size: context.chart.width <= 480 ? 10 : context.chart.width <= 768 ? 11 : 13,
+                            family: "'Segoe UI', sans-serif",
+                            weight: '600'
+                        }),
+                        callback: (label) => wrapChartLabel(label),
+                        color: '#334155',
+                        padding: 12
+                    },
                     ticks:       { display: false, backdropColor: 'transparent' },
                     suggestedMin: 0,
                     suggestedMax: 100
