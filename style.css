@@ -1386,6 +1386,15 @@ footer {
     .hero-content.hero-product .hero-ctas,
     .hero-content.hero-product .hero-meta { align-items: center; }
 
+    .hero-chips {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-content.hero-product .hero-chips {
+        justify-content: center !important;
+    }
+
     .stats-bar { grid-template-columns: repeat(2, 1fr); }
 
     .manufacturers-grid,
@@ -1439,6 +1448,12 @@ footer {
     max-width: 1100px;
     margin: 0 auto;
     align-items: flex-start;
+}
+
+.contact-layout:not(:has(.contact-info-container)) .contact-form-container {
+    grid-column: 1 / -1;
+    width: min(100%, 550px);
+    justify-self: center;
 }
 
 .contact-form-container {
@@ -2021,11 +2036,18 @@ svg {
     .hero-chips,
     .hero-ctas,
     .hero-content.hero-product .hero-ctas {
-        align-items: stretch;
         flex-direction: column;
     }
 
-    .hero-chip,
+    .hero-chips {
+        align-items: center;
+    }
+
+    .hero-chip {
+        width: fit-content;
+        max-width: 100%;
+    }
+
     .btn-hero {
         width: 100%;
     }
