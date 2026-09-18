@@ -47,12 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_type']) && $_POS
             $mail->addReplyTo($email, $name);
 
             // Contenido del mensaje
-            $mail->isHTML(false);
+            $mail->isHTML(true);
             $mail->Subject = 'Nuevo mensaje de contacto desde la Regenerative Agro Platform';
-            $mail->Body    = "Has recibido un nuevo mensaje de contacto:\n\n"
-                           . "Nombre: " . $name . "\n"
-                           . "Correo: " . $email . "\n\n"
-                           . "Mensaje:\n" . $message . "\n";
+            $mail->Body    = "Has recibido un nuevo mensaje de contacto:<br><br>"
+               . "<b>Nombre:</b> " . htmlspecialchars($name) . "<br>"
+               . "<b>Correo:</b> " . htmlspecialchars($email) . "<br><br>"
+               . "<b>Mensaje:</b><br>" . nl2br(htmlspecialchars($message)) . "<br>";
+
+            // Texto plano de respaldo por si el gestor bloquea el HTML
+            $mail->AltBody = "Has recibido un nuevo mensaje de contacto:\n\n"
+               . "Nombre: " . $name . "\n"
+               . "Correo: " . $email . "\n\n"
+               . "Mensaje:\n" . $message;
 
             $mail->send();
             $form_success = true;
