@@ -431,32 +431,11 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
     });
 
     function wrapChartLabel(label) {
-        const viewportWidth = window.innerWidth;
-        const maxCharacters = viewportWidth <= 480 ? 12 : viewportWidth <= 768 ? 16 : 22;
-        const lines = [];
+        const words = String(label).trim().split(/\s+/).filter(Boolean);
+        if (words.length <= 2) return words;
 
-        String(label).split(/\s+/).forEach((word) => {
-            if (word.length <= maxCharacters) {
-                lines.push(word);
-                return;
-            }
-
-            for (let start = 0; start < word.length; start += maxCharacters) {
-                lines.push(word.slice(start, start + maxCharacters));
-            }
-        });
-
-        const wrappedLines = [];
-        lines.forEach((line) => {
-            const currentLine = wrappedLines[wrappedLines.length - 1];
-            if (currentLine && (currentLine.length + line.length + 1) <= maxCharacters) {
-                wrappedLines[wrappedLines.length - 1] = currentLine + ' ' + line;
-            } else {
-                wrappedLines.push(line);
-            }
-        });
-
-        return wrappedLines;
+        const midpoint = Math.ceil(words.length / 2);
+        return [words.slice(0, midpoint).join(' '), words.slice(midpoint).join(' ')];
     }
 
     const radarChart = new Chart(ctx, {
@@ -493,19 +472,23 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: 24
+            },
             scales: {
                 r: {
                     angleLines: { color: 'rgba(0,0,0,0.1)' },
                     grid:        { color: 'rgba(0,0,0,0.05)' },
                     pointLabels: {
                         font: (context) => ({
-                            size: context.chart.width <= 480 ? 10 : context.chart.width <= 768 ? 11 : 13,
+                            size: context.chart.width <= 480 ? 14 : context.chart.width <= 768 ? 15 : 16,
                             family: "'Segoe UI', sans-serif",
                             weight: '600'
                         }),
                         callback: (label) => wrapChartLabel(label),
                         color: '#334155',
-                        padding: 12
+                        padding: 24
                     },
                     ticks:       { display: false, backdropColor: 'transparent' },
                     suggestedMin: 0,
@@ -513,7 +496,7 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
                 }
             },
             plugins: {
-                legend:  { position: 'bottom', labels: { font: { size: 13 }, padding: 20 } },
+                legend:  { position: 'bottom', align: 'center', labels: { font: { size: 14 }, padding: 22, boxWidth: 18, usePointStyle: true } },
                 tooltip: { enabled: false }
             },
             onClick: (event) => {
