@@ -194,7 +194,7 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
             constituye un valor comparativo entre el crecimiento de cada microorganismo con el insumo, respecto del crecimiento con el testigo inocuo (agua, valor 1). Los valores de crecimiento se han 
             evaluado mediante ensayo in vitro, y el In mediante formula, ambos según el procedimiento MBG-EHB-01.'); ?></p>
             <p style="color:#94a3b8;font-size:0.82rem;margin-top:0.75rem;">
-                <i class="fas fa-hand-pointer" aria-hidden="true"></i><?php echo __t('producto.grafica_pulsa_sobre', ' Pulsa sobre el nombre de un microorganismo para ver su ficha completa.'); ?>
+                <i class="fas fa-thin fa-arrow-down" aria-hidden="true"></i><?php echo __t('producto.grafica_pulsa_sobre ', ' Pulsa sobre el nombre de un microorganismo para ver su ficha completa.'); ?> <i class="fas fa-thin fa-arrow-down" aria-hidden="true"></i>
             </p>
         </div>
 
