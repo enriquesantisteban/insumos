@@ -3,6 +3,7 @@
 return [
     // nav.php
     'nav.inicio'            => 'Início',
+    'nav.impacto'           => 'Impacto',
     'nav.fabricantes'       => 'Fabricantes',
     'nav.sobre'             => 'Sobre a plataforma',
     'nav.contacto'          => 'Contato',
