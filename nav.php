@@ -87,6 +87,12 @@ if ($navResult) {
         }
     }
 }
+foreach ($navFabricantes as &$fab) {
+    $fab['url'] = !empty($fab['slug'])
+        ? __url('fabricante', ['slug' => $fab['slug']])
+        : __url('fabricante', ['id' => (int)$fab['id']]);
+}
+unset($fab);
 ?>
 <header class="site-nav" id="siteNav">
     <div class="nav-inner">
@@ -112,7 +118,7 @@ if ($navResult) {
                     <ul class="submenu">
                         <?php foreach ($navFabricantes as $fab): ?>
                             <li class="<?php echo !empty($fab['productos']) ? 'has-submenu' : ''; ?>">
-                                <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $fab['slug']])); ?>">
+                                <a href="<?php echo htmlspecialchars($fab['url']); ?>">
                                     <?php echo htmlspecialchars($fab['nombre']); ?>
                                     <?php if (!empty($fab['productos'])): ?>
                                         <span class="submenu-arrow">&#8250;</span>
@@ -189,7 +195,7 @@ if ($navResult) {
                                 <!-- Capa 2: Fabricante individual con productos (Plegado secundario) -->
                                 <details class="mobile-details-sub">
                                     <summary class="mobile-summary-sub">
-                                        <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $fab['slug']])); ?>" class="mobile-fab-link">
+                                        <a href="<?php echo htmlspecialchars($fab['url']); ?>" class="mobile-fab-link">
                                             <?php echo htmlspecialchars($fab['nombre']); ?>
                                         </a>
                                         <i class="fas fa-chevron-down mobile-arrow-sub" aria-hidden="true"></i>
@@ -208,7 +214,7 @@ if ($navResult) {
                                 </details>
                             <?php else: ?>
                                 <!-- Fabricante sin productos (enlace directo) -->
-                                <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $fab['slug']])); ?>" class="mobile-fab-link">
+                                <a href="<?php echo htmlspecialchars($fab['url']); ?>" class="mobile-fab-link">
                                     <?php echo htmlspecialchars($fab['nombre']); ?>
                                 </a>
                             <?php endif; ?>
