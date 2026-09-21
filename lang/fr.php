@@ -85,6 +85,7 @@ return [
 
     // producto.php
     'producto.desc_fallback'    => 'Description du produit non disponible.',
+    'producto.no_data_desc'     => 'Aucune donnée n’est disponible pour ce produit.',
     'producto.registro_label'   => 'Homologation',
     'producto.fabricante_label' => 'Fabricant',
     'producto.ver_grafica'      => 'Voir le graphique',
@@ -95,6 +96,8 @@ return [
     'producto.fabricante'       => 'Fabricant',
     'producto.inocuidad_in_vitro' => 'Innocuité in vitro',
     'producto.grafica_microorganismos' => 'Graphique des micro-organismes',
+    'producto.grafica_empty_title' => 'Aucune donnée pour ce produit',
+    'producto.grafica_empty_desc' => 'Aucune donnée n’a encore été ajoutée pour générer le graphique.',
     'producto.grafica_texto_descripcion' => 'L’indice d’innocuité relative (In) représente une valeur comparative entre la croissance de chaque micro-organisme en présence de l’intrant et sa croissance avec le témoin inoffensif (eau, valeur égale à 1). Les valeurs de croissance ont été déterminées par des essais in vitro, et l’indice In a été calculé à l’aide d’une formule ; les deux procédures respectent le protocole MBG-EHB-01.',
     'producto.grafica_pulsa_sobre' => ' Cliquez sur le nom d’un micro-organisme pour consulter sa fiche complète.',
     'producto.popup_beneficios' => 'Importance et bénéfices',

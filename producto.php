@@ -111,6 +111,11 @@ $registroText = !empty($producto['registro'])
     : __t('producto.no_registrado', 'No registrado');
 
 $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;                  // Obtiene la imagen del producto
+$hasProductData = !empty($producto['descripcion'])
+    || !empty($producto['registro'])
+    || !empty($heroImage)
+    || !empty($especificaciones)
+    || !empty($microorganismos);
 ?>
 
 <!DOCTYPE html>
@@ -148,8 +153,15 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
             <p class="hero-desc" style="max-width:520px;margin-left:0;margin-bottom:1.5rem;">     <!-- Descripción del producto -->
                 <?php echo !empty($producto['descripcion'])     
                     ? nl2br(htmlspecialchars(__tdb($mysqli, 'productos', $producto['id'], 'descripcion', $producto['descripcion'])))      // Si la descripción del producto no es vacía, muestra la descripción (traducida) en un párrafo
-                    : 'Descripcion del producto no disponible.'; ?>         <!--Si la descripción del producto es vacía, muestra un mensaje de texto alternativo -->
+                    : __t('producto.desc_fallback', 'Descripción del producto no disponible.'); ?>         <!--Si la descripción del producto es vacía, muestra un mensaje de texto alternativo -->
             </p>
+
+            <?php if (!$hasProductData): ?>
+                <p class="product-empty-notice">
+                    <i class="fas fa-circle-info" aria-hidden="true"></i>
+                    <?php echo __t('producto.no_data_desc', 'No hay datos disponibles de este producto.'); ?>
+                </p>
+            <?php endif; ?>
 
             <div class="hero-meta">     <!-- Contenedor para los metadatos -->
                 <div class="hero-meta-row">     <!-- Contenedor para la fila de metadatos -->
@@ -198,6 +210,7 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
             </p>
         </div>
 
+        <?php if (!empty($microorganismos)): ?>
         <div class="chart-wrapper">
             <canvas id="radarChart" aria-label="Gráfica radar de inocuidad"></canvas>                 <!-- Canvas para el gráfico radar -->
 
@@ -235,6 +248,13 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
                 <img id="image-lightbox-img" alt="Imagen ampliada">     <!-- Imagen ampliada -->
             </div>
         </div>
+        <?php else: ?>
+            <div class="empty product-data-empty">
+                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                <h3><?php echo __t('producto.grafica_empty_title', 'No hay datos de este producto'); ?></h3>
+                <p><?php echo __t('producto.grafica_empty_desc', 'Todavía no se han cargado datos para generar la gráfica.'); ?></p>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -382,7 +402,9 @@ $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;      
 <!-- ====== CHART JS ====== -->
 <script>
 (function () {
-    const ctx            = document.getElementById('radarChart').getContext('2d');
+    const radarCanvas    = document.getElementById('radarChart');
+    if (!radarCanvas) return;
+    const ctx            = radarCanvas.getContext('2d');
     const popupOverlay   = document.getElementById('chart-popup-overlay');
     const popup          = document.getElementById('chart-popup');
     const popupTitle     = document.getElementById('popup-title');

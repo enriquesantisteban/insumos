@@ -89,6 +89,7 @@ return [
 
     // producto.php
     'producto.desc_fallback'    => 'Descripció del producte no disponible.',
+    'producto.no_data_desc'     => 'No hi ha dades disponibles d’aquest producte.',
     'producto.registro_label'   => 'Registre',
     'producto.fabricante_label' => 'Fabricant',
     'producto.ver_grafica'      => 'Veure gràfic',
@@ -99,6 +100,8 @@ return [
     'producto.fabricante'       => 'Fabricant',
     'producto.inocuidad_in_vitro' => 'Innocuïtat in vitro',
     'producto.grafica_microorganismos' => 'Gràfic de microorganismes',
+    'producto.grafica_empty_title' => 'No hi ha dades d’aquest producte',
+    'producto.grafica_empty_desc' => 'Encara no s’han afegit dades per generar el gràfic.',
     'producto.grafica_texto_descripcion' => 'L’índex d’innocuïtat relativa (In) representa un valor comparatiu entre el creixement de cada microorganisme en presència de l’insumo i el seu creixement amb el control innocu (aigua, valor 1). Els valors de creixement es van determinar mitjançant assajos in vitro, i el valor d’In es va calcular mitjançant una fórmula; ambdós procediments van seguir el protocol MBG-EHB-01.',
     'producto.grafica_pulsa_sobre' => ' Fes clic sobre el nom d’un microorganisme per veure la seva fitxa completa.',
     'producto.popup_beneficios' => 'Importància i beneficis',

@@ -2122,3 +2122,23 @@ svg {
         padding: 1rem;
     }
 }
+
+.product-data-empty {
+    color: #64748b;
+}
+
+.product-data-empty > i {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    color: #cbd5e1;
+}
+
+.product-empty-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 1.5rem;
+    color: #dbeafe;
+    font-weight: 600;
+}

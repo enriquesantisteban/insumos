@@ -84,6 +84,7 @@ return [
 
     // producto.php
     'producto.desc_fallback'    => 'Descrição do produto não disponível.',
+    'producto.no_data_desc'     => 'Não há dados disponíveis para este produto.',
     'producto.registro_label'   => 'Registo',
     'producto.fabricante_label' => 'Fabricante',
     'producto.ver_grafica'      => 'Ver gráfico',
@@ -94,6 +95,8 @@ return [
     'producto.fabricante'       => 'Fabricante',
     'producto.inocuidad_in_vitro' => 'Inocuidade in vitro',
     'producto.grafica_microorganismos' => 'Gráfico de microrganismos',
+    'producto.grafica_empty_title' => 'Não há dados deste produto',
+    'producto.grafica_empty_desc' => 'Ainda não foram adicionados dados para gerar o gráfico.',
     'producto.grafica_texto_descripcion' => 'O índice relativo de inocuidade (In) representa um valor comparativo entre o crescimento de cada microrganismo na presença do produto e o seu crescimento com o controlo inócuo (água, valor 1). Os valores de crescimento foram determinados através de ensaios in vitro, e o valor de In foi calculado utilizando uma fórmula; ambos os procedimentos seguiram o protocolo MBG-EHB-01.',
     'producto.grafica_pulsa_sobre' => ' Clique no nome de um microrganismo para ver a sua ficha completa.',
     'producto.popup_beneficios' => 'Importância e benefícios',

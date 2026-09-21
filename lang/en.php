@@ -84,6 +84,7 @@ return [
     
     // producto.php
     'producto.desc_fallback'    => 'Product description not available.',
+    'producto.no_data_desc'     => 'No data is available for this product.',
     'producto.registro_label'   => 'Registration',
     'producto.fabricante_label' => 'Manufacturer',
     'producto.ver_grafica'      => 'View chart',
@@ -94,6 +95,8 @@ return [
     'producto.fabricante'       => 'Manufacturer',
     'producto.inocuidad_in_vitro' => 'In vitro safety',
     'producto.grafica_microorganismos' => 'Microorganism chart',
+    'producto.grafica_empty_title' => 'No data for this product',
+    'producto.grafica_empty_desc' => 'No data has been added to generate the chart yet.',
     'producto.grafica_texto_descripcion' => 'The relative safety index (In) represents a comparative value between the growth of each microorganism in the presence of the input and its growth with the harmless control (water, value of 1). Growth values ​​were determined via in vitro assays, and the In value was calculated using a formula; both procedures followed protocol MBG-EHB-01.',
     'producto.grafica_pulsa_sobre' => ' Click on the name of a microorganism to view its full sheet.',
     'producto.popup_beneficios' => 'Importance and benefits',
