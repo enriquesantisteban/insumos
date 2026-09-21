@@ -7,7 +7,7 @@ require_once __DIR__ . '/i18n.php';
 // Si $fabricantesData no existe en la página actual, realizamos una consulta rápida para el menú del footer
 if (!isset($fabricantesData) && isset($mysqli)) {
     $fabricantesData = [];
-    $resFabFooter = $mysqli->query('SELECT nombre, slug FROM fabricantes ORDER BY nombre');
+    $resFabFooter = $mysqli->query('SELECT id, nombre, slug FROM fabricantes ORDER BY nombre');
     if ($resFabFooter) {
         while ($r = $resFabFooter->fetch_assoc()) {
             $fabricantesData[] = $r;
@@ -50,7 +50,10 @@ $totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query('SELECT COU
                 <?php if (!empty($fabricantesData)): ?>
                     <?php foreach ($fabricantesData as $fab): ?>
                         <li>
-                            <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $fab['slug']])); ?>">
+                            <?php $fabricanteUrl = !empty($fab['slug'])
+                                ? __url('fabricante', ['slug' => $fab['slug']])
+                                : __url('fabricante', ['id' => (int)$fab['id']]); ?>
+                            <a href="<?php echo htmlspecialchars($fabricanteUrl); ?>">
                                 <?php echo htmlspecialchars($fab['nombre']); ?>
                             </a>
                         </li>
