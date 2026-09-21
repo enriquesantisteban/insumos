@@ -314,7 +314,17 @@ if ($countsResult) {
                     <select id="filterRegistro">
                         <option value=""><?php echo __t('index.filter_all', 'Todos'); ?></option>
                         <?php foreach ($registroOptions as $regOpt): ?>
-                            <option value="<?php echo htmlspecialchars($regOpt); ?>"><?php echo htmlspecialchars($regOpt); ?></option>
+                            <?php
+                            $regOptNormalized = mb_strtolower(trim($regOpt), 'UTF-8');
+                            if (in_array($regOptNormalized, ['probiótico', 'probiotico'], true)) {
+                                $regOptLabel = __t('index.registry_probiotic', 'Probiótico');
+                            } elseif ($regOptNormalized === 'sin registro') {
+                                $regOptLabel = __t('producto.sin_registro', 'Sin registro');
+                            } else {
+                                $regOptLabel = $regOpt;
+                            }
+                            ?>
+                            <option value="<?php echo htmlspecialchars($regOpt); ?>"><?php echo htmlspecialchars($regOptLabel); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

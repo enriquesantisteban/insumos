@@ -70,6 +70,7 @@ return [
     'index.footer_brand_desc' => 'Unified catalog of agricultural inputs for regenerative agriculture. Products evaluated with certified in vitro assays.',
     'index.filter_manufacturer_label' => 'Manufacturer',
     'index.filter_registry_label' => 'Registration',
+    'index.registry_probiotic' => 'Probiotic',
     'index.filter_all' => 'All',
     'index.filter_fabricante' => 'Manufacturer',
     'index.impact_eyebrow' => 'Our Impact',

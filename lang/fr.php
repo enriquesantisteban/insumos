@@ -71,6 +71,7 @@ return [
     'index.footer_brand_desc' => 'Catalogue unifié d’intrants agricoles pour l’agriculture régénérative. Produits évalués par des essais in vitro certifiés.',
     'index.filter_manufacturer_label' => 'Fabricant',
     'index.filter_registry_label' => 'Enregistrement',
+    'index.registry_probiotic' => 'Probiotique',
     'index.filter_all' => 'Tous',
     'index.filter_fabricante' => 'Fabricant',
     'index.impact_eyebrow' => 'Notre Impact',

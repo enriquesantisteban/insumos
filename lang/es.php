@@ -74,6 +74,7 @@ return [
     'index.footer_brand_desc' => 'Catálogo unificado de insumos biológicos para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados.',
     'index.filter_manufacturer_label' => 'Fabricante',
     'index.filter_registry_label' => 'Registro',
+    'index.registry_probiotic' => 'Probiótico',
     'index.filter_all' => 'Todos',
     'index.filter_fabricante' => 'Fabricante',
     'index.impact_banner_title' => 'Rigor Científico al Servicio del Agricultor',

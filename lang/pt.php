@@ -70,6 +70,7 @@ return [
     'index.footer_brand_desc' => 'Catálogo unificado de insumos agrícolas para a agricultura regenerativa. Produtos avaliados com ensaios in vitro certificados.',
     'index.filter_manufacturer_label' => 'Fabricante',
     'index.filter_registry_label' => 'Registo',
+    'index.registry_probiotic' => 'Probiótico',
     'index.filter_all' => 'Todos',
     'index.filter_fabricante' => 'Fabricante',
     'index.impact_eyebrow' => 'Nosso Impacto',

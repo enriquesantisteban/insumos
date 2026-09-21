@@ -75,6 +75,7 @@ return [
     'index.footer_brand_desc' => 'Catàleg unificat d’insumos agrícoles per a l’agricultura regenerativa. Productes avaluats amb assajos in vitro certificats.',
     'index.filter_manufacturer_label' => 'Fabricant',
     'index.filter_registry_label' => 'Registre',
+    'index.registry_probiotic' => 'Probiòtic',
     'index.filter_all' => 'Tots',
     'index.filter_fabricante' => 'Fabricant',
     'index.impact_eyebrow' => 'El nostre Impacte',
