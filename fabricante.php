@@ -113,6 +113,17 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
                     : __t('fabricante.desc_fallback', 'Explora los productos biológicos disponibles de este fabricante.'); ?>        <!-- sino muestra este mensaje -->
             </p>
 
+            <div class="hero-image-mobile">
+                <?php if ($fabricanteImage): ?>
+                    <img src="<?php echo htmlspecialchars(__asset_url($fabricanteImage)); ?>"
+                         alt="Logo de <?php echo htmlspecialchars($fabricante['nombre']); ?>">
+                <?php else: ?>
+                    <div class="manufacturer-hero-initials">
+                        <?php echo htmlspecialchars($initials); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
             <div class="hero-chips" style="justify-content:flex-start;margin-bottom:1.75rem;">                          <!-- contenedor chips de información-->
                 <span class="hero-chip"><i class="fas fa-industry" aria-hidden="true"></i> <?php echo __t('fabricante.chip_fabricante', 'Fabricante'); ?></span>
                 <span class="hero-chip"><i class="fas fa-box" aria-hidden="true"></i>

@@ -571,6 +571,7 @@ body { top: 0px !important; }
 
 .hero-text { flex: 1; min-width: 280px; }
 .hero-image { flex: 1; min-width: 260px; display: flex; justify-content: center; }
+.hero-image-mobile { display: none; }
 
 .hero-image img {
     max-width: 420px;
@@ -1913,6 +1914,37 @@ svg {
     .hero-content.hero-product .hero-text,
     .hero-content.hero-product .hero-image {
         width: 100%;
+    }
+
+    .hero-content.hero-product .hero-image {
+        display: none;
+    }
+
+    .hero-image-mobile {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0 0 1.5rem;
+    }
+
+    .hero-image-mobile img {
+        max-width: min(100%, 260px);
+        border-radius: 20px;
+        filter: drop-shadow(0 20px 30px rgba(0,0,0,0.28));
+    }
+
+    .manufacturer-hero-initials {
+        width: 180px;
+        height: 180px;
+        border-radius: 28px;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        font-weight: 900;
+        color: rgba(255,255,255,0.9);
     }
 
     .hero-image img {
