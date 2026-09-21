@@ -192,6 +192,11 @@ function __lang_switch_url($lang) {
 function __url($page_key, $params = []) {
     global $current_url_map, $current_lang, $current_page_segment_map;
 
+    if (in_array($page_key, ['fabricante', 'producto'], true) && empty($params['slug']) && isset($params['id'])) {
+        $id = (int)$params['id'];
+        return BASE_PATH . '/' . $current_lang . '/' . $page_key . '.php?id=' . $id;
+    }
+
     if (in_array($page_key, ['fabricante', 'producto', 'blog'], true) && !empty($params['slug'])) {
         $segment = $current_page_segment_map[$page_key] ?? $page_key;
         $slug = $params['slug'];

@@ -141,7 +141,9 @@ $hasProductData = !empty($producto['descripcion'])
 
     <div class="hero-content hero-product" style="position:relative;z-index:2;">
         <div class="hero-text">
-            <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $producto['fabricante_slug']])); ?>" class="hero-eyebrow" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;">    <!-- Enlace al fabricante -->
+            <a href="<?php echo htmlspecialchars(!empty($producto['fabricante_slug'])
+                ? __url('fabricante', ['slug' => $producto['fabricante_slug']])
+                : __url('fabricante', ['id' => (int)$producto['fabricante_id']])); ?>" class="hero-eyebrow" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;">    <!-- Enlace al fabricante -->
                 <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i>    <!-- Icono de flecha izquierda -->
                 <?php echo htmlspecialchars($producto['fabricante_nombre']); ?>    <!-- Nombre del fabricante -->
             </a>
