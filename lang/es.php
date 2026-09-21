@@ -37,7 +37,7 @@ return [
     'fabricante.empty_title'       => 'No hay productos registrados',
     'fabricante.empty_desc'        => 'Este fabricante todavía no tiene productos en la base de datos.',
     'fabricante.ver_ficha'         => 'Ver ficha completa',
-    'fabricante.desc_fallback'     => 'Explora los productos biológicos disponibles de este fabricante.',
+    'fabricante.desc_fallback'     => 'Explora los productos agrícolas disponibles de este fabricante.',
     'fabricante.desc_producto_fallback' => 'Descripción no disponible.',
 
     // index.php
@@ -56,8 +56,8 @@ return [
     'index.stat_biological_control' => 'Control biológico',
     'index.manufacturers_title_1' => 'Explora por',
     'index.manufacturers_title_2' => 'fabricante',
-    'index.manufacturers_desc' => 'Selecciona un fabricante para ver todos sus productos biológicos disponibles en la plataforma.',
-    'index.desc_fallback'   => 'Fabricante de insumos biológicos para la agricultura regenerativa.',
+    'index.manufacturers_desc' => 'Selecciona un fabricante para ver todos sus productos agrícolas disponibles en la plataforma.',
+    'index.desc_fallback'   => 'Fabricante de insumos agrícolas para la agricultura regenerativa.',
     'index.manufacturers_cta' => 'Ver productos',
     'index.empty_title'     => 'No hay fabricantes registrados',
     'index.empty_desc'      => 'Importa la base de datos y vuelve a cargar esta página.',
