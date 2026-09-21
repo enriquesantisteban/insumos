@@ -305,7 +305,7 @@ if ($countsResult) {
                     <select id="filterFabricante">
                         <option value=""><?php echo __t('index.filter_all', 'Todos'); ?></option>
                         <?php foreach ($fabricantesData as $fabOpt): ?>
-                            <option value="<?php echo htmlspecialchars($fabOpt['slug']); ?>"><?php echo htmlspecialchars($fabOpt['nombre']); ?></option>
+                            <option value="<?php echo (int)$fabOpt['id']; ?>"><?php echo htmlspecialchars($fabOpt['nombre']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -341,7 +341,7 @@ if ($countsResult) {
                         ? __url('fabricante', ['slug' => $fab['slug']])
                         : __url('fabricante', ['id' => (int)$fab['id']]);
                 ?>
-                    <article class="manufacturer-card" data-fabricante="<?php echo htmlspecialchars($fab['slug']); ?>" data-registros="<?php echo htmlspecialchars(implode('|', $fab['registros'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-registro-counts="<?php echo htmlspecialchars(json_encode(!empty($registroCounts[$fab['id']]) ? $registroCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">             <!-- tarjeta individual para cada fabricante; data-* se usan para el filtrado y para recalcular el conteo de productos por registro -->
+                    <article class="manufacturer-card" data-fabricante="<?php echo (int)$fab['id']; ?>" data-registros="<?php echo htmlspecialchars(implode('|', $fab['registros'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-registro-counts="<?php echo htmlspecialchars(json_encode(!empty($registroCounts[$fab['id']]) ? $registroCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">             <!-- tarjeta individual para cada fabricante; data-* se usan para el filtrado y para recalcular el conteo de productos por registro -->
                         <div class="manufacturer-card-img">         <!-- contenedor para la imagen del fabricante -->
                             <?php if ($imgCol): ?>                  <!-- comprueba si hay una imagen disponible para el fabricante -->
                                 <img src="<?php echo htmlspecialchars(__asset_url($imgCol)); ?>" alt="Logo de <?php echo htmlspecialchars($fab['nombre']); ?>">  <!-- muestra la imagen del fabricante con un texto alternativo que describe el logo del fabricante -->
