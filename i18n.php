@@ -113,18 +113,57 @@ function __slugify($text) {
  * Se usa para construir el selector de idioma en nav.php.
  */
 function __lang_switch_url($lang) {
-    global $url_map, $page_segment_map;
+    global $url_map, $page_segment_map, $mysqli, $current_lang;
 
     $page_key = __current_page_key();
     $query = $_GET;
     unset($query['lang']);
 
     // Páginas de detalle (fabricante/producto): ruta bonita con slug y segmento traducido
-    if (in_array($page_key, ['fabricante', 'producto'], true) && !empty($query['slug'])) {
+    if (in_array($page_key, ['fabricante', 'producto', 'blog'], true) && !empty($query['slug'])) {
         $target_segments = $page_segment_map[$lang] ?? $page_segment_map['es'];
         $segment = $target_segments[$page_key] ?? $page_key;
         $slug = $query['slug'];
         unset($query['slug']);
+
+        if ($page_key === 'blog' && isset($mysqli)) {
+            $articleId = null;
+            $stmt = $mysqli->prepare('SELECT id FROM blog WHERE slug = ? LIMIT 1');
+            if ($stmt) {
+                $stmt->bind_param('s', $slug);
+                $stmt->execute();
+                $articleId = $stmt->get_result()->fetch_assoc()['id'] ?? null;
+            }
+
+            if (!$articleId) {
+                $stmt = $mysqli->prepare('SELECT traduccion_id FROM traducciones WHERE tabla = \'blog\' AND campo = \'slug\' AND idioma = ? AND texto = ? LIMIT 1');
+                if ($stmt) {
+                    $stmt->bind_param('ss', $current_lang, $slug);
+                    $stmt->execute();
+                    $articleId = $stmt->get_result()->fetch_assoc()['traduccion_id'] ?? null;
+                }
+            }
+
+            if ($articleId) {
+                $translatedSlug = null;
+                $stmt = $mysqli->prepare('SELECT texto FROM traducciones WHERE tabla = \'blog\' AND traduccion_id = ? AND campo = \'slug\' AND idioma = ? LIMIT 1');
+                if ($stmt) {
+                    $stmt->bind_param('is', $articleId, $lang);
+                    $stmt->execute();
+                    $translatedSlug = $stmt->get_result()->fetch_assoc()['texto'] ?? null;
+                }
+                if ($translatedSlug) {
+                    $slug = $translatedSlug;
+                } else {
+                    $stmt = $mysqli->prepare('SELECT slug FROM blog WHERE id = ? LIMIT 1');
+                    if ($stmt) {
+                        $stmt->bind_param('i', $articleId);
+                        $stmt->execute();
+                        $slug = $stmt->get_result()->fetch_assoc()['slug'] ?? $slug;
+                    }
+                }
+            }
+        }
         $url = BASE_PATH . '/' . $lang . '/' . $segment . '/' . rawurlencode($slug);
         return $url . (!empty($query) ? '?' . http_build_query($query) : '');
     }
@@ -141,7 +180,7 @@ function __lang_switch_url($lang) {
 
 /**
  * Genera una URL localizada para una página clave.
- * - Para 'fabricante' o 'producto' con ['slug' => ...]: ruta bonita y con el
+ * - Para 'fabricante', 'producto' o 'blog' con ['slug' => ...]: ruta bonita y con el
  *   segmento ya traducido al idioma activo, ej. /es/fabricante/kenogard,
  *   /en/manufacturer/kenogard, /fr/fabricant/kenogard.
  * - Para el resto (ej. 'index'): ruta de archivo, ej. /es/index.php.
@@ -153,7 +192,7 @@ function __lang_switch_url($lang) {
 function __url($page_key, $params = []) {
     global $current_url_map, $current_lang, $current_page_segment_map;
 
-    if (in_array($page_key, ['fabricante', 'producto'], true) && !empty($params['slug'])) {
+    if (in_array($page_key, ['fabricante', 'producto', 'blog'], true) && !empty($params['slug'])) {
         $segment = $current_page_segment_map[$page_key] ?? $page_key;
         $slug = $params['slug'];
         unset($params['slug']);

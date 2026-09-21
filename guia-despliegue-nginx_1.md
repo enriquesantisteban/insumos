@@ -374,6 +374,15 @@ server {
                 /producto.php?lang=$1&slug=$3 last;
     }
 
+    # --- Blog: /es/blog/slug, /fr/nouvelles/slug, /ca/noticies/slug, etc. ---
+    location ~ ^/(es|en|pt|fr|ca)/(blog|news|noticias|nouvelles|noticies)/([^/]+)/?$ {
+      try_files /nonexistent @blog;
+    }
+    location @blog {
+      rewrite ^/(es|en|pt|fr|ca)/(blog|news|noticias|nouvelles|noticies)/([^/]+)/?$
+          /blog.php?lang=$1&slug=$3 last;
+    }
+
     # --- Páginas normales con prefijo de idioma: /es/index.php, etc. ---
     location ~ ^/(es|en|pt|fr|ca)/([A-Za-z0-9_-]+\.php)$ {
         rewrite ^/(es|en|pt|fr|ca)/([A-Za-z0-9_-]+\.php)$ /$2?lang=$1 last;

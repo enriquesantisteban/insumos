@@ -20,7 +20,7 @@ RewriteRule ^(es|en|pt|fr|ca)/(producto|product|produto|produit|producte)/([A-Za
 # Blog
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(es|en|pt|fr|ca)/(blog|news|noticias|nouvelles|noticies)/([A-Za-z0-9_-]+)/?$ blog.php?lang=$1&slug=$3 [QSA,L]
+RewriteRule ^(es|en|pt|fr|ca)/(blog|news|noticias|nouvelles|noticies)/([^/]+)/?$ blog.php?lang=$1&slug=$3 [QSA,L]
 # ==========================================================
 # URLs normales (ej. /es/index.php)
 # ==========================================================

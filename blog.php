@@ -16,6 +16,22 @@ if ($slug !== '') {
         $stmt->execute();
         $singleNews = $stmt->get_result()->fetch_assoc(); // Obtener la noticia específica
     }
+
+    // Si el slug está traducido, localizar primero la noticia mediante la tabla de traducciones.
+    if (!$singleNews) {
+        $stmt = $mysqli->prepare('SELECT b.id, b.titulo, b.slug, b.resumen, b.contenido, b.imagen, b.fecha
+                                  FROM blog b
+                                  INNER JOIN traducciones t ON t.traduccion_id = b.id
+                                      AND t.tabla = \'blog\'
+                                      AND t.campo = \'slug\'
+                                      AND t.idioma = ?
+                                      AND t.texto = ?');
+        if ($stmt) {
+            $stmt->bind_param('ss', $current_lang, $slug);
+            $stmt->execute();
+            $singleNews = $stmt->get_result()->fetch_assoc();
+        }
+    }
 }
 
 // Si no se busca una noticia concreta, cargamos el listado general
@@ -147,6 +163,7 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
                     <?php foreach ($noticiasList as $item): 
                         $itemTitulo = __tdb($mysqli, 'blog', $item['id'], 'titulo', $item['titulo']);
                         $itemResumen = __tdb($mysqli, 'blog', $item['id'], 'resumen', $item['resumen']);
+                        $itemSlug = __tdb($mysqli, 'blog', $item['id'], 'slug', $item['slug']);
                     ?>
                         <article class="product-card">
                             <div class="card-img">
@@ -168,7 +185,7 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
                                 
                                 <p><?php echo htmlspecialchars($itemResumen); ?></p>
                                 
-                                <a href="<?php echo htmlspecialchars(__url('blog', ['slug' => $item['slug']])); ?>" class="btn btn-full">
+                                <a href="<?php echo htmlspecialchars(__url('blog', ['slug' => $itemSlug])); ?>" class="btn btn-full">
                                     <?php echo __t('blog.leer_mas', 'Leer más'); ?> <i class="fas fa-arrow-right" aria-hidden="true" style="font-size:0.75rem; margin-left:4px;"></i>
                                 </a>
                             </div>
