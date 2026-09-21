@@ -327,6 +327,9 @@ if ($countsResult) {
                 <?php foreach ($fabricantesData as $fab):       // recorre cada fabricante registrado y muestra su información en una tarjeta -->
                     $imgCol  = $fabricanteImageColumn ? ($fab[$fabricanteImageColumn] ?? null) : null;      // obtiene la URL de la imagen del fabricante si existe, de lo contrario, será null
                     $initials = mb_strtoupper(mb_substr($fab['nombre'], 0, 2));                             // obtiene las iniciales del nombre del fabricante para mostrar en caso de que no haya imagen disponible
+                    $fabricanteUrl = !empty($fab['slug'])
+                        ? __url('fabricante', ['slug' => $fab['slug']])
+                        : __url('fabricante', ['id' => (int)$fab['id']]);
                 ?>
                     <article class="manufacturer-card" data-fabricante="<?php echo htmlspecialchars($fab['slug']); ?>" data-registros="<?php echo htmlspecialchars(implode('|', $fab['registros'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-registro-counts="<?php echo htmlspecialchars(json_encode(!empty($registroCounts[$fab['id']]) ? $registroCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">             <!-- tarjeta individual para cada fabricante; data-* se usan para el filtrado y para recalcular el conteo de productos por registro -->
                         <div class="manufacturer-card-img">         <!-- contenedor para la imagen del fabricante -->
@@ -348,7 +351,7 @@ if ($countsResult) {
                                     <i class="fas fa-box" aria-hidden="true" style="margin-right:4px;"></i>                                         <!-- muestra un icono de caja antes del número de productos -->
                                     <span class="count-num"><?php echo (int)$fab['num_productos']; ?></span><span class="count-label"><?php echo __t('index.producto_singular', ' producto'); ?><?php echo $fab['num_productos'] != 1 ? 's' : ''; ?></span>          <!-- muestra el número de productos del fabricante (actualizable por JS según el filtro de registro) -->
                                 </span>
-                                <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $fab['slug']])); ?>" data-href-base="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $fab['slug']])); ?>" class="btn manufacturer-cta">                                             <!-- botón que redirige a la página del fabricante para ver todos sus productos, o solo los del registro filtrado --> 
+                                <a href="<?php echo htmlspecialchars($fabricanteUrl); ?>" data-href-base="<?php echo htmlspecialchars($fabricanteUrl); ?>" class="btn manufacturer-cta">                                             <!-- botón que redirige a la página del fabricante para ver todos sus productos, o solo los del registro filtrado --> 
                                     <?php echo __t('index.manufacturers_cta', 'Ver productos'); ?> <i class="fas fa-arrow-right" aria-hidden="true" style="margin-left:4px;font-size:0.75rem;"></i>  <!-- muestra un icono de flecha a la derecha después del texto del botón -->
                                 </a>
                             </div>

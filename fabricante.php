@@ -8,8 +8,9 @@
 require_once __DIR__ . '/i18n.php';
 require_once __DIR__ . '/db_connection.php';
 
-$slug = $_GET['slug'] ?? '';
-if ($slug === '') { header('Location: ' . __url('index')); exit; }
+$slug = trim($_GET['slug'] ?? '');
+$fabricanteIdParam = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if ($slug === '' && !$fabricanteIdParam) { header('Location: ' . __url('index')); exit; }
 
 /**
  * Comprueba si una tabla MySQL contiene una columna concreta.
@@ -35,11 +36,13 @@ elseif (tableHasColumn($mysqli, 'fabricantes', 'logo'))   { $fabricanteImageColu
 // Fetch fabricante
 $sqlFab = 'SELECT id, nombre, descripcion, slug';                                     // Selecciona los campos id, nombre y descripcion de la tabla fabricantes
 if ($fabricanteImageColumn) { $sqlFab .= ', ' . $fabricanteImageColumn; }       // Si existe una columna de imagen, la agrega a la consulta
-$sqlFab .= ' FROM fabricantes WHERE slug = ?';                                    // Agrega la condición para filtrar por el id del fabricante
+$sqlFab .= $slug !== '' ? ' FROM fabricantes WHERE slug = ?' : ' FROM fabricantes WHERE id = ?';
 
 $fabStmt = $mysqli->prepare($sqlFab);                                           // Prepara la consulta SQL
 if (!$fabStmt) { echo 'Error al cargar el fabricante.'; exit; }                 // Si la preparación falla, muestra un mensaje de error y termina la ejecución
-$fabStmt->bind_param('s', $slug);                                                 // Vincula el parámetro 'id' a la consulta
+$fabParamType = $slug !== '' ? 's' : 'i';
+$fabParamValue = $slug !== '' ? $slug : $fabricanteIdParam;
+$fabStmt->bind_param($fabParamType, $fabParamValue);
 $fabStmt->execute();                                                            // Ejecuta la consulta
 $fabricante = $fabStmt->get_result()->fetch_assoc();                            // Obtiene el resultado de la consulta como un array asociativo
 if (!$fabricante) { echo __t('fabricante.not_found', 'Fabricante no encontrado.'); exit; }                   // Si no se encuentra el fabricante, muestra un mensaje de error y termina la ejecución
