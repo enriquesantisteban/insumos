@@ -83,6 +83,7 @@ return [
     'index.impact_title_1' => 'Transformando el suelo para el',
     'index.impact_title_2' => 'futuro del campo',
     'index.impact_desc' => 'Fomentamos el uso de insumos evaluados que protegen la microbiología nativa, restan la fertilidad natural y aseguran cosechas rentables y sostenibles.',
+    'index.filter_clear' => 'Limpiar filtros',
 
 
     // producto.php

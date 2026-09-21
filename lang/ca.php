@@ -84,6 +84,7 @@ return [
     'index.impact_banner_title' => 'Rigor Científic al Servei del Agricultor',
     'index.impact_banner_desc' => 'Cada insumo del nostre catàleg ha estat sotmès a assajos estandarditzats MBG-EHB-01 per verificar la seva compatibilitat real amb la vida biològica del sòl.',
     'index.impact_banner_cta' => 'Saber més',
+    'index.filter_clear' => 'Netejar filtres',
 
     // producto.php
     'producto.desc_fallback'    => 'Descripció del producte no disponible.',

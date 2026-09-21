@@ -80,6 +80,7 @@ return [
     'index.impact_banner_title' => 'Rigueur scientifique au service de l’agriculteur',
     'index.impact_banner_desc' => 'Chaque intrant de notre catalogue a été soumis à des essais standardisés MBG-EHB-01 pour vérifier sa compatibilité réelle avec la vie biologique du sol.',
     'index.impact_banner_cta' => 'En savoir plus',
+    'index.filter_clear' => 'Effacer les filtres',
 
     // producto.php
     'producto.desc_fallback'    => 'Description du produit non disponible.',

@@ -79,6 +79,7 @@ return [
     'index.impact_banner_title' => 'Rigor Científico a Serviço do Agricultor',
     'index.impact_banner_desc' => 'Cada insumo do nosso catálogo foi submetido a ensaios padronizados MBG-EHB-01 para verificar sua real compatibilidade com a vida biológica do solo.',
     'index.impact_banner_cta' => 'Saber mais',
+    'index.filter_clear' => 'Limpar filtros',
 
     // producto.php
     'producto.desc_fallback'    => 'Descrição do produto não disponível.',

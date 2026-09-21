@@ -79,6 +79,7 @@ return [
     'index.impact_banner_title' => 'Scientific Rigor at the Service of the Farmer',
     'index.impact_banner_desc' => 'Each input in our catalog has been subjected to standardized MBG-EHB-01 assays to verify its real compatibility with the biological life of the soil.',
     'index.impact_banner_cta' => 'Learn more',
+    'index.filter_clear' => 'Clear filters',
     
     // producto.php
     'producto.desc_fallback'    => 'Product description not available.',

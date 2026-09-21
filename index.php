@@ -196,7 +196,7 @@ if ($countsResult) {
                 <?php echo __t('index.cta_catalog', 'Ver catálogo'); ?> <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
             <a href="#impacto" class="btn-hero btn-hero-secondary">                       <!-- botón que redirige a la sección de información sobre la plataforma -->
-                <?php echo __t('index.impacto', 'Nuestro Impacto'); ?>
+                <?php echo __t('index.impact_eyebrow', 'Nuestro Impacto'); ?>
             </a>
         </div>
 
