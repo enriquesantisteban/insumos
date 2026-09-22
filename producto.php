@@ -462,14 +462,18 @@ $hasProductData = !empty($producto['descripcion'])
         return [words.slice(0, midpoint).join(' '), words.slice(midpoint).join(' ')];
     }
 
+    const radarLabels = <?php echo json_encode($chartLabels, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+    const radarValues = <?php echo json_encode($chartValues, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+    const referenceValues = radarLabels.map(() => 100);
+
     const radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: <?php echo json_encode($chartLabels, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>,
+            labels: radarLabels,
             datasets: [
                 {
                     label: '<?php echo addslashes($producto['nombre']); ?>',
-                    data: <?php echo json_encode($chartValues, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>,
+                    data: radarValues,
                     fill: true,
                     backgroundColor: 'rgba(37, 99, 235, 0.2)',
                     borderColor: '#2563eb',
@@ -479,18 +483,20 @@ $hasProductData = !empty($producto['descripcion'])
                     pointHoverBorderColor: '#e73c7e',
                     pointRadius: 7,
                     pointHoverRadius: 10,
-                    borderWidth: 3
+                    borderWidth: 3,
+                    spanGaps: true
                 },
                 {
                     label: <?php echo json_encode(__t('producto.grafica_referencia', 'Inocuo (referencia)')); ?>,
-                    data: [100,100,100,100,100,100,100,100,100,100],
+                    data: referenceValues,
                     fill: true,
                     backgroundColor: 'rgba(148, 163, 184, 0.1)',
                     borderColor: '#94a3b8',
                     pointBackgroundColor: '#94a3b8',
                     pointBorderColor: '#fff',
                     pointRadius: 3,
-                    borderDash: [5, 5]
+                    borderDash: [5, 5],
+                    spanGaps: true
                 }
             ]
         },
