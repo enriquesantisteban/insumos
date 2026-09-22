@@ -104,7 +104,7 @@ return [
     'producto.grafica_empty_title' => 'No hay datos de este producto',
     'producto.grafica_empty_desc' => 'Todavía no se han cargado datos para generar la gráfica.',
     'producto.grafica_texto_descripcion' => 'El índice de inocuidad relativa (In) representa un valor comparativo entre el crecimiento de cada microorganismo en presencia del insumo y su crecimiento con el control inocuo (agua, valor de 1). Los valores de crecimiento se determinaron vía ensayos in vitro, y el valor de In se calculó mediante una fórmula; ambos procedimientos siguieron el protocolo MBG-EHB-01.',
-    'producto.grafica_pulsa_sobre' => 'Pulsa sobre el nombre de un microorganismo para ver su ficha completa.',
+    'producto.grafica_pulsa_sobre' => ' Pulsa sobre el nombre de un microorganismo para ver su ficha completa.',
     'producto.popup_beneficios' => 'Importancia y beneficios',
     'producto.popup_condiciones' => 'Condiciones en campo',
     'producto.popup_ver_mas' => 'Ver más',
