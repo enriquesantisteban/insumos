@@ -7,7 +7,7 @@ require_once __DIR__ . '/i18n.php';
 // Si $fabricantesData no existe en la página actual, realizamos una consulta rápida para el menú del footer
 if (!isset($fabricantesData) && isset($mysqli)) {
     $fabricantesData = [];
-    $resFabFooter = $mysqli->query('SELECT id, nombre, slug FROM fabricantes ORDER BY nombre');
+    $resFabFooter = $mysqli->query("SELECT id, nombre, slug FROM fabricantes WHERE activo = 'S' ORDER BY nombre");
     if ($resFabFooter) {
         while ($r = $resFabFooter->fetch_assoc()) {
             $fabricantesData[] = $r;

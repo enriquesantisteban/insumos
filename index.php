@@ -101,11 +101,12 @@ if (tableHasColumn($mysqli, 'fabricantes', 'imagen')) {         // comprueba si 
 $sql = 'SELECT f.id, f.nombre, f.slug, f.descripcion';                                  // consulta SQL para obtener los fabricantes con el conteo de productos
 if ($fabricanteImageColumn) { $sql .= ', f.' . $fabricanteImageColumn; }        // si existe una columna de imagen, la agrega a la consulta
     // GROUP_CONCAT reúne, por cada fabricante, los distintos valores de 'registro' que tienen
-    // sus productos (ej. "Probiótico", "Sin registro"), separados por '||' para poder
+    // sus productos, separados por '||' para poder
     // trocearlos en PHP y usarlos como filtro en la sección "Explora por fabricante".
-    $sql .= ', COUNT(p.id) AS num_productos, GROUP_CONCAT(DISTINCT NULLIF(TRIM(p.registro), \'\') SEPARATOR \'||\') AS registros_raw
+        $sql .= ', COUNT(p.id) AS num_productos, GROUP_CONCAT(DISTINCT NULLIF(TRIM(p.clasificacion), \'\') SEPARATOR \'||\') AS clasificaciones_raw
             FROM fabricantes f                                                     
             LEFT JOIN productos p ON p.fabricante_id = f.id                         
+            WHERE f.activo = \'S\'
             GROUP BY f.id                                                          
          ORDER BY f.nombre';                                                    // ordena los resultados por el nombre del fabricante
 $fabricantesResult = $mysqli->query($sql);                                      // ejecuta la consulta y almacena el resultado en la variable $fabricantesResult
@@ -114,37 +115,29 @@ $fabricantesResult = $mysqli->query($sql);                                      
 $totalFabricantes = 0;                                      // variable para almacenar el total de fabricantes
 $totalProductos   = 0;                                      // variable para almacenar el total de productos
 $fabricantesData  = [];                                     // array para almacenar los datos de los fabricantes
-$registroOptions  = [];                                     // valores únicos de 'registro' presentes en toda la base, para el desplegable de filtro
+$clasificacionOptions = ['Inocuo', 'Afectación Leve', 'Afectación Moderada', 'Afectación Grave'];
 if ($fabricantesResult) {                                   // comprueba si la consulta se ejecutó correctamente
     while ($row = $fabricantesResult->fetch_assoc()) {      // recorre los resultados de la consulta y los almacena en un array asociativo
-        $row['registros'] = !empty($row['registros_raw']) ? explode('||', $row['registros_raw']) : [];   // convierte la lista concatenada de registros en un array
-        foreach ($row['registros'] as $regVal) {             // recopila cada valor de registro encontrado
-            if ($regVal !== '' && !in_array($regVal, $registroOptions, true)) {
-                $registroOptions[] = $regVal;                // lo añade a las opciones del filtro si aún no estaba
-            }
-        }
+        $row['clasificaciones'] = !empty($row['clasificaciones_raw']) ? explode('||', $row['clasificaciones_raw']) : [];
         $fabricantesData[] = $row;                          // agrega cada fila de resultados al array $fabricantesData
         $totalFabricantes++;                                // incrementa el contador de fabricantes
         $totalProductos += (int)$row['num_productos'];      // incrementa el contador de productos con el valor del conteo de productos de cada fabricante
     }
 }
-sort($registroOptions, SORT_STRING | SORT_FLAG_CASE);        // ordena alfabéticamente las opciones de registro para el desplegable
 
 $totalMicro = (int)$mysqli->query('SELECT COUNT(*) AS c FROM microorganismos')->fetch_assoc()['c'];     // obtiene el total de microorganismos evaluados en la base de datos y lo almacena en la variable $totalMicro
 
-// Conteo de productos por fabricante Y por registro (ej. fabricante 1 -> "Probiótico": 1, "Sin registro": 2).
-// Se usa para actualizar en el frontend el número de productos mostrado en cada tarjeta cuando
-// se aplica el filtro de "Registro", y para saber cuántos productos coinciden al ir a "Ver productos".
-$registroCounts = [];                                                     // [fabricante_id => [registro => count]]
+// Conteo de productos por fabricante y clasificación para actualizar las tarjetas y sus enlaces.
+$clasificacionCounts = [];                                                // [fabricante_id => [clasificacion => count]]
 $countsResult = $mysqli->query(
-    "SELECT fabricante_id, NULLIF(TRIM(registro), '') AS registro, COUNT(*) AS cnt
+    "SELECT fabricante_id, NULLIF(TRIM(clasificacion), '') AS clasificacion, COUNT(*) AS cnt
      FROM productos
-     GROUP BY fabricante_id, registro"
+     GROUP BY fabricante_id, clasificacion"
 );
 if ($countsResult) {
     while ($row = $countsResult->fetch_assoc()) {
-        if ($row['registro'] === null) { continue; }   // ignora productos sin valor de registro (no aparecen como opción de filtro)
-        $registroCounts[$row['fabricante_id']][$row['registro']] = (int)$row['cnt'];
+        if ($row['clasificacion'] === null) { continue; }
+        $clasificacionCounts[$row['fabricante_id']][$row['clasificacion']] = (int)$row['cnt'];
     }
 }
 ?>
@@ -188,7 +181,7 @@ if ($countsResult) {
         <div class="hero-chips">                                                        <!-- contenedor para los chips de información que destacan las características de la plataforma -->
             <span class="hero-chip"><i class="fas fa-leaf" aria-hidden="true"></i><?php echo __t('index.chip_regen', 'Agricultura regenerativa'); ?></span>
             <span class="hero-chip"><i class="fas fa-flask" aria-hidden="true"></i><?php echo __t('index.chip_assays', 'Ensayos in vitro certificados'); ?></span>
-            <span class="hero-chip"><i class="fas fa-shield-alt" aria-hidden="true"></i><?php echo __t('index.chip_registry', 'Registro oficial'); ?></span>
+            <span class="hero-chip"><i class="fas fa-shield-alt" aria-hidden="true"></i><?php echo __t('index.chip_registry', 'Evaluación de inocuidad'); ?></span>
         </div>
 
         <div class="hero-ctas">                                                         <!-- contenedor para los botones de llamada a la acción -->
@@ -298,7 +291,7 @@ if ($countsResult) {
 
         <?php if (!empty($fabricantesData)): ?>                 <!-- comprueba si hay fabricantes registrados y muestra la lista de fabricantes -->
 
-            <!-- ====== FILTROS: fabricante y/o registro ====== -->
+            <!-- ====== FILTROS: fabricante y/o clasificación ====== -->
             <div class="manufacturers-filters" id="manufacturersFilters">
                 <div class="filter-group">
                     <label for="filterFabricante"><?php echo __t('index.filter_manufacturer_label', 'Fabricante'); ?></label>
@@ -310,21 +303,14 @@ if ($countsResult) {
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="filterRegistro"><?php echo __t('index.filter_registry_label', 'Registro'); ?></label>
-                    <select id="filterRegistro">
+                    <label for="filterClasificacion"><?php echo __t('index.filter_classification_label', 'Clasificación'); ?></label>
+                    <select id="filterClasificacion">
                         <option value=""><?php echo __t('index.filter_all', 'Todos'); ?></option>
-                        <?php foreach ($registroOptions as $regOpt): ?>
+                        <?php foreach ($clasificacionOptions as $clasificacion): ?>
                             <?php
-                            $regOptNormalized = mb_strtolower(trim($regOpt), 'UTF-8');
-                            if (in_array($regOptNormalized, ['probiótico', 'probiotico'], true)) {
-                                $regOptLabel = __t('index.registry_probiotic', 'Probiótico');
-                            } elseif ($regOptNormalized === 'sin registro') {
-                                $regOptLabel = __t('producto.sin_registro', 'Sin registro');
-                            } else {
-                                $regOptLabel = $regOpt;
-                            }
+                            $clasificacionLabel = __t('clasificacion.' . mb_strtolower($clasificacion, 'UTF-8'), $clasificacion);
                             ?>
-                            <option value="<?php echo htmlspecialchars($regOpt); ?>"><?php echo htmlspecialchars($regOptLabel); ?></option>
+                            <option value="<?php echo htmlspecialchars($clasificacion); ?>"><?php echo htmlspecialchars($clasificacionLabel); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -341,7 +327,7 @@ if ($countsResult) {
                         ? __url('fabricante', ['slug' => $fab['slug']])
                         : __url('fabricante', ['id' => (int)$fab['id']]);
                 ?>
-                    <article class="manufacturer-card" data-fabricante="<?php echo (int)$fab['id']; ?>" data-registros="<?php echo htmlspecialchars(implode('|', $fab['registros'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-registro-counts="<?php echo htmlspecialchars(json_encode(!empty($registroCounts[$fab['id']]) ? $registroCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">             <!-- tarjeta individual para cada fabricante; data-* se usan para el filtrado y para recalcular el conteo de productos por registro -->
+                    <article class="manufacturer-card" data-fabricante="<?php echo (int)$fab['id']; ?>" data-clasificaciones="<?php echo htmlspecialchars(implode('|', $fab['clasificaciones'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-clasificacion-counts="<?php echo htmlspecialchars(json_encode(!empty($clasificacionCounts[$fab['id']]) ? $clasificacionCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">
                         <div class="manufacturer-card-img">         <!-- contenedor para la imagen del fabricante -->
                             <?php if ($imgCol): ?>                  <!-- comprueba si hay una imagen disponible para el fabricante -->
                                 <img src="<?php echo htmlspecialchars(__asset_url($imgCol)); ?>" alt="Logo de <?php echo htmlspecialchars($fab['nombre']); ?>">  <!-- muestra la imagen del fabricante con un texto alternativo que describe el logo del fabricante -->
@@ -359,9 +345,9 @@ if ($countsResult) {
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;flex-wrap:wrap;gap:0.5rem;">  <!-- contenedor para mostrar el número de productos del fabricante y un botón para ver los productos -->
                                 <span style="font-size:0.8rem;color:#64748b;">                                                                      <!-- muestra el número de productos del fabricante con un icono de caja -->
                                     <i class="fas fa-box" aria-hidden="true" style="margin-right:4px;"></i>                                         <!-- muestra un icono de caja antes del número de productos -->
-                                    <span class="count-num"><?php echo (int)$fab['num_productos']; ?></span><span class="count-label"><?php echo __t('index.producto_singular', ' producto'); ?><?php echo $fab['num_productos'] != 1 ? 's' : ''; ?></span>          <!-- muestra el número de productos del fabricante (actualizable por JS según el filtro de registro) -->
+                                    <span class="count-num"><?php echo (int)$fab['num_productos']; ?></span><span class="count-label"><?php echo __t('index.producto_singular', ' producto'); ?><?php echo $fab['num_productos'] != 1 ? 's' : ''; ?></span>
                                 </span>
-                                <a href="<?php echo htmlspecialchars($fabricanteUrl); ?>" data-href-base="<?php echo htmlspecialchars($fabricanteUrl); ?>" class="btn manufacturer-cta">                                             <!-- botón que redirige a la página del fabricante para ver todos sus productos, o solo los del registro filtrado --> 
+                                <a href="<?php echo htmlspecialchars($fabricanteUrl); ?>" data-href-base="<?php echo htmlspecialchars($fabricanteUrl); ?>" class="btn manufacturer-cta">
                                     <?php echo __t('index.manufacturers_cta', 'Ver productos'); ?> <i class="fas fa-arrow-right" aria-hidden="true" style="margin-left:4px;font-size:0.75rem;"></i>  <!-- muestra un icono de flecha a la derecha después del texto del botón -->
                                 </a>
                             </div>
@@ -380,7 +366,7 @@ if ($countsResult) {
             <script>
             (function () {
                 var fabSelect  = document.getElementById('filterFabricante');
-                var regSelect  = document.getElementById('filterRegistro');
+                var regSelect  = document.getElementById('filterClasificacion');
                 var clearBtn   = document.getElementById('filterClearBtn');
                 var grid       = document.getElementById('manufacturersGrid');
                 var emptyState = document.getElementById('manufacturersEmptyFiltered');
@@ -393,7 +379,7 @@ if ($countsResult) {
 
                     cards.forEach(function (card) {
                         var cardFab  = card.getAttribute('data-fabricante') || '';
-                        var cardRegs = (card.getAttribute('data-registros') || '').split('|');
+                        var cardRegs = (card.getAttribute('data-clasificaciones') || '').split('|');
 
                         var matchesFab = !fabVal || cardFab === fabVal;
                         var matchesReg = !regVal || cardRegs.indexOf(regVal) !== -1;
@@ -402,10 +388,10 @@ if ($countsResult) {
                         card.style.display = visible ? '' : 'none';
                         if (visible) visibleCount++;
 
-                        // Recalcula el número de productos mostrado según el filtro de registro
+                        // Recalcula el número de productos mostrado según el filtro de clasificación.
                         var total = parseInt(card.getAttribute('data-total'), 10) || 0;
                         var counts = {};
-                        try { counts = JSON.parse(card.getAttribute('data-registro-counts') || '{}'); } catch (e) {}
+                        try { counts = JSON.parse(card.getAttribute('data-clasificacion-counts') || '{}'); } catch (e) {}
                         var displayCount = regVal ? (counts[regVal] || 0) : total;
 
                         var countNumEl   = card.querySelector('.count-num');
@@ -414,14 +400,13 @@ if ($countsResult) {
                         if (countNumEl)   { countNumEl.textContent = displayCount; }
                         if (countLabelEl) { countLabelEl.textContent = unitLabel + (displayCount !== 1 ? 's' : ''); }
 
-                        // Actualiza el enlace "Ver productos" para que, si hay un registro filtrado,
-                        // la página del fabricante muestre únicamente los productos de ese registro
+                        // Actualiza el enlace para mostrar únicamente la clasificación seleccionada.
                         var link = card.querySelector('.manufacturer-cta');
                         if (link) {
                             var base = link.getAttribute('data-href-base') || link.getAttribute('href');
                             var href = base;
                             if (regVal) {
-                                href += (base.indexOf('?') === -1 ? '?' : '&') + 'registro=' + encodeURIComponent(regVal);
+                                href += (base.indexOf('?') === -1 ? '?' : '&') + 'clasificacion=' + encodeURIComponent(regVal);
                             }
                             link.setAttribute('href', href);
                         }

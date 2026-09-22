@@ -63,6 +63,7 @@ $navResult = $mysqli->query(
      FROM fabricantes f
      LEFT JOIN productos p
         ON p.fabricante_id = f.id
+    WHERE f.activo = \'S\'
 
      ORDER BY f.nombre ASC, p.nombre ASC'
 );

@@ -15,11 +15,11 @@ if ($slug === '') { header('Location: ' . __url('index')); exit; }          // R
 $imageColumnExists = tableHasColumn($mysqli, 'productos', 'imagen');    // Verifica si existe una columna de imagen en la tabla productos
 
 // Fetch product
-$detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.registro';      // Consulta SQL para obtener los detalles del producto
+$detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.clasificacion';
 if ($imageColumnExists) { $detailSql .= ', p.imagen'; }               // Si existe una columna de imagen, la agrega a la consulta
 $detailSql .= ', f.id AS fabricante_id, f.nombre AS fabricante_nombre, f.slug AS fabricante_slug
      FROM productos p
-     JOIN fabricantes f ON p.fabricante_id = f.id
+    JOIN fabricantes f ON p.fabricante_id = f.id AND f.activo = \'S\'
      WHERE p.slug = ?';
 
 $stmt = $mysqli->prepare($detailSql);                                   // Prepara la consulta SQL para obtener los detalles del producto
@@ -40,7 +40,7 @@ if ($espStmt) {                                                           // Ver
 }
 
 // Fetch other products by same fabricante
-$otherSql = 'SELECT id, nombre, slug, descripcion, registro';                 // Consulta SQL para obtener los detalles de los productos
+$otherSql = 'SELECT id, nombre, slug, descripcion, clasificacion';
 if ($imageColumnExists) { $otherSql .= ', imagen'; }                    // Si la columna de imagen existe, agrega la columna a la consulta
 $otherSql .= ' FROM productos WHERE id <> ? AND fabricante_id = ? ORDER BY nombre';     // Agrega la consulta paara obtener los productos diferenets a este
 $otherStmt = $mysqli->prepare($otherSql);                               // Prepara la consulta para obtener los productos diferentes
@@ -105,14 +105,14 @@ foreach ($microorganismos as $micro) {                                    // Ite
         : (!empty($micro['importancia_beneficios']) ? $micro['importancia_beneficios'] : 'Información detallada no disponible.');   // Si la descripción es vacía y la importancia y beneficios no son vacíos, agrega la importancia y beneficios
 }
 
-// OBTENCIÓN DE REGISTRO TRADUCIDO SEGÚN EL IDIOMA
-$registroText = !empty($producto['registro']) 
-    ? __tdb($mysqli, 'productos', $producto['id'], 'registro', $producto['registro']) 
-    : __t('producto.no_registrado', 'No registrado');
+// Obtención de la clasificación traducida según el idioma.
+$clasificacionText = !empty($producto['clasificacion'])
+    ? __tdb($mysqli, 'productos', $producto['id'], 'clasificacion', $producto['clasificacion'])
+    : '';
 
 $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;                  // Obtiene la imagen del producto
 $hasProductData = !empty($producto['descripcion'])
-    || !empty($producto['registro'])
+    || !empty($producto['clasificacion'])
     || !empty($heroImage)
     || !empty($especificaciones)
     || !empty($microorganismos);
@@ -167,8 +167,8 @@ $hasProductData = !empty($producto['descripcion'])
 
             <div class="hero-meta">     <!-- Contenedor para los metadatos -->
                 <div class="hero-meta-row">     <!-- Contenedor para la fila de metadatos -->
-                    <span class="hero-meta-label"><?php echo __t('producto.registro', 'Registro'); ?></span>     <!-- Etiqueta de registro -->
-                    <span class="badge"><?php echo htmlspecialchars($registroText); ?></span>     <!-- Valor de registro -->
+                    <span class="hero-meta-label"><?php echo __t('producto.clasificacion', 'Clasificación'); ?></span>
+                    <span class="badge"><?php echo htmlspecialchars($clasificacionText); ?></span>
                 </div>
                 <div class="hero-meta-row">
                     <span class="hero-meta-label"><?php echo __t('producto.fabricante', 'Fabricante'); ?></span>     <!-- Etiqueta de fabricante -->
@@ -308,10 +308,10 @@ $hasProductData = !empty($producto['descripcion'])
                         <?php while ($other = $otherProducts->fetch_assoc()):   
                             $otherImg  = $imageColumnExists ? ($other['imagen'] ?? null) : null;    // Obtiene la URL de la imagen del producto si existe, de lo contrario, será null
                             
-                            // Traduce también el registro para las tarjetas del carrusel
-                            $otherReg  = !empty($other['registro']) 
-                                ? __tdb($mysqli, 'productos', $other['id'], 'registro', $other['registro']) 
-                                : __t('producto.no_registrado', 'Sin registro');
+                            // Traduce también la clasificación para las tarjetas del carrusel.
+                            $otherReg  = !empty($other['clasificacion'])
+                                ? __tdb($mysqli, 'productos', $other['id'], 'clasificacion', $other['clasificacion'])
+                                : '';
                         ?>
                             <article class="product-card">                             <!-- Contenedor para el producto -->
                                 <div class="card-img">                                   <!-- Contenedor para la imagen del producto -->
