@@ -61,15 +61,16 @@ CREATE TABLE `fabricantes` (
   `nombre` varchar(255) NOT NULL,
   `descripcion` text,
   `imagen` varchar(255) DEFAULT NULL,
-  `slug` varchar(150) NOT NULL DEFAULT ''
+  `slug` varchar(150) NOT NULL DEFAULT '',
+  `activo` char(1) NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `fabricantes`
 --
 
-INSERT INTO `fabricantes` (`id`, `nombre`, `descripcion`, `imagen`, `slug`) VALUES
-(1, 'Kenogard', 'Fabricante de insumos agrícolas', './media/kenogard.png', 'kenogard');
+INSERT INTO `fabricantes` (`id`, `nombre`, `descripcion`, `imagen`, `slug`, `activo`) VALUES
+(1, 'Kenogard', 'Fabricante de insumos agrícolas', './media/kenogard.png', 'kenogard', 'S');
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,7 @@ CREATE TABLE `productos` (
   `imagen` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) NOT NULL,
   `descripcion` text,
-  `registro` varchar(255) DEFAULT NULL,
+  `clasificacion` varchar(255) DEFAULT NULL,
   `slug` varchar(150) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -125,10 +126,10 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `fabricante_id`, `imagen`, `nombre`, `descripcion`, `registro`, `slug`) VALUES
-(1, 1, './media/Dipel_DF.png', 'DIPEL DF', 'DiPel® DF es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis kurstaki.', 'Probiótico', 'dipel-df'),
-(2, 1, './media/Xentari_GD.png', 'XENTARI GD', 'Xentari® GD es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis aizawai.', 'Sin registro', 'xentari-gd'),
-(3, 1, './media/Geoda.png', 'GEODA', 'GEODA® es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis aizawai.', 'Sin registro', 'geoda');
+INSERT INTO `productos` (`id`, `fabricante_id`, `imagen`, `nombre`, `descripcion`, `clasificacion`, `slug`) VALUES
+(1, 1, './media/Dipel_DF.png', 'DIPEL DF', 'DiPel® DF es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis kurstaki.', 'Inocuo', 'dipel-df'),
+(2, 1, './media/Xentari_GD.png', 'XENTARI GD', 'Xentari® GD es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis aizawai.', 'Afectación Leve', 'xentari-gd'),
+(3, 1, './media/Geoda.png', 'GEODA', 'GEODA® es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis aizawai.', 'Afectación Moderada', 'geoda');
 
 -- --------------------------------------------------------
 
@@ -238,8 +239,8 @@ INSERT INTO `traducciones` (`id`, `tabla`, `traduccion_id`, `campo`, `idioma`, `
 (8, 'microorganismos', 1, 'condiciones_campo', 'pt', '• <b>Humidade e ambientes aquáticos</b>: Prefere solos húmidos, áreas irrigadas e sedimentos (teor de humidade de 60–80%).\r\n    • <b>Temperatura moderada</b>: A sua gama de crescimento ideal situa-se entre <b>25°C</b> e <b>37°C</b>.'),
 (9, 'productos', 1, 'descripcion', 'en', 'DiPel® DF is a water-dispersible granule biological insecticide containing crystalline toxins and spores of Bacillus thuringiensis kurstaki.'),
 (10, 'productos', 1, 'descripcion', 'pt', 'O DiPel® DF é um inseticida biológico em grânulos dispersíveis em água que contém toxinas cristalinas e esporos de Bacillus thuringiensis kurstaki.'),
-(11, 'productos', 1, 'registro', 'en', 'Probiotic'),
-(12, 'productos', 1, 'registro', 'pt', 'Probiótico'),
+(11, 'productos', 1, 'clasificacion', 'en', 'Harmless'),
+(12, 'productos', 1, 'clasificacion', 'pt', 'Inócuo'),
 (13, 'producto_especificaciones', 1, 'titulo', 'en', 'Restoration of the soil as a productive base'),
 (14, 'producto_especificaciones', 1, 'titulo', 'pt', 'Restauração do solo como base produtiva'),
 (15, 'producto_especificaciones', 1, 'descripcion', 'en', 'Regenerative agriculture prioritizes the restoration of soil fertility through practices such as the use of compost, green manures, manure, and permanent ground cover. These actions improve soil structure, increase water-holding capacity, and stimulate microbial activity, enabling more resilient and sustainable production.'),
