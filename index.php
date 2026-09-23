@@ -148,6 +148,7 @@ if ($countsResult) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="<?php echo BASE_PATH; ?>/media/favicon.jpg">
     <title><?php echo htmlspecialchars(__t('nav.inicio', 'Inicio')); ?> | Regenerative Agro Platform</title>    
     <meta name="description" content="Catálogo unificado de insumos agrícolas para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados segun el protocolo MBG-EHB-01.">
     <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">

@@ -57,6 +57,7 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="<?php echo BASE_PATH; ?>/media/favicon.jpg">
     <title>
         <?php 
             if ($singleNews) {

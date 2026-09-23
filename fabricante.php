@@ -82,6 +82,7 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="<?php echo BASE_PATH; ?>/media/favicon.jpg">
     <title><?php echo htmlspecialchars($fabricante['nombre']); ?> | Regenerative Platform</title>
     <meta name="description" content="Productos biologicos de <?php echo htmlspecialchars($fabricante['nombre']); ?> en el catalogo AgroRegen.">
     <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">
