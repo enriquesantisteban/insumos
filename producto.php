@@ -159,6 +159,17 @@ $hasProductData = !empty($producto['descripcion'])
                     : __t('producto.desc_fallback', 'Descripción del producto no disponible.'); ?>         <!--Si la descripción del producto es vacía, muestra un mensaje de texto alternativo -->
             </p>
 
+            <div class="hero-image-mobile">
+                <?php if ($heroImage): ?>
+                    <img src="<?php echo htmlspecialchars(__asset_url($heroImage)); ?>"
+                         alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
+                <?php else: ?>
+                    <div style="width:220px;height:220px;border-radius:32px;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-flask" style="font-size:5rem;color:rgba(255,255,255,0.5);"></i>
+                    </div>
+                <?php endif; ?>
+            </div>
+
             <?php if (!$hasProductData): ?>
                 <p class="product-empty-notice">
                     <i class="fas fa-circle-info" aria-hidden="true"></i>
