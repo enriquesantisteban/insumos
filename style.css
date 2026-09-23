@@ -998,13 +998,13 @@ body { top: 0px !important; }
 
 .carousel-track {
     display: flex;
+    gap: 1.5rem;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .carousel-track .product-card {
-    flex: 0 0 calc(100% / 3);
-    min-width: calc(100% / 3);
-    margin-right: 1.5rem;
+    flex: 0 0 calc((100% - 3rem) / 3);
+    min-width: calc((100% - 3rem) / 3);
 }
 
 .carousel-dots {
@@ -1424,15 +1424,28 @@ footer {
     .carousel-track .product-card {
         flex: 0 0 100%;
         min-width: 100%;
-        margin-right: 0;
+    }
+
+    .carousel-track {
+        gap: 0;
     }
 
     .footer-inner { flex-direction: column; gap: 2rem; }
     .footer-bottom { flex-direction: column; text-align: center; }
-
     .section-title { font-size: 1.6rem; }
 }
 
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .carousel-track {
+        gap: 1.5rem;
+    }
+
+    .carousel-track .product-card {
+        flex: 0 0 calc((100% - 1.5rem) / 2);
+        min-width: calc((100% - 1.5rem) / 2);
+    }
+}
 @media (max-width: 480px) {
     .hero-title { font-size: 2rem; }
     .stats-bar { grid-template-columns: repeat(2, 1fr); }
