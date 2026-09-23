@@ -293,6 +293,38 @@ $hasProductData = !empty($producto['descripcion'])
     </div>
 </section>
 
+
+
+
+ <!-------------------------------------------------------------------------------
+ 
+ ====== ESPECIFIFACIONES IGUALES PARA TODOS LOS PRODUCTOS ====== 
+<section class="info-section" id="especificaciones">
+    <div class="section-inner">
+        <h2 class="section-title" style="color:#fff;"><?php echo __t('producto.especificaciones', 'Especificaciones clave'); ?></h2>
+        <div class="info-grid info-grid--four-cols">
+            <div class="info-card">
+                <i class="fas fa-seedling" aria-hidden="true"></i>
+                <h3><?php echo __t('index.info_card_1_title', 'Restauración del suelo como base productiva'); ?></h3>
+                <p><?php echo __t('index.info_card_1_desc', 'La agricultura regenerativa prioriza la regeneración de la fertilidad del suelo mediante el uso de compost, abonos verdes, estiercol y cobertura vegetal permanente, mejorando su estructura, retención de agua y actividad microbiana.'); ?></p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-apple-whole" aria-hidden="true"></i>
+                <h3><?php echo __t('index.info_card_2_title', 'Diversificación y rotación de cultivos'); ?></h3>
+                <p><?php echo __t('index.info_card_2_desc', 'Este modelo promueve la alternancia de especies vegetales para evitar el agotamiento de nutrientes, reducir la presión de plagas y enfermedades, y mejorar la biodiversidad del agroecosistema.'); ?></p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-water" aria-hidden="true"></i>
+                <h3><?php echo __t('index.info_card_3_title', 'Reducción de insumos químicos'); ?></h3>
+                <p><?php echo __t('index.info_card_3_desc', 'La agricultura regenerativa minimiza el uso de fertilizantes sintéticos y pesticidas, favoreciendo el control biológico e incorporando técnicas de riego eficiente y captación de agua de lluvia.'); ?></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+----------------------------------------------------------------------------------->
+        
+
 <!-- ====== OTROS PRODUCTOS ====== -->
 <section class="section-pad" id="products" style="background:#f8fafc;">                 <!-- Sección de otros productos -->
     <div class="section-inner">                                                       <!-- Contenedor para el contenido de la sección -->
