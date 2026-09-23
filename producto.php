@@ -509,6 +509,7 @@ $hasProductData = !empty($producto['descripcion'])
     const radarLabels = <?php echo json_encode($chartLabels, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
     const radarValues = <?php echo json_encode($chartValues, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
     const referenceValues = radarLabels.map(() => 100);
+    const radarLabelCount = radarLabels.length;
 
     const radarChart = new Chart(ctx, {
         type: 'radar',
@@ -556,13 +557,17 @@ $hasProductData = !empty($producto['descripcion'])
                     grid:        { color: 'rgba(0,0,0,0.05)' },
                     pointLabels: {
                         font: (context) => ({
-                            size: context.chart.width <= 480 ? 14 : context.chart.width <= 768 ? 15 : 16,
+                            size: context.chart.width <= 480
+                                ? (radarLabelCount > 8 ? 11 : 13)
+                                : context.chart.width <= 768
+                                    ? (radarLabelCount > 10 ? 12 : 14)
+                                    : (radarLabelCount > 12 ? 14 : 16),
                             family: "'Segoe UI', sans-serif",
                             weight: '600'
                         }),
                         callback: (label) => wrapChartLabel(label),
                         color: '#334155',
-                        padding: 24
+                        padding: 28
                     },
                     ticks:       { display: false, backdropColor: 'transparent' },
                     suggestedMin: 0,
