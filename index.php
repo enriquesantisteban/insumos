@@ -148,7 +148,7 @@ if ($countsResult) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpg" href="<?php echo BASE_PATH; ?>/media/favicon.jpg">
+    <link rel="icon" type="image/jpg" href="<?php echo BASE_PATH; ?>/media/favicon.png">
     <title><?php echo htmlspecialchars(__t('nav.inicio', 'Inicio')); ?> | Regenerative Agro Platform</title>    
     <meta name="description" content="Catálogo unificado de insumos agrícolas para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados segun el protocolo MBG-EHB-01.">
     <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">
@@ -231,7 +231,7 @@ if ($countsResult) {
             </p>
     <div class="manufacturers-grid" id="manufacturersGrid">
         <?php foreach ($fabricantesData as $fab): ?>
-            <div class ="manufacturer-card">
+            <div class ="manuf  acturer-card">
                 <h3><?php echo htmlspecialchars($fab['nombre']); ?></h3>
                 <p><?php echo htmlspecialchars($fab['descripcion']); ?></p>
                 <span class="product-count"><?php echo (int)$fab['num_productos']; ?> <?php echo __t('index.producto_singular', 'producto'); ?><?php echo $fab['num_productos'] != 1 ? 's' : ''; ?></span>
