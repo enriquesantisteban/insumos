@@ -18,6 +18,11 @@ return [
     'contact.form_submit'   => 'Enviar Mensagem',
     'contact.phone_title'   => 'Telefone',
     'contact.address_title' => 'Endereço',
+    'contact.send_error'    => 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.',
+    'contact.validation_error' => 'Por favor, preencha todos os campos corretamente.',
+    'contact.popup_title'   => 'Mensagem Enviada!',
+    'contact.popup_desc'    => 'Obrigado por entrar em contato. Responderemos o mais breve possível.',
+    'contact.popup_ok'      => 'OK',
 
     // fabricante.php
     'fabricante.breadcrumb_inicio' => 'Início',
@@ -49,7 +54,6 @@ return [
     'index.stat_products'   => 'Produtos',
     'index.stat_microorganisms' => 'Microrganismos avaliados',
     'index.stat_biological_control' => 'Controlo biológico',
-    'index.stat_manufacturers' => 'Fabricantes registados',
     'index.manufacturers_title_1' => 'Explorar por',
     'index.manufacturers_title_2' => 'fabricante',
     'index.manufacturers_desc' => 'Selecione um fabricante para ver todos os seus produtos agrícolas disponíveis na plataforma.',
@@ -76,14 +80,15 @@ return [
     'clasificacion.afectación grave' => 'Afetação Grave',
     'index.filter_all' => 'Todos',
     'index.filter_fabricante' => 'Fabricante',
+    'index.impact_banner_title' => 'Rigor Científico a Serviço do Agricultor',
+    'index.impact_banner_desc' => 'Cada insumo do nosso catálogo foi submetido a ensaios padronizados MBG-EHB-01 para verificar sua real compatibilidade com a vida biológica do solo.',
+    'index.impact_banner_cta' => 'Saber mais',
     'index.impact_eyebrow' => 'Nosso Impacto',
     'index.impact_title_1' => 'Transformando o solo para o',
     'index.impact_title_2' => 'futuro do campo',
     'index.impact_desc' => 'A plataforma de agricultura regenerativa visa melhorar a qualidade do solo e reduzir o impacto ambiental da agricultura, promovendo o uso de produtos biológicos e práticas agrícolas sustentáveis.',
-    'index.impact_banner_title' => 'Rigor Científico a Serviço do Agricultor',
-    'index.impact_banner_desc' => 'Cada insumo do nosso catálogo foi submetido a ensaios padronizados MBG-EHB-01 para verificar sua real compatibilidade com a vida biológica do solo.',
-    'index.impact_banner_cta' => 'Saber mais',
     'index.filter_clear' => 'Limpar filtros',
+
 
     // producto.php
     'producto.desc_fallback'    => 'Descrição do produto não disponível.',
@@ -137,6 +142,7 @@ return [
     'blog.share_whatsapp'   => 'Partilhar no WhatsApp',
     'blog.share_email'   => 'Enviar por Email',
 
+    
     // footer (compartilhado)
     'footer.brand_desc'     => 'Catálogo unificado de insumos agrícolas para a agricultura regenerativa.',
     'footer.nav_title'      => 'Navegação',
@@ -150,8 +156,5 @@ return [
     'footer.copyright'      => 'Todos os direitos reservados.',
     'footer.contacto'       => 'Contato',
     'footer.blog'           => 'Blog',
-    'footer.privacy_policy' => 'Política de Privacidade',
-    'footer.terms_conditions' => 'Termos e Condições',
-    'footer.social_media'   => 'Redes sociais',
     'footer.impacto'        => 'Impacto',
 ];

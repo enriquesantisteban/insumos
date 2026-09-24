@@ -18,6 +18,11 @@ return [
     'contact.form_submit'   => 'Send Message',
     'contact.phone_title'   => 'Phone',
     'contact.address_title' => 'Address',
+    'contact.send_error' => 'An error occurred while sending the message. Please try again later.',
+    'contact.validation_error' => 'Please fill out all fields correctly.',
+    'contact.popup_title'   => 'Message Sent!',
+    'contact.popup_desc'    => 'Thank you for reaching out. We will get back to you as soon as possible.',
+    'contact.popup_ok'      => 'OK',
 
     // fabricante.php
     'fabricante.breadcrumb_inicio' => 'Home',
@@ -49,7 +54,6 @@ return [
     'index.stat_products'   => 'Products',
     'index.stat_microorganisms' => 'Microorganisms evaluated',
     'index.stat_biological_control' => 'Control biological',
-    'index.stat_manufacturers' => 'Manufacturers registered',
     'index.manufacturers_title_1' => 'Explore by',
     'index.manufacturers_title_2' => 'manufacturer',
     'index.manufacturers_desc' => 'Select a manufacturer to view all its biological products available on the platform.',
@@ -76,15 +80,16 @@ return [
     'clasificacion.afectación grave' => 'Severe Impact',
     'index.filter_all' => 'All',
     'index.filter_fabricante' => 'Manufacturer',
-    'index.impact_eyebrow' => 'Our Impact',
-    'index.impact_title_1' => 'Transforming the soil for the',
-    'index.impact_title_2' => 'future of the field',
-    'index.impact_desc' => 'The regenerative agriculture platform aims to improve the quality of the soil and reduce the environmental impact of agriculture by promoting the use of biological inputs that protect the native microbiology, restore natural fertility, and ensure profitable and sustainable crops.',
     'index.impact_banner_title' => 'Scientific Rigor at the Service of the Farmer',
     'index.impact_banner_desc' => 'Each input in our catalog has been subjected to standardized MBG-EHB-01 assays to verify its real compatibility with the biological life of the soil.',
     'index.impact_banner_cta' => 'Learn more',
+    'index.impact_eyebrow' => 'Our Impact',
+    'index.impact_title_1' => 'Transforming the soil for the',
+    'index.impact_title_2' => 'future of the field',
+    'index.impact_desc' => 'Our platform is committed to promoting regenerative agriculture by providing farmers with reliable information about the safety of agricultural inputs for beneficial soil microorganisms. Through rigorous in vitro assays, we ensure that the products listed in our catalog contribute to the health and sustainability of the soil ecosystem.',
     'index.filter_clear' => 'Clear filters',
     
+
     // producto.php
     'producto.desc_fallback'    => 'Product description not available.',
     'producto.no_data_desc'     => 'No data is available for this product.',

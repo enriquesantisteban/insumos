@@ -18,6 +18,11 @@ return [
     'contact.form_submit'   => 'Envoyer le Message',
     'contact.phone_title'   => 'Téléphone',
     'contact.address_title' => 'Adresse',
+    'contact.send_error' => 'Une erreur est survenue lors de l’envoi du message. Veuillez réessayer plus tard.',
+    'contact.validation_error' => 'Veuillez remplir correctement tous les champs.',
+    'contact.popup_title'   => 'Message envoyé !',
+    'contact.popup_desc'    => 'Merci de nous avoir contactés. Nous vous répondrons dans les plus brefs délais.',
+    'contact.popup_ok'      => 'OK',
 
     // fabricante.php
     'fabricante.breadcrumb_inicio' => 'Accueil',
@@ -49,7 +54,6 @@ return [
     'index.stat_products'   => 'Produits',
     'index.stat_microorganisms' => 'Micro-organismes évalués',
     'index.stat_biological_control' => 'Lutte biologique',
-    'index.stat_manufacturers' => 'Fabricants enregistrés',
     'index.manufacturers_title_1' => 'Explorer par',
     'index.manufacturers_title_2' => 'fabricant',
     'index.manufacturers_desc' => 'Sélectionnez un fabricant pour afficher tous ses produits agricoles disponibles sur la plateforme.',
@@ -57,7 +61,6 @@ return [
     'index.manufacturers_cta' => 'Voir les produits',
     'index.empty_title'     => 'Aucun fabricant enregistré',
     'index.empty_desc'      => 'Importez la base de données et rechargez cette page.',
-    'index.desc_fallback'   => 'Fabricant d’intrants agricoles pour l’agriculture régénérative.',
     'index.producto_singular'   => ' produit',
     'index.info_title'   => 'À propos de l’agriculture régénérative',
     'index.info_card_1_title'   => 'Restauration du sol comme base productive',
@@ -77,14 +80,15 @@ return [
     'clasificacion.afectación grave' => 'Impact grave',
     'index.filter_all' => 'Tous',
     'index.filter_fabricante' => 'Fabricant',
+    'index.impact_banner_title' => 'Rigueur scientifique au service de l’agriculteur',
+    'index.impact_banner_desc' => 'Chaque intrant de notre catalogue a été soumis à des essais standardisés MBG-EHB-01 pour vérifier sa compatibilité réelle avec la vie biologique du sol.',
+    'index.impact_banner_cta' => 'En savoir plus',
     'index.impact_eyebrow' => 'Notre Impact',
     'index.impact_title_1' => 'Transformation du sol pour le',
     'index.impact_title_2' => 'futur du champ',
     'index.impact_desc' => 'La plateforme d’agriculture régénérative vise à améliorer la qualité du sol et à promouvoir l’utilisation d’intrants biologiques qui protègent la microbiologie native, restaurent la fertilité naturelle et assurent des récoltes rentables et durables.',
-    'index.impact_banner_title' => 'Rigueur scientifique au service de l’agriculteur',
-    'index.impact_banner_desc' => 'Chaque intrant de notre catalogue a été soumis à des essais standardisés MBG-EHB-01 pour vérifier sa compatibilité réelle avec la vie biologique du sol.',
-    'index.impact_banner_cta' => 'En savoir plus',
     'index.filter_clear' => 'Effacer les filtres',
+
 
     // producto.php
     'producto.desc_fallback'    => 'Description du produit non disponible.',
@@ -119,7 +123,6 @@ return [
     'producto.ver_ficha'           => 'Voir la fiche',
 
     // blog.php
-
     'blog.compartir'   => 'Partager :',
     'blog.leer_mas'    => 'Lire la suite',
     'blog.no_posts'    => 'Aucun article disponible pour le moment.',
@@ -139,6 +142,7 @@ return [
     'blog.share_whatsapp'   => 'Partager sur WhatsApp',
     'blog.share_email'   => 'Envoyer par courriel',
 
+
     // footer (partagé)
     'footer.brand_desc'     => 'Catalogue unifié d’intrants agricoles pour l’agriculture régénérative.',
     'footer.nav_title'      => 'Navigation',
@@ -152,8 +156,5 @@ return [
     'footer.copyright'      => 'Tous droits réservés.',
     'footer.contacto'       => 'Contact',
     'footer.blog'           => 'Blog',
-    'footer.privacy_policy' => 'Politique de confidentialité',
-    'footer.terms_conditions' => 'Conditions d’utilisation',
-    'footer.social_media'   => 'Réseaux sociaux',
     'footer.impacto' => 'Impact',
 ];

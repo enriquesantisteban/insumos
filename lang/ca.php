@@ -54,7 +54,6 @@ return [
     'index.stat_products'   => 'Productes',
     'index.stat_microorganisms' => 'Microorganismes avaluats',
     'index.stat_biological_control' => 'Control biològic',
-    'index.stat_manufacturers' => 'Fabricants registrats',
     'index.manufacturers_title_1' => 'Explora per',
     'index.manufacturers_title_2' => 'fabricant',
     'index.manufacturers_desc' => 'Selecciona un fabricant per veure tots els seus productes agrícoles disponibles a la plataforma.',
@@ -81,14 +80,15 @@ return [
     'clasificacion.afectación grave' => 'Afectació Greu',
     'index.filter_all' => 'Tots',
     'index.filter_fabricante' => 'Fabricant',
+    'index.impact_banner_title' => 'Rigor Científic al Servei del Agricultor',
+    'index.impact_banner_desc' => 'Cada insumo del nostre catàleg ha estat sotmès a assajos estandarditzats MBG-EHB-01 per verificar la seva compatibilitat real amb la vida biològica del sòl.',
+    'index.impact_banner_cta' => 'Saber més',
     'index.impact_eyebrow' => 'El nostre Impacte',
     'index.impact_title_1' => 'Transformant el sol per al',
     'index.impact_title_2' => 'futur del camp',
     'index.impact_desc' => 'Fomentem l’ús d’insumos avaluats que protegeixen la microbiologia nativa, restauren la fertilitat natural i asseguren collites rendibles i sostenibles.',
-    'index.impact_banner_title' => 'Rigor Científic al Servei del Agricultor',
-    'index.impact_banner_desc' => 'Cada insumo del nostre catàleg ha estat sotmès a assajos estandarditzats MBG-EHB-01 per verificar la seva compatibilitat real amb la vida biològica del sòl.',
-    'index.impact_banner_cta' => 'Saber més',
     'index.filter_clear' => 'Netejar filtres',
+
 
     // producto.php
     'producto.desc_fallback'    => 'Descripció del producte no disponible.',
@@ -123,7 +123,6 @@ return [
     'producto.ver_ficha'           => 'Veure fitxa',
 
     // blog.php
-
     'blog.compartir'   => 'Compartir:',
     'blog.leer_mas'    => 'Llegir més',
     'blog.no_posts'    => 'No hi ha publicacions disponibles en aquest moment.',
@@ -143,6 +142,7 @@ return [
     'blog.share_whatsapp'   => 'Compartir en WhatsApp',
     'blog.share_email'   => 'Enviar per correu electrònic',
 
+
     // footer (compartit)
     'footer.brand_desc'     => 'Catàleg unificat d’insumos agrícoles per a l’agricultura regenerativa.',
     'footer.nav_title'      => 'Navegació',
@@ -157,5 +157,4 @@ return [
     'footer.contacto'       => 'Contacte',
     'footer.blog'           => 'Blog',
     'footer.impacto'       => 'Impacte',
-    'footer.contacto'       => 'Contacte',
 ];
