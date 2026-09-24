@@ -216,6 +216,31 @@ if ($countsResult) {
     </div>
 </section>
 
+<!-- ========== SECCIÓN TODOS LOS FABRICANTES ========== 
+<section class="info-section-fabricantes" id="fabricantes">
+    <div class="section-inner">
+        <div class="section-header" style="text-align: center; max-width:650px; margin:0 auto 5rem auto;">
+            <span class="eyebrow" style="background:#eff6ff; color:#2563eb; font-weight:600; padding:0.35em 0.85em; font-size:0.85em; border-radius:1000px;"
+                <i class="fas fa-industry" aria-hidden="true" style="margin-right:6px; line-height:1;"></i>
+                <?php echo __t('index.stat_manufacturers', 'Fabricantes registrados'); ?></span>
+                <h2 class="section-title" style="margin: top 1rem;; margin-bottom:1rem; color:#000;>
+                <?php echo __t('Explora por fabricantes'); ?> <span class="gradient-text"><?php echo __t('index.manufacturers_title_2', 'fabricantes'); ?></span>
+            </h2>
+            <p style="color:#64748b; font-size:1.05rem; line-height:1.6;">
+                <?php echo __t('index.manufacturers_desc', 'Selecciona un fabricante para ver todos sus productos biológicos disponibles en la plataforma.'); ?>
+            </p>
+    <div class="manufacturers-grid" id="manufacturersGrid">
+        <?php foreach ($fabricantesData as $fab): ?>
+            <div class ="manufacturer-card">
+                <h3><?php echo htmlspecialchars($fab['nombre']); ?></h3>
+                <p><?php echo htmlspecialchars($fab['descripcion']); ?></p>
+                <span class="product-count"><?php echo (int)$fab['num_productos']; ?> <?php echo __t('index.producto_singular', 'producto'); ?><?php echo $fab['num_productos'] != 1 ? 's' : ''; ?></span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+-->
 
 <!-- ====== IMPACTO ====== -->
 <section class="info-section" id="impacto">

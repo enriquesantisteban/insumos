@@ -224,7 +224,7 @@ function __asset_url($path) {
     if (preg_match('#^(https?:)?//#i', $path) || $path[0] === '/') {
         return $path; // ya es una URL absoluta o una ruta absoluta del servidor
     }
-    return BASE_PATH . '/' . ltrim($path, '/');
+    return BASE_PATH . '/' . ltrim($path, './');
 }
 
 /**
