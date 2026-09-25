@@ -998,6 +998,7 @@ body { top: 0px !important; }
 
 .carousel-track {
     display: flex;
+    width: 100%;
     gap: 1.5rem;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1005,6 +1006,7 @@ body { top: 0px !important; }
 .carousel-track .product-card {
     flex: 0 0 calc((100% - 3rem) / 3);
     min-width: calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
 }
 
 .carousel-dots {
@@ -1424,6 +1426,7 @@ footer {
     .carousel-track .product-card {
         flex: 0 0 100%;
         min-width: 100%;
+        max-width: 100%;
     }
 
     .carousel-track {
@@ -1444,6 +1447,7 @@ footer {
     .carousel-track .product-card {
         flex: 0 0 calc((100% - 1.5rem) / 2);
         min-width: calc((100% - 1.5rem) / 2);
+        max-width: calc((100% - 1.5rem) / 2);
     }
 }
 @media (max-width: 480px) {
@@ -1854,6 +1858,10 @@ svg {
 
     .hero-content.hero-product {
         gap: 2rem;
+    }
+
+    .hero-content.hero-product .hero-ctas {
+        justify-content: center;
     }
 
     .manufacturers-grid {

@@ -188,7 +188,7 @@ $hasProductData = !empty($producto['descripcion'])
                 </div>
             </div>
 
-            <div class="hero-ctas" style="justify-content:flex-start;">     <!-- Contenedor para las llamadas a acción -->
+            <div class="hero-ctas">     <!-- Contenedor para las llamadas a acción -->
                 <a href="#grafica" class="btn-hero btn-hero-primary"><?php echo __t('producto.ver_grafica', 'Ver gráfica'); ?>    <!-- Botón que redirige a la sección de gráfica -->
                    <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>    <!-- Botón  de gráfica -->
                 </a>
@@ -432,7 +432,18 @@ $hasProductData = !empty($producto['descripcion'])
     function goToPage(page) {
         const pages = getTotalPages();
         currentPage = Math.max(0, Math.min(page, pages - 1));
-        track.style.transform = `translateX(-${currentPage * 100}%)`;
+        const viewport = track.parentElement;
+        const maxOffset = Math.max(0, track.scrollWidth - viewport.clientWidth);
+        const cardsPerView = getCardsPerView();
+        const cardWidth = cards[0].getBoundingClientRect().width;
+        const trackStyles = window.getComputedStyle(track);
+        const cardGap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+        const pageWidth = cardsPerView * (cardWidth + cardGap);
+        const pageOffset = currentPage === pages - 1
+            ? maxOffset
+            : currentPage * pageWidth;
+        const offset = Math.min(pageOffset, maxOffset);
+        track.style.transform = `translateX(-${offset}px)`;
         renderDots();
     }
 
