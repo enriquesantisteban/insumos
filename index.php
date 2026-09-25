@@ -540,6 +540,7 @@ if ($countsResult) {
     var emailMessage = <?php echo json_encode(__t('contact.email_error', 'Introduce una dirección de correo válida.'), JSON_UNESCAPED_UNICODE); ?>;
 
     function validateField(field) {
+        field.setCustomValidity('');
         if (!field.value.trim()) {
             field.setCustomValidity(requiredMessage);
             return false;
