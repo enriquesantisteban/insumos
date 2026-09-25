@@ -156,6 +156,7 @@ return [
     'footer.protocol'       => 'Protocolo',
     'footer.all_manufacturers' => 'Todos los fabricantes',
     'footer.copyright'      => 'Todos los derechos reservados.',
+    'footer.back_to_top'    => 'Volver arriba',
     'footer.contacto'       => 'Contacto',
     'footer.blog'           => 'Blog',
     'footer.impacto'       => 'Impacto',

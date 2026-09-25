@@ -76,3 +76,27 @@ $totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query('SELECT COU
         <p>&copy; <?php echo date('Y'); ?> Regenerative Agro Platform. <?php echo __t('footer.copyright', 'Todos los derechos reservados.'); ?></p>
     </div>
 </footer>
+
+<button type="button" class="back-to-top" id="backToTop"
+        aria-label="<?php echo htmlspecialchars(__t('footer.back_to_top', 'Volver arriba')); ?>"
+        title="<?php echo htmlspecialchars(__t('footer.back_to_top', 'Volver arriba')); ?>">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</button>
+
+<script>
+(function () {
+    var backToTop = document.getElementById('backToTop');
+    if (!backToTop) return;
+
+    function updateVisibility() {
+        backToTop.classList.toggle('is-visible', window.scrollY > 300);
+    }
+
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    updateVisibility();
+
+    backToTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();
+</script>
