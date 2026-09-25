@@ -49,8 +49,11 @@ if (!$singleNews) {
 }
 
 // Construcción de la URL actual para el módulo de compartir redes
-$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
-$currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$currentUrl = $protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$shareUrl = static function (string $baseUrl, array $parameters): string {
+    return $baseUrl . '?' . http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
+};
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo isset($current_lang) ? $current_lang : 'es'; ?>">
@@ -117,12 +120,12 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
             <div class="share-container">
                 <span class="share-title"><?php echo __t('blog.compartir', 'Compartir:'); ?></span>
                 <div class="share-buttons">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($currentUrl); ?>" 
+                    <a href="<?php echo htmlspecialchars($shareUrl('https://www.facebook.com/sharer/sharer.php', ['u' => $currentUrl]), ENT_QUOTES, 'UTF-8'); ?>" 
                     target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" title="<?php echo __t('blog.share_facebook', 'Compartir en Facebook'); ?>">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
 
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode($currentUrl); ?>" 
+                    <a href="<?php echo htmlspecialchars($shareUrl('https://www.linkedin.com/sharing/share-offsite/', ['url' => $currentUrl]), ENT_QUOTES, 'UTF-8'); ?>" 
                     target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="<?php echo __t('blog.share_linkedin', 'Compartir en LinkedIn'); ?>">
                         <i class="fa-brands fa-linkedin-in"></i>
                     </a>
@@ -139,7 +142,7 @@ $currentUrl = $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
 
-                    <a href="mailto:?subject=<?php echo urlencode($titulo); ?>&body=<?php echo urlencode('Te comparto este artículo: ' . $currentUrl); ?>" 
+                    <a href="<?php echo htmlspecialchars($shareUrl('mailto:', ['subject' => $titulo, 'body' => 'Te comparto este artículo: ' . $currentUrl]), ENT_QUOTES, 'UTF-8'); ?>" 
                     class="share-btn share-email" title="Enviar por Email">
                         <i class="fas fa-envelope"></i>
                     </a>
