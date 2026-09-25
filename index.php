@@ -158,8 +158,6 @@ if ($countsResult) {
 
 <?php require_once __DIR__ . '/nav.php'; ?>     <!-- importa el archivo de navegación (nav.php) que contiene el menú de navegación del sitio web -->
 
-
-
 <!-- ====== HERO ====== -->
 <section class="hero-section" id="inicio">         <!-- sección principal de la página de inicio con un diseño destacado y llamativo -->
     <!-- Decorative orbs -->
@@ -182,7 +180,7 @@ if ($countsResult) {
         <div class="hero-chips">                                                        <!-- contenedor para los chips de información que destacan las características de la plataforma -->
             <span class="hero-chip"><i class="fas fa-leaf" aria-hidden="true"></i><?php echo __t('index.chip_regen', 'Agricultura regenerativa'); ?></span>
             <span class="hero-chip"><i class="fas fa-flask" aria-hidden="true"></i><?php echo __t('index.chip_assays', 'Ensayos in vitro certificados'); ?></span>
-            <span class="hero-chip"><i class="fas fa-shield-alt" aria-hidden="true"></i><?php echo __t('index.chip_registry', 'Evaluación de inocuidad'); ?></span>
+            <span class="hero-chip"><i class="fas fa-shield-alt" aria-hidden="true"></i><?php echo __t('index.chip_registry', 'Registro oficial'); ?></span>
         </div>
 
         <div class="hero-ctas">                                                         <!-- contenedor para los botones de llamada a la acción -->
