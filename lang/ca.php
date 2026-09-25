@@ -16,6 +16,8 @@ return [
     'contact.form_email'    => 'Correu Electrònic',
     'contact.form_message'  => 'Missatge',
     'contact.form_submit'   => 'Enviar Missatge',
+    'contact.required_error' => 'Omple aquest camp.',
+    'contact.email_error'    => 'Introdueix una adreça electrònica vàlida.',
     'contact.phone_title'   => 'Telèfon',
     'contact.address_title' => 'Adreça',
     'contact.send_error'    => 'Error en enviar el missatge. Torna-ho a provar.',

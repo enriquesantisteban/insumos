@@ -16,6 +16,8 @@ return [
     'contact.form_email'    => 'Email',
     'contact.form_message'  => 'Message',
     'contact.form_submit'   => 'Send Message',
+    'contact.required_error' => 'Please fill out this field.',
+    'contact.email_error'    => 'Enter a valid email address.',
     'contact.phone_title'   => 'Phone',
     'contact.address_title' => 'Address',
     'contact.send_error' => 'An error occurred while sending the message. Please try again later.',

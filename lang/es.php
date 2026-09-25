@@ -16,6 +16,8 @@ return [
     'contact.form_email'    => 'Correo Electrónico',
     'contact.form_message'  => 'Mensaje',
     'contact.form_submit'   => 'Enviar Mensaje',
+    'contact.required_error' => 'Completa este campo.',
+    'contact.email_error'    => 'Introduce una dirección de correo válida.',
     'contact.phone_title'   => 'Teléfono',
     'contact.address_title' => 'Dirección',
     'contact.send_error'    => 'Error al enviar el mensaje. Inténtalo de nuevo.',

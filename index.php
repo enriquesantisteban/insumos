@@ -444,7 +444,7 @@ if ($countsResult) {
         
         <div class="contact-layout">
             <div class="contact-form-container">
-                <form action="#" method="post">
+                <form action="#" method="post" id="contactForm" novalidate>
                     <input type="hidden" name="form_type" value="contact">
                     <div class="form-group">
                         <label for="name"><?php echo __t('contact.form_name', 'Nombre'); ?></label>
@@ -529,6 +529,46 @@ if ($countsResult) {
     popup.addEventListener('click', function(e) { if (e.target === popup) closePopup(); });
 })();
 <?php endif; ?>
+</script>
+<script>
+(function () {
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+
+    var fields = form.querySelectorAll('input[required], textarea[required]');
+    var requiredMessage = <?php echo json_encode(__t('contact.required_error', 'Completa este campo.'), JSON_UNESCAPED_UNICODE); ?>;
+    var emailMessage = <?php echo json_encode(__t('contact.email_error', 'Introduce una dirección de correo válida.'), JSON_UNESCAPED_UNICODE); ?>;
+
+    function validateField(field) {
+        if (!field.value.trim()) {
+            field.setCustomValidity(requiredMessage);
+            return false;
+        }
+        if (field.type === 'email' && !field.validity.valid) {
+            field.setCustomValidity(emailMessage);
+            return false;
+        }
+        field.setCustomValidity('');
+        return true;
+    }
+
+    fields.forEach(function (field) {
+        field.addEventListener('input', function () { validateField(field); });
+    });
+
+    form.addEventListener('submit', function (event) {
+        var firstInvalidField = null;
+        fields.forEach(function (field) {
+            if (!validateField(field) && !firstInvalidField) {
+                firstInvalidField = field;
+            }
+        });
+        if (firstInvalidField) {
+            event.preventDefault();
+            firstInvalidField.reportValidity();
+        }
+    });
+})();
 </script>
 </body>
 </html>
