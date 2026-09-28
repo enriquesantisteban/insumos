@@ -290,15 +290,28 @@ $hasProductData = !empty($producto['descripcion'])
                         <?php else: ?>
                             <i class="fas fa-seedling" aria-hidden="true"></i>      <!-- Muestra un icono de semillas -->
                         <?php endif; ?>
-                        <h3><?php echo htmlspecialchars(!empty($esp['titulo']) ? __tdb($mysqli, 'producto_especificaciones', $esp['id'], 'titulo', $esp['titulo']) : 'Especificacion'); ?></h3>    <!-- Título de la especificación (traducido) -->
+                        <h3><?php echo htmlspecialchars(!empty($esp['titulo']) ? __tdb($mysqli, 'producto_especificaciones', $esp['id'], 'titulo', $esp['titulo']) : 'Especificación'); ?></h3>    <!-- Título de la especificación (traducido) -->
                         <p><?php echo nl2br(htmlspecialchars(!empty($esp['descripcion']) ? __tdb($mysqli, 'producto_especificaciones', $esp['id'], 'descripcion', $esp['descripcion']) : 'Sin descripción disponible.')); ?></p>    <!-- Descripción de la especificación (traducida), sino se muestra Sin descripción disponible. -->
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <div class="empty" style="color:#94a3b8;">                                      <!-- Contenedor para el mensaje de texto -->
-                <h3><?php echo __t('producto.especificaciones_empty_title', 'Sin especificaciones registradas'); ?></h3>                   <!-- Título del mensaje de texto -->
-                <p><?php echo __t('producto.especificaciones_empty_desc', 'Aún no se han cargado especificaciones para este producto.'); ?></p>           <!-- Descripción del mensaje de texto -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-seedling" aria-hidden="true"></i>
+                    <h3><?php echo __t('index.info_card_1_title', 'Restauración del suelo como base productiva'); ?></h3>
+                    <p><?php echo __t('index.info_card_1_desc', 'La agricultura regenerativa prioriza la regeneración de la fertilidad del suelo mediante prácticas como el uso de compost, abonos verdes, estiércol y cobertura vegetal permanente. Estas acciones mejoran la estructura del suelo, aumentan su capacidad de retención de agua y estimulan la actividad microbiana, lo que permite una producción más resiliente y sostenible.'); ?></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-apple-whole" aria-hidden="true"></i>
+                    <h3><?php echo __t('index.info_card_2_title', 'Diversificación y rotación de cultivos'); ?></h3>
+                    <p><?php echo __t('index.info_card_2_desc', 'Este modelo promueve la alternancia de especies vegetales para evitar el agotamiento de nutrientes, reducir la presión de plagas y enfermedades, y mejorar la biodiversidad. La rotación de cultivos y la inclusión de especies complementarias imitan los procesos ecológicos naturales, fortaleciendo el equilibrio del agroecosistema.'); ?></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-water" aria-hidden="true"></i>
+                    <h3><?php echo __t('index.info_card_3_title', 'Reducción de insumos químicos'); ?></h3>
+                    <p><?php echo __t('index.info_card_3_desc', 'La agricultura regenerativa busca minimizar el uso de fertilizantes sintéticos y pesticidas, favoreciendo el control biológico y la autosuficiencia agrícola. Además, incorpora técnicas de riego eficiente, captación de agua de lluvia y conservación de humedad, esenciales para enfrentar el cambio climático y preservar los recursos hídricos.'); ?></p>
+                </div>
             </div>
         <?php endif; ?>
     </div>
