@@ -90,6 +90,8 @@ return [
     'index.impact_title_2' => 'future of the field',
     'index.impact_desc' => 'Our platform is committed to promoting regenerative agriculture by providing farmers with reliable information about the safety of agricultural inputs for beneficial soil microorganisms. Through rigorous in vitro assays, we ensure that the products listed in our catalog contribute to the health and sustainability of the soil ecosystem.',
     'index.filter_clear' => 'Clear filters',
+    'index.filter_empty_title' => 'No manufacturers match filters',
+    'index.filter_empty_desc' => 'Try changing or clearing the selected filters.',
     
 
     // producto.php

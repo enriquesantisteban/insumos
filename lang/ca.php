@@ -90,6 +90,8 @@ return [
     'index.impact_title_2' => 'futur del camp',
     'index.impact_desc' => 'Fomentem l’ús d’insumos avaluats que protegeixen la microbiologia nativa, restauren la fertilitat natural i asseguren collites rendibles i sostenibles.',
     'index.filter_clear' => 'Netejar filtres',
+    'index.filter_empty_title' => 'Cap fabricant coincideix amb els filtres',
+    'index.filter_empty_desc' => 'Prova de canviar o esborrar els filtres seleccionats.',
 
 
     // producto.php

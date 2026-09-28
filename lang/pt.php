@@ -90,6 +90,8 @@ return [
     'index.impact_title_2' => 'futuro do campo',
     'index.impact_desc' => 'A plataforma de agricultura regenerativa visa melhorar a qualidade do solo e reduzir o impacto ambiental da agricultura, promovendo o uso de produtos biológicos e práticas agrícolas sustentáveis.',
     'index.filter_clear' => 'Limpar filtros',
+    'index.filter_empty_title' => 'Nenhum fabricante corresponde aos filtros',
+    'index.filter_empty_desc' => 'Tente alterar ou limpar os filtros selecionados.',
 
 
     // producto.php

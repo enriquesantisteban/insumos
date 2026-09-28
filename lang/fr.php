@@ -90,6 +90,8 @@ return [
     'index.impact_title_2' => 'futur du champ',
     'index.impact_desc' => 'La plateforme d’agriculture régénérative vise à améliorer la qualité du sol et à promouvoir l’utilisation d’intrants biologiques qui protègent la microbiologie native, restaurent la fertilité naturelle et assurent des récoltes rentables et durables.',
     'index.filter_clear' => 'Effacer les filtres',
+    'index.filter_empty_title' => 'Aucun fabricant ne correspond aux filtres',
+    'index.filter_empty_desc' => 'Essayez de modifier ou d’effacer les filtres sélectionnés.',
 
 
     // producto.php
