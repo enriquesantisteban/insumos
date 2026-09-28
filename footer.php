@@ -17,7 +17,7 @@ if (!isset($fabricantesData) && isset($mysqli)) {
 
 // Valores por defecto para estadísticas si no vienen calculados previamente
 $totFab   = $totalFabricantes ?? (isset($fabricantesData) ? count($fabricantesData) : 0);
-$totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query('SELECT COUNT(*) AS c FROM productos')->fetch_assoc()['c'] : 0);
+$totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query("SELECT COUNT(*) AS c FROM productos p INNER JOIN fabricantes f ON p.fabricante_id = f.id WHERE f.activo = 'S'")->fetch_assoc()['c'] : 0);
 ?>
 
 <footer>
