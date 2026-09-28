@@ -124,7 +124,7 @@ $hasProductData = !empty($producto['descripcion'])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpg" href="<?php echo BASE_PATH; ?>/media/favicon.png">
-    <title><?php echo htmlspecialchars($producto['nombre']); ?> | Regenerative Platform</title>
+    <title><?php echo htmlspecialchars($producto['nombre']); ?> | Regenerative Agro Platform</title>
     <meta name="description" content="Ficha tecnica de <?php echo htmlspecialchars($producto['nombre']); ?>. Ensayos de inocuidad sobre microorganismos beneficiosos.">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/style.css?v=<?php echo time(); ?>">
