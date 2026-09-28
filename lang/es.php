@@ -91,7 +91,7 @@ return [
     'index.impact_desc' => 'Fomentamos el uso de insumos evaluados que protegen la microbiología nativa, restan la fertilidad natural y aseguran cosechas rentables y sostenibles.',
     'index.filter_clear' => 'Limpiar filtros',
     'index.filter_empty_title' => 'Ningún fabricante coincide con los filtros',
-    'index.filter_empty_desc' => 'Prueba a cambiar o limpiar los filtros seleccionados.'
+    'index.filter_empty_desc' => 'Prueba a cambiar o limpiar los filtros seleccionados.',
 
 
     // producto.php
