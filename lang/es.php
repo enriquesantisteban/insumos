@@ -73,7 +73,7 @@ return [
     'index.info_card_3_desc'   => 'La agricultura regenerativa busca minimizar el uso de fertilizantes sintéticos y pesticidas, favoreciendo el control biológico y la autosuficiencia agrícola. Además, incorpora técnicas de riego eficiente, captación de agua de lluvia y conservación de humedad, esenciales para enfrentar el cambio climático y preservar los recursos hídricos.',
     'index.info_card_4_title'   => 'Protocolo MBG-EHB-01',
     'index.info_card_4_desc'   => 'Todos los productos del catálogo han sido evaluados mediante ensayo in vitro según el procedimiento MBG-EHB-01, que determina el índice de inocuidad relativa sobre microorganismos beneficiosos del suelo.',
-    'index.footer_brand_desc' => 'Catálogo unificado de insumos biológicos para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados.',
+    'index.footer_brand_desc' => 'Catálogo unificado de insumos agrícolas para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados.',
     'index.filter_manufacturer_label' => 'Fabricante',
     'index.filter_classification_label' => 'Clasificación',
     'clasificacion.inocuo' => 'Inocuo',

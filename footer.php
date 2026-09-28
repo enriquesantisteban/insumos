@@ -29,7 +29,7 @@ $totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query("SELECT COU
                     <span>Regenerative<span style="color:var(--teal);"> Agro Platform</span></span>
                 </a>
             </div>
-            <p><?php echo __t('index.footer_brand_desc', 'Catálogo unificado de insumos biológicos para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados.'); ?></p>
+            <p><?php echo __t('index.footer_brand_desc', 'Catálogo unificado de insumos agrícolas para la agricultura regenerativa. Productos evaluados con ensayos de inocuidad certificados.'); ?></p>
         </div>
 
         <div class="footer-col">
