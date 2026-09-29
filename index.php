@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_type']) && $_POS
 
             // Remitente, destinatario y dirección de respuesta
             $mail->setFrom(SMTP_USER, SMTP_FROM_NAME);
-            $mail->addAddress(SMTP_USER, 'Enrique');
+            $mail->addAddress(SMTP_USER, 'Regenerative Agro Platform');
             $mail->addReplyTo($email, $name);
 
             // Contenido del mensaje
