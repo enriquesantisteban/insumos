@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-09-2026 a las 08:56:54
+-- Tiempo de generación: 29-09-2026 a las 10:00:29
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 8.1.3
 
@@ -120,28 +120,30 @@ CREATE TABLE `productos` (
   `nombre` varchar(255) NOT NULL,
   `descripcion` text,
   `clasificacion` varchar(255) DEFAULT NULL,
-  `slug` varchar(150) NOT NULL DEFAULT ''
+  `slug` varchar(150) NOT NULL DEFAULT '',
+  `sumatorio` float DEFAULT NULL,
+  `recuento` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `fabricante_id`, `imagen`, `nombre`, `descripcion`, `clasificacion`, `slug`) VALUES
-(1, 1, './media/fabricantes/kenogard/Dipel_DF.png', 'DIPEL DF', 'DiPel® DF es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis kurstaki.', 'Inocuo', 'dipel-df'),
-(2, 1, './media/fabricantes/kenogard/Xentari_GD.png', 'XENTARI GD', 'XenTari® GD es un insecticida biológico en gránulos dispersables en agua a base de toxinas cristalinas y esporas de Bacillus thuringiensis subsp. aizawai, especializado en el control selectivo de orugas y orugas difíciles.', 'Afectación Leve', 'xentari-gd'),
-(3, 1, './media/fabricantes/kenogard/Geoda.png', 'GEODA', 'Geoda® es un fungicida/nematicida biológico formulado a base de microorganismos antagonistas del suelo (Trichoderma / Bacillus), orientado a la protección radicular y prevención de patógenos edáficos.', 'Afectación Leve', 'geoda'),
-(4, 2, './media/fabricantes/arvensis/ferttybyo.png', 'FERTTYBYO', 'Ferttybyo es un biofertilizante y bioestimulante orgánico formulado a base de consorcios microbianos y extractos de origen vegetal, diseñado para potenciar la actividad rizosférica y la absorción de nutrientes.', 'Afectación Leve', 'ferttybyo'),
-(5, 5, './media/fabricantes/basf/velifer.png', 'VELIFER', 'Velifer® es un insecticida/acaricida microbiológico en dispersión oleosa formulado a base de esporas vivas de la cepa fúngica entomopatógena Beauveria bassiana, diseñado para el control de trips, mosca blanca y ácaros.', 'Inocuo', 'velifer'),
-(6, 6, './media/fabricantes/seipasa/pirecris.png', 'PIRECRIS', 'Pirecris® es un insecticida natural en concentrado emulsionable a base de piretrinas naturales extraídas de Chrysanthemum cinerariifolium, formulado con efecto de choque para el control de plagas agrícolas en manejo integrado y ecológico.', 'Inocuo', 'pirecris'),
-(7, 7, './media/fabricantes/sipcam inagra/elio.png', 'ELIO', 'Elio es un bioestimulante y corrector nutricional foliar formulado con complejos orgánicos y microelementos, enfocado en optimizar la floración, el cuajado y la tolerancia al estrés abiótico.', 'Inocuo', 'elio'),
-(8, 3, './media/fabricantes/viagro/brio.png', 'BRIO', 'Brio es un bioestimulante antiestrés y promotor del desarrollo vegetativo formulado a base de aminoácidos libres, extractos de algas y péptidos bioactivos.', 'Inocuo', 'brio'),
-(9, 3, './media/fabricantes/viagro/vitta-k-express.png', 'VITTA K EXPRESS', 'Vitta K Express es un fertilizante foliar líquido de alta concentración en potasio quelatado o complejado, diseñado para una rápida asimilación orientada a mejorar el engorde, maduración y calidad de fruto.', 'Inocuo', 'vitta-k-express'),
-(10, 3, './media/fabricantes/viagro/paramon.png', 'PARAMON', 'Paramon es un bioestimulante fisiológico y activador metabólico formulado a base de fósforo móvil y microelementos, orientado al fortalecimiento de los mecanismos naturales de defensa del cultivo.', 'Inocuo', 'paramon'),
-(11, 3, './media/fabricantes/viagro/r-gen.png', 'R-GEN', 'R-Gen es un bioestimulante y regenerador radicular formulado con ácidos húmicos, fúlvicos y reguladores de enraizamiento, diseñado para favorecer la emisión de masa radicular y el establecimiento del cultivo.', 'Inocuo', 'r-gen'),
-(12, 3, './media/fabricantes/viagro/radiant.png', 'RADIANT', 'Radiant® es un insecticida de amplio espectro en suspensión concentrada a base de spinetoram, con alta eficacia de contacto e ingestión para el control de trips, orugas y minadores.', 'Inocuo', 'radiant'),
-(13, 3, './media/fabricantes/viagro/cu-via.png', 'CU-VIA', 'Cu-Via es una solución líquida de cobre complejado por ácidos orgánicos o lignosulfonatos, formulada para una rápida absorción sistémica y prevención de fisiopatías por carencia de cobre con efecto fitofortificante.', 'Inocuo', 'cu-via'),
-(14, 3, './media/fabricantes/viagro/fix.png', 'FIX', 'Fix es un agente coadyuvante tensioactivo, humectante y pegante formulado para mejorar la mojabilidad, adherencia y persistencia de los caldos fitosanitarios y nutricionales.', 'Inocuo', 'fix');
+INSERT INTO `productos` (`id`, `fabricante_id`, `imagen`, `nombre`, `descripcion`, `clasificacion`, `slug`, `sumatorio`, `recuento`) VALUES
+(1, 1, './media/fabricantes/kenogard/Dipel_DF.png', 'DIPEL DF', 'DiPel® DF es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis kurstaki.', 'Inocuo', 'dipel-df', 9.17, 10),
+(2, 1, './media/fabricantes/kenogard/Xentari_GD.png', 'XENTARI GD', 'XenTari® GD es un insecticida biológico en gránulos dispersables en agua a base de toxinas cristalinas y esporas de Bacillus thuringiensis subsp. aizawai, especializado en el control selectivo de orugas y orugas difíciles.', 'Inocuo', 'xentari-gd', 9.78, 10),
+(3, 1, './media/fabricantes/kenogard/Geoda.png', 'GEODA', 'Geoda® es un fungicida/nematicida biológico formulado a base de microorganismos antagonistas del suelo (Trichoderma / Bacillus), orientado a la protección radicular y prevención de patógenos edáficos.', 'Inocuo', 'geoda', 9.03, 10),
+(4, 2, './media/fabricantes/arvensis/ferttybyo.png', 'FERTTYBYO', 'Ferttybyo es un biofertilizante y bioestimulante orgánico formulado a base de consorcios microbianos y extractos de origen vegetal, diseñado para potenciar la actividad rizosférica y la absorción de nutrientes.', 'Afectación Leve', 'ferttybyo', 8.09, 8.33),
+(5, 5, './media/fabricantes/basf/velifer.png', 'VELIFER', 'Velifer® es un insecticida/acaricida microbiológico en dispersión oleosa formulado a base de esporas vivas de la cepa fúngica entomopatógena Beauveria bassiana, diseñado para el control de trips, mosca blanca y ácaros.', 'Inocuo', 'velifer', 9.25, 9),
+(6, 6, './media/fabricantes/seipasa/pirecris.png', 'PIRECRIS', 'Pirecris® es un insecticida natural en concentrado emulsionable a base de piretrinas naturales extraídas de Chrysanthemum cinerariifolium, formulado con efecto de choque para el control de plagas agrícolas en manejo integrado y ecológico.', 'Inocuo', 'pirecris', 9.92, 10),
+(7, 7, './media/fabricantes/sipcam inagra/elio.png', 'ELIO', 'Elio es un bioestimulante y corrector nutricional foliar formulado con complejos orgánicos y microelementos, enfocado en optimizar la floración, el cuajado y la tolerancia al estrés abiótico.', 'Inocuo', 'elio', 9.65, 10),
+(8, 3, './media/fabricantes/viagro/brio.png', 'BRIO', 'Brio es un bioestimulante antiestrés y promotor del desarrollo vegetativo formulado a base de aminoácidos libres, extractos de algas y péptidos bioactivos.', 'Inocuo', 'brio', 9.02, 10),
+(9, 3, './media/fabricantes/viagro/vitta-k-express.png', 'VITTA K EXPRESS', 'Vitta K Express es un fertilizante foliar líquido de alta concentración en potasio quelatado o complejado, diseñado para una rápida asimilación orientada a mejorar el engorde, maduración y calidad de fruto.', 'Inocuo', 'vitta-k-express', 9.86, 10),
+(10, 3, './media/fabricantes/viagro/paramon.png', 'PARAMON', 'Paramon es un bioestimulante fisiológico y activador metabólico formulado a base de fósforo móvil y microelementos, orientado al fortalecimiento de los mecanismos naturales de defensa del cultivo.', 'Afectación Leve', 'paramon', 8.12, 9),
+(11, 3, './media/fabricantes/viagro/r-gen.png', 'R-GEN', 'R-Gen es un bioestimulante y regenerador radicular formulado con ácidos húmicos, fúlvicos y reguladores de enraizamiento, diseñado para favorecer la emisión de masa radicular y el establecimiento del cultivo.', 'Afectación Leve', 'r-gen', 8.12, 9),
+(12, 3, './media/fabricantes/viagro/radiant.png', 'RADIANT', 'Radiant® es un insecticida de amplio espectro en suspensión concentrada a base de spinetoram, con alta eficacia de contacto e ingestión para el control de trips, orugas y minadores.', 'Afectación Leve', 'radiant', 8.12, 9),
+(13, 3, './media/fabricantes/viagro/cu-via.png', 'CU-VIA', 'Cu-Via es una solución líquida de cobre complejado por ácidos orgánicos o lignosulfonatos, formulada para una rápida absorción sistémica y prevención de fisiopatías por carencia de cobre con efecto fitofortificante.', 'Afectación Leve', 'cu-via', 8.59, 10),
+(14, 3, './media/fabricantes/viagro/fix.png', 'FIX', 'Fix es un agente coadyuvante tensioactivo, humectante y pegante formulado para mejorar la mojabilidad, adherencia y persistencia de los caldos fitosanitarios y nutricionales.', 'Afectación Leve', 'fix', 8.97, 10);
 
 -- --------------------------------------------------------
 
