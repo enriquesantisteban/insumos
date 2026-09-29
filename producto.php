@@ -15,7 +15,7 @@ if ($slug === '') { header('Location: ' . __url('index')); exit; }          // R
 $imageColumnExists = tableHasColumn($mysqli, 'productos', 'imagen');    // Verifica si existe una columna de imagen en la tabla productos
 
 // Fetch product
-$detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.clasificacion';
+$detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.clasificacion, p.sumatorio, p.recuento';
 if ($imageColumnExists) { $detailSql .= ', p.imagen'; }               // Si existe una columna de imagen, la agrega a la consulta
 $detailSql .= ', f.id AS fabricante_id, f.nombre AS fabricante_nombre, f.slug AS fabricante_slug
      FROM productos p
@@ -261,6 +261,19 @@ $hasProductData = !empty($producto['descripcion'])
                 <button id="image-lightbox-close" class="image-lightbox-close" type="button" aria-label="Cerrar imagen ampliada">&#215;</button>            
                 <img id="image-lightbox-img" alt="Imagen ampliada">     <!-- Imagen ampliada -->
             </div>
+        </div>
+        <div class="chart-summary">
+            <p class="chart-summary-item">
+                <strong><?php echo __t('producto.sumatorio_in', 'Sumatorio In*'); ?></strong>
+                <span class="chart-summary-equals">=</span>
+                <strong class="chart-summary-value"><?php echo htmlspecialchars((string)$producto['sumatorio']); ?></strong>
+            </p>
+            <p class="chart-summary-item">
+                <strong><?php echo __t('producto.recuento_in', 'Recuento de In ≥ 0,5*'); ?></strong>
+                <span class="chart-summary-equals">=</span>
+                <strong class="chart-summary-value"><?php echo htmlspecialchars((string)$producto['recuento']); ?></strong>
+            </p>
+            <p class="chart-summary-note"><?php echo __t('producto.sumatorio_nota', '*Sumatorio de In en base a 10.'); ?></p>
         </div>
         <?php else: ?>
             <div class="empty product-data-empty">
