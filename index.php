@@ -466,13 +466,15 @@ if ($countsResult) {
             </div>
             
 <!-- ====== INFORMACIÓN DE CONTACTO ====== -->
-<!--
+
             <div class="contact-info-container">
                 <div class="contact-info-card">
                     <i class="fas fa-phone-alt" aria-hidden="true"></i>
                     <h3><?php echo __t('contact.phone_title', 'Teléfono'); ?></h3>
-                    <p><a href="tel:+34123456789">+34 123 456 789</a></p>
+                    <p><a href="tel:+34123456789">+34 689 626 646</a></p>
                 </div>
+
+        <!--
                 <div class="contact-info-card">
                     <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                     <h3><?php echo __t('contact.address_title', 'Dirección'); ?></h3>
