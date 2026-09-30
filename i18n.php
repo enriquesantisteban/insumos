@@ -33,13 +33,13 @@ if (isset($_SESSION['lang'])) {
 $lang_file = __DIR__ . "/lang/{$current_lang}.php";
 $translations = file_exists($lang_file) ? require $lang_file : [];
 
-// 4. Mapa de rutas de archivo por idioma (solo para páginas SIN slug, ej. 'index').
+// 4. Mapa de rutas de archivo por idioma para páginas sin slug.
 $url_map = [
-    'es' => ['index' => ''],
-    'en' => ['index' => ''],
-    'pt' => ['index' => ''],
-    'fr' => ['index' => ''],
-    'ca' => ['index' => ''],
+    'es' => ['index' => '', 'blog' => 'blog.php'],
+    'en' => ['index' => '', 'blog' => 'news.php'],
+    'pt' => ['index' => '', 'blog' => 'noticias.php'],
+    'fr' => ['index' => '', 'blog' => 'nouvelles.php'],
+    'ca' => ['index' => '', 'blog' => 'noticies.php'],
 ];
 $current_url_map = $url_map[$current_lang] ?? $url_map['es'];
 
@@ -64,6 +64,10 @@ $canonical_script_map = [
     'fabricante.php' => 'fabricante',
     'producto.php'   => 'producto',
     'blog.php'       => 'blog',
+    'news.php'       => 'blog',
+    'noticias.php'   => 'blog',
+    'nouvelles.php'  => 'blog',
+    'noticies.php'   => 'blog',
     'contacto.php'   => 'contacto',
 ];
 
@@ -73,6 +77,39 @@ $canonical_script_map = [
 function __t($key, $default = '') {
     global $translations;
     return $translations[$key] ?? ($default ?: $key);
+}
+
+/**
+ * Devuelve el identificador localizado de una sección de la página principal.
+ */
+function __anchor($key) {
+    global $current_lang;
+
+    $anchors = [
+        'fabricantes' => [
+            'es' => 'fabricantes',
+            'en' => 'manufacturers',
+            'pt' => 'fabricantes',
+            'fr' => 'fabricants',
+            'ca' => 'fabricants',
+        ],
+        'contacto' => [
+            'es' => 'contacto',
+            'en' => 'contact',
+            'pt' => 'contato',
+            'fr' => 'contact',
+            'ca' => 'contacte',
+        ],
+        'impacto' => [
+            'es' => 'impacto',
+            'en' => 'impact',
+            'pt' => 'impacto',
+            'fr' => 'impact',
+            'ca' => 'impacte',
+        ],
+    ];
+
+    return $anchors[$key][$current_lang] ?? $anchors[$key]['es'] ?? $key;
 }
 
 /**

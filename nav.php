@@ -109,11 +109,11 @@ unset($fab);
         <nav class="nav-container" aria-label="Navegacion principal">
             <ul class="nav-menu">
                 <li><a href="<?php echo htmlspecialchars(__url('index')); ?>"><?php echo __t('nav.inicio', 'Inicio'); ?></a></li>
-                <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#impacto"><?php echo __t('nav.impacto', 'Impacto'); ?></a></li>
+                <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#<?php echo htmlspecialchars(__anchor('impacto')); ?>"><?php echo __t('nav.impacto', 'Impacto'); ?></a></li>
 
                 <!-- Fabricantes dropdown -->
                 <li class="has-submenu">
-                    <a href="<?php echo htmlspecialchars(__url('index')); ?>#fabricantes">
+                    <a href="<?php echo htmlspecialchars(__url('index')); ?>#<?php echo htmlspecialchars(__anchor('fabricantes')); ?>">
                         <?php echo __t('nav.fabricantes', 'Fabricantes'); ?> <i class="fas fa-chevron-down" style="font-size:0.65rem; margin-left:3px; opacity:0.6;"></i>
                     </a>
                     <ul class="submenu">
@@ -141,7 +141,7 @@ unset($fab);
                     </ul>
                 </li>
 
-                <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#contacto"><?php echo __t('nav.contacto', 'Contacto'); ?></a></li>
+                <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#<?php echo htmlspecialchars(__anchor('contacto')); ?>"><?php echo __t('nav.contacto', 'Contacto'); ?></a></li>
                 <li><a href="<?php echo htmlspecialchars(__url('blog')); ?>"><?php echo __t('nav.blog', 'Blog'); ?></a></li>
             </ul>
         </nav>
@@ -179,7 +179,7 @@ unset($fab);
 <nav class="nav-mobile" id="navMobile" aria-label="Menu movil">
     <ul class="mobile-menu-list">
         <li><a href="<?php echo htmlspecialchars(__url('index')); ?>"><?php echo __t('nav.inicio', 'Inicio'); ?></a></li>
-        <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#impacto"><?php echo __t('nav.impacto', 'Impacto'); ?></a></li>
+        <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#<?php echo htmlspecialchars(__anchor('impacto')); ?>"><?php echo __t('nav.impacto', 'Impacto'); ?></a></li>
         
         <!-- Capa 1: Fabricantes (Plegada principal) -->
         <li class="mobile-dropdown-container">
@@ -225,7 +225,7 @@ unset($fab);
             </details>
         </li>
 
-        <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#contacto"><?php echo __t('nav.contacto', 'Contacto'); ?></a></li>
+        <li><a href="<?php echo htmlspecialchars(__url('index')); ?>#<?php echo htmlspecialchars(__anchor('contacto')); ?>"><?php echo __t('nav.contacto', 'Contacto'); ?></a></li>
         <li><a href="<?php echo htmlspecialchars(__url('blog')); ?>"><?php echo __t('nav.blog', 'Blog'); ?></a></li>
     </ul>
 </nav>

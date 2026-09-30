@@ -135,7 +135,7 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
                 <a href="#products" class="btn-hero btn-hero-primary">                          <!-- botón ver productos -->    
                     <?php echo __t('fabricante.ver_productos', 'Ver productos'); ?> <i class="fas fa-arrow-down" aria-hidden="true"></i>
                 </a>
-                <a href="<?php echo htmlspecialchars(__url('index')); ?>#fabricantes" class="btn-hero btn-hero-secondary">                       <!-- botón ver otros fabricantes --> 
+                <a href="<?php echo htmlspecialchars(__url('index')); ?>#<?php echo htmlspecialchars(__anchor('fabricantes')); ?>" class="btn-hero btn-hero-secondary">                       <!-- botón ver otros fabricantes -->
                     <?php echo __t('fabricante.otros_fabricantes', 'Otros fabricantes'); ?>
                 </a>
             </div>

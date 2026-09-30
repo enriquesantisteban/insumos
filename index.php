@@ -184,10 +184,10 @@ if ($countsResult) {
         </div>
 
         <div class="hero-ctas">                                                         <!-- contenedor para los botones de llamada a la acción -->
-            <a href="#fabricantes" class="btn-hero btn-hero-primary">                   <!-- botón que redirige a la sección de fabricantes --> <!-- <a> sirve para crear un enlace a otra sección de la página -->
+            <a href="#<?php echo htmlspecialchars(__anchor('fabricantes')); ?>" class="btn-hero btn-hero-primary">                   <!-- botón que redirige a la sección de fabricantes --> <!-- <a> sirve para crear un enlace a otra sección de la página -->
                 <?php echo __t('index.cta_catalog', 'Ver catálogo'); ?> <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
-            <a href="#impacto" class="btn-hero btn-hero-secondary">                       <!-- botón que redirige a la sección de información sobre la plataforma -->
+            <a href="#<?php echo htmlspecialchars(__anchor('impacto')); ?>" class="btn-hero btn-hero-secondary">                       <!-- botón que redirige a la sección de información sobre la plataforma -->
                 <?php echo __t('index.impact_eyebrow', 'Nuestro Impacto'); ?>
             </a>
         </div>
@@ -215,7 +215,7 @@ if ($countsResult) {
 </section>
 
 <!-- ====== IMPACTO ====== -->
-<section class="info-section" id="impacto">
+<section class="info-section" id="<?php echo htmlspecialchars(__anchor('impacto')); ?>">
     <div class="section-inner">
         <div class="section-header" style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto;">
             <span class="eyebrow" style="background:#dcfce7; color:#166534; font-weight: 600; padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.85rem; display: inline-flex; align-items: center; justify-content: center;">
@@ -265,7 +265,7 @@ if ($countsResult) {
                 </p>
             </div>
             <div>
-                <a href="#contacto" class="btn" style="background: #22c55e; color: #ffffff; font-weight: 600; padding: 0.85rem 1.5rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                <a href="#<?php echo htmlspecialchars(__anchor('contacto')); ?>" class="btn" style="background: #22c55e; color: #ffffff; font-weight: 600; padding: 0.85rem 1.5rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
                     <?php echo __t('index.impact_banner_cta', 'Saber más'); ?> 
                     <i class="fas fa-arrow-right" style="line-height: 1;"></i>
                 </a>
@@ -277,7 +277,7 @@ if ($countsResult) {
 
 
 <!-- ====== FABRICANTES ====== -->
-<section class="section-pad" id="fabricantes">
+<section class="section-pad" id="<?php echo htmlspecialchars(__anchor('fabricantes')); ?>">
     <div class="section-inner">
         <div class="section-header">
             <span class="eyebrow" style="background:#eff6ff;color:#2563eb;"><?php echo __t('index.stat_manufacturers', 'Fabricantes registrados'); ?></span>      <!-- texto destacado que indica la sección de fabricantes registrados -->
@@ -437,7 +437,7 @@ if ($countsResult) {
 
 
 <!-- ====== CONTACTO ====== -->
-<section class="contact-section" id="contacto">
+<section class="contact-section" id="<?php echo htmlspecialchars(__anchor('contacto')); ?>">
     <div class="section-inner">
         <h2 class="section-title"><?php echo __t('contact.title', 'Contacta con nosotros'); ?></h2>
         <p class="section-desc"><?php echo __t('contact.description', '¿Tienes preguntas o quieres colaborar? Rellena el formulario o contáctanos directamente.'); ?></p>
