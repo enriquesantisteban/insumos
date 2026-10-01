@@ -112,7 +112,11 @@ $shareUrl = static function (string $baseUrl, array $parameters): string {
             <div class="article-content">
     <?php 
         // Reemplaza automáticamente ./media/ por la ruta absoluta real del proyecto
-        $contenidoConRutas = str_replace('./media/', BASE_PATH . '/media/', $contenido);
+        $contenidoConRutas = str_replace(
+            ['src="./media/', "src='./media/", 'src="media/', "src='media/"],
+            ['src="/media/', "src='/media/", 'src="/media/', "src='/media/"],
+            $contenido
+        );
         echo nl2br($contenidoConRutas); 
     ?>
 </div>
