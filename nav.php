@@ -98,7 +98,7 @@ unset($fab);
 <header class="site-nav" id="siteNav">
     <div class="nav-inner">
         <a href="<?php echo htmlspecialchars(__url('index')); ?>" class="nav-brand">
-            <img src="/insumos/media/logo.png" alt="Logo Regenerative Agro Platform" class="nav-brand-logo">
+            <img src="/media/logo.png" alt="Logo Regenerative Agro Platform" class="nav-brand-logo">
             
             <span class="nav-brand-text">
                 <span class="nav-brand-line1">Regenerative</span>
