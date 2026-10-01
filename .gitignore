@@ -1,6 +1,9 @@
 # Credenciales locales (usa config.example.php como plantilla)
 config.php
 
+#Archivo README
+README-USBWebServer.md
+
 # Dependencias (si usas Composer en vez de copiar PHPMailer a mano)
 /vendor/
 composer.lock

@@ -5,7 +5,7 @@
 Coloca los archivos de `web Insumos` dentro de la carpeta web de USBWeb Server.
 Por ejemplo:
 
-`E:\USBWebServer\root\insumos`
+`E:\USBWebServer\root\`
 
 Debes tener al menos estos archivos:
 - `index.php`
@@ -29,7 +29,7 @@ En tu navegador, abre:
 
 ## 4) Crear la base de datos y las tablas
 
-Selecciona la pestaña `SQL`, pega el contenido de `schema.sql` y ejecuta.
+Selecciona la pestaña `SQL`, pega el contenido de `insumos.sql` y ejecuta.
 
 Si prefieres, también puedes ejecutar el archivo SQL desde línea de comandos usando el MySQL que trae USBWeb Server.
 
