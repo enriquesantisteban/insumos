@@ -152,66 +152,97 @@ function __slugify($text) {
 function __lang_switch_url($lang) {
     global $url_map, $page_segment_map, $mysqli, $current_lang;
 
-    $page_key = __current_page_key();
     $query = $_GET;
     unset($query['lang']);
 
-    // Páginas de detalle (fabricante/producto): ruta bonita con slug y segmento traducido
+    $page_key = __current_page_key();
+
+    // Detección robusta de la clave de página si __current_page_key() falla en Nginx
+    if (!$page_key) {
+        $uri = $_SERVER['REQUEST_URI'] ?? '';
+        if (preg_match('#/(producto|product|produto|produit|producte)/#i', $uri) || isset($query['slug']) && strpos($uri, 'producto') !== false) {
+            $page_key = 'producto';
+        } elseif (preg_match('#/(fabricante|manufacturer|fabricant)/#i', $uri) || isset($query['slug']) && strpos($uri, 'fabricante') !== false) {
+            $page_key = 'fabricante';
+        } elseif (preg_match('#/(blog|news|noticias|nouvelles|noticies)/#i', $uri) || !empty($query['slug'])) {
+            $page_key = 'blog';
+        }
+    }
+
+    // 1. Páginas de detalle con slug (blog, producto, fabricante)
     if (in_array($page_key, ['fabricante', 'producto', 'blog'], true) && !empty($query['slug'])) {
         $target_segments = $page_segment_map[$lang] ?? $page_segment_map['es'];
         $segment = $target_segments[$page_key] ?? $page_key;
-        $slug = $query['slug'];
+        
+        // Decodificar el slug por si viene con caracteres especiales (%C3%A9 -> é)
+        $raw_slug = rawurldecode($query['slug']);
+        $slug = $raw_slug;
         unset($query['slug']);
 
         if ($page_key === 'blog' && isset($mysqli)) {
             $articleId = null;
+
+            // Caso A: El slug actual es el original de la tabla blog (español)
             $stmt = $mysqli->prepare('SELECT id FROM blog WHERE slug = ? LIMIT 1');
             if ($stmt) {
-                $stmt->bind_param('s', $slug);
+                $stmt->bind_param('s', $raw_slug);
                 $stmt->execute();
-                $articleId = $stmt->get_result()->fetch_assoc()['id'] ?? null;
+                $res = $stmt->get_result()->fetch_assoc();
+                $articleId = $res['id'] ?? null;
             }
 
+            // Caso B: El slug actual es de otro idioma (está en la tabla traducciones)
             if (!$articleId) {
-                $stmt = $mysqli->prepare('SELECT traduccion_id FROM traducciones WHERE tabla = \'blog\' AND campo = \'slug\' AND idioma = ? AND texto = ? LIMIT 1');
+                $stmt = $mysqli->prepare("SELECT traduccion_id FROM traducciones WHERE tabla = 'blog' AND campo = 'slug' AND texto = ? LIMIT 1");
                 if ($stmt) {
-                    $stmt->bind_param('ss', $current_lang, $slug);
+                    $stmt->bind_param('s', $raw_slug);
                     $stmt->execute();
-                    $articleId = $stmt->get_result()->fetch_assoc()['traduccion_id'] ?? null;
+                    $res = $stmt->get_result()->fetch_assoc();
+                    $articleId = $res['traduccion_id'] ?? null;
                 }
             }
 
+            // Si encontramos el artículo, resolvemos el slug para el idioma destino ($lang)
             if ($articleId) {
-                $translatedSlug = null;
-                $stmt = $mysqli->prepare('SELECT texto FROM traducciones WHERE tabla = \'blog\' AND traduccion_id = ? AND campo = \'slug\' AND idioma = ? LIMIT 1');
-                if ($stmt) {
-                    $stmt->bind_param('is', $articleId, $lang);
-                    $stmt->execute();
-                    $translatedSlug = $stmt->get_result()->fetch_assoc()['texto'] ?? null;
-                }
-                if ($translatedSlug) {
-                    $slug = $translatedSlug;
-                } else {
+                if ($lang === 'es') {
+                    // Si el destino es español, obtenemos el slug base de la tabla blog
                     $stmt = $mysqli->prepare('SELECT slug FROM blog WHERE id = ? LIMIT 1');
                     if ($stmt) {
                         $stmt->bind_param('i', $articleId);
                         $stmt->execute();
-                        $slug = $stmt->get_result()->fetch_assoc()['slug'] ?? $slug;
+                        $res = $stmt->get_result()->fetch_assoc();
+                        if (!empty($res['slug'])) {
+                            $slug = $res['slug'];
+                        }
+                    }
+                } else {
+                    // Si el destino es otro idioma, buscamos su traducción en la tabla traducciones
+                    $stmt = $mysqli->prepare("SELECT texto FROM traducciones WHERE tabla = 'blog' AND traduccion_id = ? AND campo = 'slug' AND idioma = ? LIMIT 1");
+                    if ($stmt) {
+                        $stmt->bind_param('is', $articleId, $lang);
+                        $stmt->execute();
+                        $res = $stmt->get_result()->fetch_assoc();
+                        if (!empty($res['texto'])) {
+                            $slug = $res['texto'];
+                        }
                     }
                 }
             }
         }
-        $url = BASE_PATH . '/' . $lang . '/' . $segment . '/' . rawurlencode($slug);
+
+        $base = defined('BASE_PATH') ? BASE_PATH : '';
+        $url = $base . '/' . $lang . '/' . $segment . '/' . rawurlencode($slug);
         return $url . (!empty($query) ? '?' . http_build_query($query) : '');
     }
 
-    // Resto de páginas (ej. index.php)
+    // 2. Resto de páginas estándar
     $target_map = $url_map[$lang] ?? $url_map['es'];
     $path = ($page_key !== null && isset($target_map[$page_key]))
         ? $target_map[$page_key]
-        : basename($_SERVER['SCRIPT_NAME']); // fallback: mismo nombre de archivo
+        : '';
 
-    $url = BASE_PATH . '/' . $lang . '/' . $path;
+    $base = defined('BASE_PATH') ? BASE_PATH : '';
+    $url = $base . '/' . $lang . '/' . ltrim($path, '/');
     return $url . (!empty($query) ? '?' . http_build_query($query) : '');
 }
 

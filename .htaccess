@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /insumos/
+RewriteBase /
 
 # ==========================================================
 # URLs amigables (fabricante/producto con slug, sin .php)
