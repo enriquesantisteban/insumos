@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-10-2026 a las 11:43:46
+-- Tiempo de generación: 01-10-2026 a las 13:21:36
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 8.1.3
 
@@ -668,10 +668,10 @@ INSERT INTO `traducciones` (`id`, `tabla`, `traduccion_id`, `campo`, `idioma`, `
 (270, 'microorganismos', 7, 'imagen_bicho_src', 'pt', './media/microorganismos/pt/Peribacillus.jpg'),
 (271, 'microorganismos', 7, 'imagen_bicho_src', 'fr', './media/microorganismos/fr/Peribacillus.jpg'),
 (272, 'microorganismos', 7, 'imagen_bicho_src', 'ca', './media/microorganismos/ca/Peribacillus.jpg'),
-(273, 'microorganismos', 8, 'imagen_bicho_src', 'en', './media/microorganismos/en/pyrenophora.jpg'),
-(274, 'microorganismos', 8, 'imagen_bicho_src', 'pt', './media/microorganismos/pt/pyrenophora.jpg'),
-(275, 'microorganismos', 8, 'imagen_bicho_src', 'fr', './media/microorganismos/fr/pyrenophora.jpg'),
-(276, 'microorganismos', 8, 'imagen_bicho_src', 'ca', './media/microorganismos/ca/pyrenophora.jpg'),
+(273, 'microorganismos', 8, 'imagen_bicho_src', 'en', './media/microorganismos/en/Pyrenophora.jpg'),
+(274, 'microorganismos', 8, 'imagen_bicho_src', 'pt', './media/microorganismos/pt/Pyrenophora.jpg'),
+(275, 'microorganismos', 8, 'imagen_bicho_src', 'fr', './media/microorganismos/fr/Pyrenophora.jpg'),
+(276, 'microorganismos', 8, 'imagen_bicho_src', 'ca', './media/microorganismos/ca/Pyrenophora.jpg'),
 (277, 'microorganismos', 9, 'imagen_bicho_src', 'en', './media/microorganismos/en/Talaromyces_sp.jpg'),
 (278, 'microorganismos', 9, 'imagen_bicho_src', 'pt', './media/microorganismos/pt/Talaromyces_sp.jpg'),
 (279, 'microorganismos', 9, 'imagen_bicho_src', 'fr', './media/microorganismos/fr/Talaromyces_sp.jpg'),
