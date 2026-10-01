@@ -582,3 +582,38 @@ sudo chmod -R 755 /var/www/regenerative-agro-platform
 
 ```
 
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+#                                                                             PROBLEMA CAMBIO DE NOMRBES                                                                                   #
+
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+Windows es insensible a mayúsculas, el índice interno de Git suele quedarse con los nombres viejos. 
+La forma más rápida y limpia de forzar a Git a reindexar toda la carpeta respetando los nombres actuales es:
+
+1. Quitar la carpeta media del índice de Git temporalmente (no borra tus fotos del disco, solo le dice a Git que las "olvide" un segundo para reanalizarlas):
+
+```shell
+
+git rm -r --cached media
+
+```
+
+2. Volver a agregar toda la carpeta media desde cero:
+
+```shell
+
+git add media
+
+```
+
+3. Repetir todos los pasos de Cambios en el Git
+
+```bash
+
+sudo git reset --hard origin/main
+sudo git pull origin main
+sudo chown -R www-data:www-data /var/www/regenerative-agro-platform
+sudo chmod -R 755 /var/www/regenerative-agro-platform
+
+```
