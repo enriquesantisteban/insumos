@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Si la web va a ser insumos.com por ejemplo, tengo que quitar /insumos y dejarlo ('')
 if (!defined('BASE_PATH')) {
-    define('BASE_PATH', '/insumos');
+    define('BASE_PATH', '');
 }
 
 // Idiomas soportados
