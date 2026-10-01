@@ -539,6 +539,17 @@ cd /var/www/regenerative-agro-platform
 sudo git pull origin main
 
 ```
+
+Si aparece algún error --> Forzar la actualización desde Git.
+Ejecuta en la terminal:  
+
+```bash
+
+sudo git reset --hard origin/main
+sudo git pull origin main
+
+```
+
 3. Asegura los permisos correctos:
 Para que el servidor web siga pudiendo leer los archivos modificados:
 
