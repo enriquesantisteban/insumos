@@ -559,3 +559,25 @@ sudo chown -R www-data:www-data /var/www/regenerative-agro-platform
 sudo chmod -R 755 /var/www/regenerative-agro-platform
 
 ```
+
+
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+#                                                                           BASE DE DATOS --> ACTUALIZAR                                                                                   #
+
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+1. Sube la base de datos a Git
+2. En la terminal del servidor Linux:
+
+```bash
+
+cd /var/www/regenerative-agro-platform
+sudo git pull origin main
+sudo mysql -e "DROP DATABASE IF EXISTS insumos; CREATE DATABASE insumos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+sudo mysql insumos < insumos.sql
+sudo chown -R www-data:www-data /var/www/regenerative-agro-platform
+sudo chmod -R 755 /var/www/regenerative-agro-platform
+
+```
+
