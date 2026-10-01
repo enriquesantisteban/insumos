@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-10-2026 a las 11:09:53
+-- Tiempo de generación: 01-10-2026 a las 11:43:46
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 8.1.3
 
@@ -1116,7 +1116,7 @@ ALTER TABLE `fabricantes`
 --
 ALTER TABLE `microorganismos`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre_bicho` (`nombre_bicho`);
+  ADD UNIQUE KEY `nombre_bicho` (`nombre_bicho`(190));
 
 --
 -- Indices de la tabla `productos`
