@@ -25,7 +25,7 @@ $totProd  = $totalProductos ?? (isset($mysqli) ? (int)$mysqli->query("SELECT COU
         <div class="footer-brand">
             <div class="footer-brand-name">
             <a href="<?php echo htmlspecialchars(__url('index')); ?>" class="footer-logo-link">
-                    <img src="/insumos/media/logo.png" alt="Logo Regenerative Agro Platform" class="nav-brand-logo"> 
+                    <img src="/media/logo.png" alt="Logo Regenerative Agro Platform" class="nav-brand-logo"> 
                     <span>Regenerative<span style="color:var(--teal);"> Agro Platform</span></span>
                 </a>
             </div>
