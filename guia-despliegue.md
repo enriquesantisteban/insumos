@@ -413,7 +413,7 @@ server_name _;
 
 # Después:
 listen 80;
-server_name tu-nuevo-dominio.com www.tu-nuevo-dominio.com;
+server_name insumos.regenerativeplatform.com;
 
 ```
 
@@ -430,23 +430,108 @@ Y si usas Cloudflare Tunnel, simplemente le dices que apunte a http://localhost:
 
 ## PASO 13. ASIGNAR DOMINIO A LA WEB
 
-En tu ordenador (Navegador):
+## Paso 1: Configurar Nginx con PHP 7.2 ##
 
-1. Registra tu dominio (TU-DOMINIO.COM) en un registrador (Cloudflare Registrar, Namecheap, etc.).
+1. Abre la terminal de tu servidor Linux y edita el archivo del sitio:
 
-2. En la zona de gestión DNS del dominio:
+```bash
 
-    - Si usas IP pública directa:
+sudo nano /etc/nginx/sites-available/regenerative-agro
 
-    ``` bash
+```
 
-    Tipo: A      | Nombre: @   | Valor: IP_PUBLICA_DEL_SERVIDOR
-    Tipo: CNAME  | Nombre: www | Valor: TU-DOMINIO.COM
+2. Deja el contenido exactamente así (fíjate en php7.2-fpm.sock y en el puerto 8085):
 
-    ```
+```bash
 
-    - Si mantienes la infraestructura protegida tras Cloudflare Tunnel (Recomendado para servidores locales/iDRAC):
-      Configura un túnel persistente en el panel de Cloudflare Zero Trust apuntando al servicio http://localhost:80.
+server {
+    listen 8085;
+    server_name insumos.regenerativeplatform.com;
+
+    root /var/www/regenerative-agro-platform;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+```
+
+3. Guarda pulsando Ctrl + O, presiona Enter y sal con Ctrl + X.
+4. Asegúrate de que PHP 7.2 FPM esté en ejecución:
+
+```bash
+
+sudo systemctl status php7.2-fpm
+
+```
+(Si no estuviera activo, ejecutas sudo systemctl start php7.2-fpm).
+
+5. Valida la sintaxis de Nginx y recarga el servicio:
+
+```bash
+
+sudo nginx -t && sudo systemctl reload nginx
+
+```
+
+## Paso 2: Crear el Public Hostname en Cloudflare ##
+
+1. Entra a dash.cloudflare.com.
+
+2. Ve a Zero Trust > Networks > Tunnels.
+
+3. Haz clic sobre tu túnel y entra a Configure (o edítalo).
+
+4. Ve a la pestaña Public Hostnames y pulsa en Add a public hostname.
+
+5. Rellena los campos:
+
+    * Subdomain: insumos
+
+    * Domain: selecciona regenerativeplatform.com del desplegable.
+
+    * Path: (déjalo vacío)
+
+    * Type: selecciona HTTP
+
+    * URL: escribe localhost:8085
+
+6. Pulsa en Save hostname.
+
+## Paso 3: Verificar el servicio del túnel en Linux ##
+
+Comprueba que el conector de Cloudflare esté corriendo en el servidor:
+
+```bash
+
+sudo systemctl status cloudflared
+
+```
+
+Si no está activo:
+
+```bash
+
+sudo systemctl enable cloudflared
+sudo systemctl restart cloudflared
+
+```
+
+curl -s https://ifconfig.me
+
+https://pastebin.com/xn727fZy
+
 
 
 ## PASO 14. ACTIVAR HTTPS
@@ -470,14 +555,7 @@ sudo certbot --nginx -d TU-DOMINIO.COM -d www.TU-DOMINIO.COM
 
 ## 14.2. Si el dominio usa Cloudflare Tunnel
 
-No necesitas Certbot: Cloudflare gestiona el certificado SSL en el borde. Solo debes dejar el túnel corriendo como servicio de sistema:
-
-```bash
-
-sudo cloudflared service install TU_TOKEN_DE_CLOUDFLARE
-
-```
-
+No necesitas Certbot: Cloudflare gestiona el certificado SSL en el borde.
 
 
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
