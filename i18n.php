@@ -281,7 +281,9 @@ function __url($page_key, $params = []) {
 /**
  * Resuelve una ruta de imagen/archivo guardada en la Base de Datos para que funcione
  * bajo cualquier URL (ej. /insumos/es/producto/algo), sin importar la profundidad de la URL.
- * Si la ruta ya es absoluta (http://, https:// o empieza por /), se devuelve tal cual.
+ * Las imágenes antiguas de fabricantes se buscan en sus nuevas carpetas logo/ y productos/.
+ * Si la ruta ya es absoluta (http://, https:// o empieza por /), se devuelve tal cual,
+ * salvo que corresponda a una imagen de fabricante movida a una de esas carpetas.
  * Si es relativa (ej. 'uploads/logo.png'), se le antepone BASE_PATH para que apunte
  * siempre a la carpeta real del sitio y no a la carpeta del idioma/segmento actual.
  */
@@ -289,8 +291,24 @@ function __asset_url($path) {
     if (empty($path)) {
         return $path;
     }
-    if (preg_match('#^(https?:)?//#i', $path) || $path[0] === '/') {
-        return $path; // ya es una URL absoluta o una ruta absoluta del servidor
+    if (preg_match('#^(https?:)?//#i', $path)) {
+        return $path;
+    }
+
+    $isRootRelative = $path[0] === '/';
+    $relativePath = preg_replace('#^(?:\./)+#', '', ltrim($path, '/'));
+    if (preg_match('#^media/fabricantes/([^/]+)/([^/]+)$#i', $relativePath, $matches)) {
+        foreach (['logo', 'productos'] as $imageType) {
+            $candidate = 'media/fabricantes/' . $matches[1] . '/' . $imageType . '/' . $matches[2];
+            $candidateFile = __DIR__ . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $candidate);
+            if (is_file($candidateFile)) {
+                return $isRootRelative ? '/' . $candidate : BASE_PATH . '/' . $candidate;
+            }
+        }
+    }
+
+    if ($isRootRelative) {
+        return $path;
     }
     return BASE_PATH . '/' . ltrim($path, './');
 }
