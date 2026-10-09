@@ -15,7 +15,7 @@ if ($slug === '') { header('Location: ' . __url('index')); exit; }          // R
 $imageColumnExists = tableHasColumn($mysqli, 'productos', 'imagen');    // Verifica si existe una columna de imagen en la tabla productos
 
 // Fetch product
-$detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.clasificacion, p.sumatorio, p.recuento';
+$detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.tipo, p.subtipo, p.sumatorio, p.recuento';
 if ($imageColumnExists) { $detailSql .= ', p.imagen'; }
 $detailSql .= ', f.id AS fabricante_id, f.nombre AS fabricante_nombre, f.slug AS fabricante_slug
      FROM productos p
@@ -40,7 +40,7 @@ if ($espStmt) {                                                           // Ver
 }
 
 // Fetch other products by same fabricante
-$otherSql = 'SELECT id, nombre, slug, descripcion, clasificacion';
+$otherSql = 'SELECT id, nombre, slug, descripcion, tipo, subtipo';
 if ($imageColumnExists) { $otherSql .= ', imagen'; }                   // Si la columna de imagen existe, agrega la columna a la consulta
 $otherSql .= ' FROM productos WHERE id <> ? AND fabricante_id = ? AND UPPER(activo) = \'S\' ORDER BY nombre';     // Agrega la consulta paara obtener los productos diferenets a este
 $otherStmt = $mysqli->prepare($otherSql);                               // Prepara la consulta para obtener los productos diferentes
@@ -105,14 +105,15 @@ foreach ($microorganismos as $micro) {                                    // Ite
         : (!empty($micro['importancia_beneficios']) ? $micro['importancia_beneficios'] : 'Información detallada no disponible.');   // Si la descripción es vacía y la importancia y beneficios no son vacíos, agrega la importancia y beneficios
 }
 
-// Obtención de la clasificación traducida según el idioma.
-$clasificacionText = !empty($producto['clasificacion'])
-    ? __tdb($mysqli, 'productos', $producto['id'], 'clasificacion', $producto['clasificacion'])
+$tipoText = !empty($producto['tipo'])
+    ? __tdb($mysqli, 'productos', $producto['id'], 'tipo', $producto['tipo'])
     : '';
+$subtipoText = __subtipo_label($producto['subtipo'] ?? '');
 
 $heroImage    = $imageColumnExists ? ($producto['imagen'] ?? null) : null;                  // Obtiene la imagen del producto
 $hasProductData = !empty($producto['descripcion'])
-    || !empty($producto['clasificacion'])
+    || !empty($producto['tipo'])
+    || !empty($producto['subtipo'])
     || !empty($heroImage)
     || !empty($especificaciones)
     || !empty($microorganismos);
@@ -178,10 +179,18 @@ $hasProductData = !empty($producto['descripcion'])
             <?php endif; ?>
 
             <div class="hero-meta">     <!-- Contenedor para los metadatos -->
+                <?php if ($tipoText !== ''): ?>
                 <div class="hero-meta-row">     <!-- Contenedor para la fila de metadatos -->
-                    <span class="hero-meta-label"><?php echo __t('producto.clasificacion', 'Clasificación'); ?></span>
-                    <span class="badge"><?php echo htmlspecialchars($clasificacionText); ?></span>
+                    <span class="hero-meta-label"><?php echo __t('producto.tipo', 'Tipo'); ?></span>
+                    <span class="badge"><?php echo htmlspecialchars($tipoText); ?></span>
                 </div>
+                <?php endif; ?>
+                <?php if ($subtipoText !== ''): ?>
+                <div class="hero-meta-row">     <!-- Contenedor para la fila de metadatos -->
+                    <span class="hero-meta-label"><?php echo __t('producto.subtipo', 'Subtipo'); ?></span>
+                    <span class="badge"><?php echo htmlspecialchars($subtipoText); ?></span>
+                </div>
+                <?php endif; ?>
                 <div class="hero-meta-row">
                     <span class="hero-meta-label"><?php echo __t('producto.fabricante', 'Fabricante'); ?></span>     <!-- Etiqueta de fabricante -->
                     <span class="badge last"><?php echo htmlspecialchars($producto['fabricante_nombre']); ?></span>     <!-- Valor de fabricante -->
@@ -347,10 +356,10 @@ $hasProductData = !empty($producto['descripcion'])
                         <?php while ($other = $otherProducts->fetch_assoc()):   
                             $otherImg  = $imageColumnExists ? ($other['imagen'] ?? null) : null;    // Obtiene la URL de la imagen del producto si existe, de lo contrario, será null
                             
-                            // Traduce también la clasificación para las tarjetas del carrusel.
-                            $otherReg  = !empty($other['clasificacion'])
-                                ? __tdb($mysqli, 'productos', $other['id'], 'clasificacion', $other['clasificacion'])
+                            $otherTipo = !empty($other['tipo'])
+                                ? __tdb($mysqli, 'productos', $other['id'], 'tipo', $other['tipo'])
                                 : '';
+                            $otherSubtipo = __subtipo_label($other['subtipo'] ?? '');
                         ?>
                             <article class="product-card">                             <!-- Contenedor para el producto -->
                                 <div class="card-img">                                   <!-- Contenedor para la imagen del producto -->
@@ -364,7 +373,12 @@ $hasProductData = !empty($producto['descripcion'])
                                 <div class="card-body">                                   <!-- Contenedor para el contenido del producto -->
                                     <h3><?php echo htmlspecialchars($other['nombre']); ?></h3>    <!-- Título del producto -->
                                     <p><?php echo htmlspecialchars($other['descripcion'] ? __tdb($mysqli, 'productos', $other['id'], 'descripcion', $other['descripcion']) : 'Descripcion no disponible.'); ?></p>    <!-- Descripción del producto (traducida) -->
-                                    <span class="price"><?php echo htmlspecialchars($otherReg); ?></span>    <!-- Valor del producto -->
+                                    <?php if ($otherTipo !== ''): ?>
+                                        <span class="price"><?php echo htmlspecialchars($otherTipo); ?></span>
+                                    <?php endif; ?>
+                                    <?php if ($otherSubtipo !== ''): ?>
+                                        <span class="price"><?php echo htmlspecialchars($otherSubtipo); ?></span>
+                                    <?php endif; ?>
                                     <a href="<?php echo htmlspecialchars(__url('producto', ['slug' => $other['slug']])); ?>" class="btn btn-full">    <!-- Enlace al producto -->
                                         <?php echo __t('producto.ver_ficha', 'Ver ficha'); ?> <i class="fas fa-arrow-right" aria-hidden="true" style="font-size:0.75rem;margin-left:4px;"></i>    <!-- Icono de flecha derecha -->
                                     </a>

@@ -52,19 +52,19 @@ $fabricanteId = (int)$fabricante['id'];
 // Detect image column on productos
 $imageColumnExists = tableHasColumn($mysqli, 'productos', 'imagen');            // Verifica si existe una columna de imagen en la tabla productos
 
-// Filtro opcional por clasificación.
-$clasificacionFilter = isset($_GET['clasificacion']) ? trim($_GET['clasificacion']) : '';
+// Filtro opcional por tipo de producto.
+$tipoFilter = isset($_GET['tipo']) ? trim($_GET['tipo']) : '';
 
 // Fetch products
-$sqlProd = 'SELECT id, nombre, slug, descripcion';                                           // Selecciona los campos id, nombre y descripcion de la tabla productos
+$sqlProd = 'SELECT id, nombre, slug, descripcion, tipo';                                    // Selecciona los campos del producto
 if ($imageColumnExists) { $sqlProd .= ', imagen'; }                                     // Si existe una columna de imagen, la agrega a la consulta
-$sqlProd .= ', clasificacion FROM productos WHERE fabricante_id = ? AND UPPER(activo) = \'S\'';
+$sqlProd .= ' FROM productos WHERE fabricante_id = ? AND UPPER(activo) = \'S\'';
 $bindTypes  = 'i';
 $bindParams = [$fabricanteId];
-if ($clasificacionFilter !== '') {
-    $sqlProd .= ' AND clasificacion = ?';
+if ($tipoFilter !== '') {
+    $sqlProd .= ' AND tipo = ?';
     $bindTypes  .= 's';
-    $bindParams[] = $clasificacionFilter;
+    $bindParams[] = $tipoFilter;
 }
 $sqlProd .= ' ORDER BY nombre';                                                          // ordena los resultados por nombre
 
@@ -165,10 +165,10 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
             <h2 class="section-title" style="margin-bottom:0.5rem;">                     <!-- tí­tulo principal de la sección de productos -->                                        
                 <?php echo __t('fabricante.productos_de', 'Productos de'); ?> <span class="gradient-text"><?php echo htmlspecialchars($fabricante['nombre']); ?></span>   <!-- texto que muestra el nombre del fabricante -->
             </h2>
-            <?php if ($clasificacionFilter !== ''): ?>
+            <?php if ($tipoFilter !== ''): ?>
                 <p class="active-filter-note">
-                    <?php echo __t('fabricante.filter_active_prefix', 'Mostrando solo productos con clasificación:'); ?>
-                    <strong><?php echo htmlspecialchars(__t('clasificacion.' . mb_strtolower($clasificacionFilter, 'UTF-8'), $clasificacionFilter)); ?></strong>
+                    <?php echo __t('fabricante.filter_tipo_active_prefix', 'Mostrando solo productos de tipo:'); ?>
+                    <strong><?php echo htmlspecialchars($tipoFilter); ?></strong>
                     <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $slug])); ?>" class="filter-clear-link">
                         <i class="fas fa-xmark" aria-hidden="true"></i> <?php echo __t('fabricante.filter_clear', 'Ver todos los productos'); ?>
                     </a>
@@ -185,9 +185,8 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
                 <?php while ($prod = $productos->fetch_assoc()):                         // recorre cada producto y muestra su información en una tarjeta -->
                     $prodImg = $imageColumnExists ? ($prod['imagen'] ?? null) : null;    // obtiene la URL de la imagen del producto si existe, de lo contrario, será null
                     
-                    // Traducción dinámica del número de registro desde la BD
-                    $clasificacion = !empty($prod['clasificacion'])
-                        ? __tdb($mysqli, 'productos', $prod['id'], 'clasificacion', $prod['clasificacion'])
+                    $tipoText = !empty($prod['tipo'])
+                        ? __tdb($mysqli, 'productos', $prod['id'], 'tipo', $prod['tipo'])
                         : '';
                 ?> 
                     <article class="product-card">                                      <!-- tarjeta individual para cada producto que muestra su imagen, nombre, descripción y número de productos -->
@@ -202,7 +201,9 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
                         <div class="card-body">                                          <!-- contenedor para el contenido del producto, que incluye el nombre, descripción y botón de acción -->
                             <h3><?php echo htmlspecialchars($prod['nombre']); ?></h3>      <!-- muestra el nombre del producto en un encabezado de nivel 3 -->
                             <p><?php echo htmlspecialchars($prod['descripcion'] ? __tdb($mysqli, 'productos', $prod['id'], 'descripcion', $prod['descripcion']) : __t('fabricante.desc_producto_fallback', 'Descripción no disponible.')); ?></p>    <!-- muestra la descripción del producto (traducida) en un párrafo -->
-                            <span class="price"><?php echo htmlspecialchars($clasificacion); ?></span>
+                            <?php if ($tipoText !== ''): ?>
+                                <span class="price"><?php echo htmlspecialchars($tipoText); ?></span>
+                            <?php endif; ?>
                             <a href="<?php echo htmlspecialchars(__url('producto', ['slug' => $prod['slug']])); ?>" class="btn btn-full">   <!-- botón que redirige a la página del producto -->
                                 <?php echo __t('fabricante.ver_ficha', 'Ver ficha completa'); ?> <i class="fas fa-arrow-right" aria-hidden="true" style="font-size:0.75rem;margin-left:4px;"></i>     <!-- muestra un icono de flecha a la derecha despuí©s del texto del botón -->
                             </a>

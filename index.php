@@ -100,10 +100,8 @@ if (tableHasColumn($mysqli, 'fabricantes', 'imagen')) {         // comprueba si 
 // Fetch fabricantes with product count
 $sql = 'SELECT f.id, f.nombre, f.slug, f.descripcion';                                  // consulta SQL para obtener los fabricantes con el conteo de productos
 if ($fabricanteImageColumn) { $sql .= ', f.' . $fabricanteImageColumn; }        // si existe una columna de imagen, la agrega a la consulta
-    // GROUP_CONCAT reúne, por cada fabricante, los distintos valores de 'registro' que tienen
-    // sus productos, separados por '||' para poder
-    // trocearlos en PHP y usarlos como filtro en la sección "Explora por fabricante".
-        $sql .= ', COUNT(p.id) AS num_productos, GROUP_CONCAT(DISTINCT NULLIF(TRIM(p.clasificacion), \'\') SEPARATOR \'||\') AS clasificaciones_raw
+    // Reúne los tipos de producto por fabricante para los filtros del catálogo.
+        $sql .= ', COUNT(p.id) AS num_productos, GROUP_CONCAT(DISTINCT NULLIF(TRIM(p.tipo), \'\') SEPARATOR \'||\') AS tipos_raw
                 FROM fabricantes f                                                     
                 LEFT JOIN productos p ON p.fabricante_id = f.id AND UPPER(p.activo) = \'S\'
                 WHERE UPPER(f.activo) = \'S\'
@@ -115,31 +113,36 @@ $fabricantesResult = $mysqli->query($sql);                                      
 $totalFabricantes = 0;                                      // variable para almacenar el total de fabricantes
 $totalProductos   = 0;                                      // variable para almacenar el total de productos
 $fabricantesData  = [];                                     // array para almacenar los datos de los fabricantes
-$clasificacionOptions = ['Inocuo', 'Afectación Leve', 'Afectación Moderada', 'Afectación Grave'];
+$tipoOptions = [];
 if ($fabricantesResult) {                                   // comprueba si la consulta se ejecutó correctamente
     while ($row = $fabricantesResult->fetch_assoc()) {      // recorre los resultados de la consulta y los almacena en un array asociativo
-        $row['clasificaciones'] = !empty($row['clasificaciones_raw']) ? explode('||', $row['clasificaciones_raw']) : [];
+        $row['tipos'] = !empty($row['tipos_raw']) ? explode('||', $row['tipos_raw']) : [];
+        foreach ($row['tipos'] as $tipo) {
+            $tipoOptions[$tipo] = $tipo;
+        }
         $fabricantesData[] = $row;                          // agrega cada fila de resultados al array $fabricantesData
         $totalFabricantes++;                                // incrementa el contador de fabricantes
         $totalProductos += (int)$row['num_productos'];      // incrementa el contador de productos con el valor del conteo de productos de cada fabricante
     }
 }
+natcasesort($tipoOptions);
+$tipoOptions = array_values($tipoOptions);
 
 $totalMicro = (int)$mysqli->query('SELECT COUNT(*) AS c FROM microorganismos')->fetch_assoc()['c'];     // obtiene el total de microorganismos evaluados en la base de datos y lo almacena en la variable $totalMicro
 
-// Conteo de productos por fabricante y clasificación para actualizar las tarjetas y sus enlaces.
-$clasificacionCounts = [];                                                // [fabricante_id => [clasificacion => count]]
+// Conteo de productos por fabricante y tipo para actualizar las tarjetas y sus enlaces.
+$tipoCounts = [];                                                // [fabricante_id => [tipo => count]]
 $countsResult = $mysqli->query(
-    "SELECT p.fabricante_id, NULLIF(TRIM(p.clasificacion), '') AS clasificacion, COUNT(*) AS cnt
+    "SELECT p.fabricante_id, NULLIF(TRIM(p.tipo), '') AS tipo, COUNT(*) AS cnt
      FROM productos p
      JOIN fabricantes f ON p.fabricante_id = f.id AND UPPER(f.activo) = 'S'
      WHERE UPPER(p.activo) = 'S'
-     GROUP BY p.fabricante_id, p.clasificacion"
+     GROUP BY p.fabricante_id, p.tipo"
 );
 if ($countsResult) {
     while ($row = $countsResult->fetch_assoc()) {
-        if ($row['clasificacion'] === null) { continue; }
-        $clasificacionCounts[$row['fabricante_id']][$row['clasificacion']] = (int)$row['cnt'];
+        if ($row['tipo'] === null) { continue; }
+        $tipoCounts[$row['fabricante_id']][$row['tipo']] = (int)$row['cnt'];
     }
 }
 ?>
@@ -291,7 +294,7 @@ if ($countsResult) {
 
         <?php if (!empty($fabricantesData)): ?>                 <!-- comprueba si hay fabricantes registrados y muestra la lista de fabricantes -->
 
-            <!-- ====== FILTROS: fabricante y/o clasificación ====== -->
+            <!-- ====== FILTROS: fabricante y/o tipo ====== -->
             <div class="manufacturers-filters" id="manufacturersFilters">
                 <div class="filter-group">
                     <label for="filterFabricante"><?php echo __t('index.filter_manufacturer_label', 'Fabricante'); ?></label>
@@ -303,14 +306,11 @@ if ($countsResult) {
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="filterClasificacion"><?php echo __t('index.filter_classification_label', 'Clasificación'); ?></label>
-                    <select id="filterClasificacion">
+                    <label for="filterTipo"><?php echo __t('index.filter_tipo_label', 'Tipo'); ?></label>
+                    <select id="filterTipo">
                         <option value=""><?php echo __t('index.filter_all', 'Todos'); ?></option>
-                        <?php foreach ($clasificacionOptions as $clasificacion): ?>
-                            <?php
-                            $clasificacionLabel = __t('clasificacion.' . mb_strtolower($clasificacion, 'UTF-8'), $clasificacion);
-                            ?>
-                            <option value="<?php echo htmlspecialchars($clasificacion); ?>"><?php echo htmlspecialchars($clasificacionLabel); ?></option>
+                        <?php foreach ($tipoOptions as $tipo): ?>
+                            <option value="<?php echo htmlspecialchars($tipo); ?>"><?php echo htmlspecialchars($tipo); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -327,7 +327,7 @@ if ($countsResult) {
                         ? __url('fabricante', ['slug' => $fab['slug']])
                         : __url('fabricante', ['id' => (int)$fab['id']]);
                 ?>
-                    <article class="manufacturer-card" data-fabricante="<?php echo (int)$fab['id']; ?>" data-clasificaciones="<?php echo htmlspecialchars(implode('|', $fab['clasificaciones'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-clasificacion-counts="<?php echo htmlspecialchars(json_encode(!empty($clasificacionCounts[$fab['id']]) ? $clasificacionCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">
+                    <article class="manufacturer-card" data-fabricante="<?php echo (int)$fab['id']; ?>" data-tipos="<?php echo htmlspecialchars(implode('|', $fab['tipos'])); ?>" data-total="<?php echo (int)$fab['num_productos']; ?>" data-tipo-counts="<?php echo htmlspecialchars(json_encode(!empty($tipoCounts[$fab['id']]) ? $tipoCounts[$fab['id']] : new stdClass(), JSON_UNESCAPED_UNICODE), ENT_QUOTES); ?>" data-label-unit="<?php echo htmlspecialchars(__t('index.producto_singular', ' producto')); ?>">
                         <div class="manufacturer-card-img">         <!-- contenedor para la imagen del fabricante -->
                             <?php if ($imgCol): ?>                  <!-- comprueba si hay una imagen disponible para el fabricante -->
                                 <img src="<?php echo htmlspecialchars(__asset_url($imgCol)); ?>" alt="Logo de <?php echo htmlspecialchars($fab['nombre']); ?>">  <!-- muestra la imagen del fabricante con un texto alternativo que describe el logo del fabricante -->
@@ -366,7 +366,7 @@ if ($countsResult) {
             <script>
             (function () {
                 var fabSelect  = document.getElementById('filterFabricante');
-                var regSelect  = document.getElementById('filterClasificacion');
+                var tipoSelect = document.getElementById('filterTipo');
                 var clearBtn   = document.getElementById('filterClearBtn');
                 var grid       = document.getElementById('manufacturersGrid');
                 var emptyState = document.getElementById('manufacturersEmptyFiltered');
@@ -374,25 +374,25 @@ if ($countsResult) {
 
                 function applyFilters() {
                     var fabVal = fabSelect ? fabSelect.value : '';
-                    var regVal = regSelect ? regSelect.value : '';
+                    var tipoVal = tipoSelect ? tipoSelect.value : '';
                     var visibleCount = 0;
 
                     cards.forEach(function (card) {
                         var cardFab  = card.getAttribute('data-fabricante') || '';
-                        var cardRegs = (card.getAttribute('data-clasificaciones') || '').split('|');
+                        var cardTipos = (card.getAttribute('data-tipos') || '').split('|');
 
                         var matchesFab = !fabVal || cardFab === fabVal;
-                        var matchesReg = !regVal || cardRegs.indexOf(regVal) !== -1;
-                        var visible    = matchesFab && matchesReg;
+                        var matchesTipo = !tipoVal || cardTipos.indexOf(tipoVal) !== -1;
+                        var visible     = matchesFab && matchesTipo;
 
                         card.style.display = visible ? '' : 'none';
                         if (visible) visibleCount++;
 
-                        // Recalcula el número de productos mostrado según el filtro de clasificación.
+                        // Recalcula el número de productos mostrado según el tipo seleccionado.
                         var total = parseInt(card.getAttribute('data-total'), 10) || 0;
                         var counts = {};
-                        try { counts = JSON.parse(card.getAttribute('data-clasificacion-counts') || '{}'); } catch (e) {}
-                        var displayCount = regVal ? (counts[regVal] || 0) : total;
+                        try { counts = JSON.parse(card.getAttribute('data-tipo-counts') || '{}'); } catch (e) {}
+                        var displayCount = tipoVal ? (counts[tipoVal] || 0) : total;
 
                         var countNumEl   = card.querySelector('.count-num');
                         var countLabelEl = card.querySelector('.count-label');
@@ -400,13 +400,13 @@ if ($countsResult) {
                         if (countNumEl)   { countNumEl.textContent = displayCount; }
                         if (countLabelEl) { countLabelEl.textContent = unitLabel + (displayCount !== 1 ? 's' : ''); }
 
-                        // Actualiza el enlace para mostrar únicamente la clasificación seleccionada.
+                        // Actualiza el enlace para mostrar únicamente el tipo seleccionado.
                         var link = card.querySelector('.manufacturer-cta');
                         if (link) {
                             var base = link.getAttribute('data-href-base') || link.getAttribute('href');
                             var href = base;
-                            if (regVal) {
-                                href += (base.indexOf('?') === -1 ? '?' : '&') + 'clasificacion=' + encodeURIComponent(regVal);
+                            if (tipoVal) {
+                                href += (base.indexOf('?') === -1 ? '?' : '&') + 'tipo=' + encodeURIComponent(tipoVal);
                             }
                             link.setAttribute('href', href);
                         }
@@ -417,11 +417,11 @@ if ($countsResult) {
                 }
 
                 if (fabSelect) { fabSelect.addEventListener('change', applyFilters); }
-                if (regSelect) { regSelect.addEventListener('change', applyFilters); }
+                if (tipoSelect) { tipoSelect.addEventListener('change', applyFilters); }
                 if (clearBtn) {
                     clearBtn.addEventListener('click', function () {
                         if (fabSelect) { fabSelect.value = ''; }
-                        if (regSelect) { regSelect.value = ''; }
+                        if (tipoSelect) { tipoSelect.value = ''; }
                         applyFilters();
                     });
                 }

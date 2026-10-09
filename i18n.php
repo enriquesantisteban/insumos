@@ -79,6 +79,16 @@ function __t($key, $default = '') {
     return $translations[$key] ?? ($default ?: $key);
 }
 
+function __subtipo_label($subtipo) {
+    $code = strtoupper(trim((string)$subtipo));
+    if ($code === '') {
+        return '';
+    }
+
+    $translationKey = 'producto.subtipo_' . strtolower($code);
+    return $code . ' | ' . __t($translationKey, $code);
+}
+
 /**
  * Devuelve el identificador localizado de una sección de la página principal.
  */
