@@ -40,7 +40,7 @@ if ($espStmt) {                                                           // Ver
 }
 
 // Fetch other products by same fabricante
-$otherSql = 'SELECT id, nombre, slug, descripcion, tipo, subtipo';
+$otherSql = 'SELECT id, nombre, slug, descripcion, tipo';
 if ($imageColumnExists) { $otherSql .= ', imagen'; }                   // Si la columna de imagen existe, agrega la columna a la consulta
 $otherSql .= ' FROM productos WHERE id <> ? AND fabricante_id = ? AND UPPER(activo) = \'S\' ORDER BY nombre';     // Agrega la consulta paara obtener los productos diferenets a este
 $otherStmt = $mysqli->prepare($otherSql);                               // Prepara la consulta para obtener los productos diferentes
@@ -359,7 +359,6 @@ $hasProductData = !empty($producto['descripcion'])
                             $otherTipo = !empty($other['tipo'])
                                 ? __tipo_label($other['tipo'])
                                 : '';
-                            $otherSubtipo = __subtipo_label($other['subtipo'] ?? '');
                         ?>
                             <article class="product-card">                             <!-- Contenedor para el producto -->
                                 <div class="card-img">                                   <!-- Contenedor para la imagen del producto -->
@@ -375,9 +374,6 @@ $hasProductData = !empty($producto['descripcion'])
                                     <p><?php echo htmlspecialchars($other['descripcion'] ? __tdb($mysqli, 'productos', $other['id'], 'descripcion', $other['descripcion']) : 'Descripcion no disponible.'); ?></p>    <!-- Descripción del producto (traducida) -->
                                     <?php if ($otherTipo !== ''): ?>
                                         <span class="price"><?php echo htmlspecialchars($otherTipo); ?></span>
-                                    <?php endif; ?>
-                                    <?php if ($otherSubtipo !== ''): ?>
-                                        <span class="price"><?php echo htmlspecialchars($otherSubtipo); ?></span>
                                     <?php endif; ?>
                                     <a href="<?php echo htmlspecialchars(__url('producto', ['slug' => $other['slug']])); ?>" class="btn btn-full">    <!-- Enlace al producto -->
                                         <?php echo __t('producto.ver_ficha', 'Ver ficha'); ?> <i class="fas fa-arrow-right" aria-hidden="true" style="font-size:0.75rem;margin-left:4px;"></i>    <!-- Icono de flecha derecha -->
