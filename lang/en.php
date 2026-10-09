@@ -102,7 +102,7 @@ return [
     'producto.tipo_regeneradores' => 'Regenerators',
     'producto.subtipo'          => 'Subtype',
     'producto.subtipo_a'        => 'Compatible with native microbiome',
-    'producto.subtipo_b'        => 'Compatible with native microbiome + probiotic/microbial',
+    'producto.subtipo_b'        => 'Compatible with native microbiome + probiotic',
     'producto.subtipo_p'        => 'Prebiotics, native microbiota regenerators',
     'producto.fabricante'       => 'Manufacturer',
     'fabricante.filter_tipo_active_prefix' => 'Showing products of type:',

@@ -102,7 +102,7 @@ return [
     'producto.tipo_regeneradores' => 'Regeneradors',
     'producto.subtipo'          => 'Subtipus',
     'producto.subtipo_a'        => 'Compatible amb el microbioma natiu',
-    'producto.subtipo_b'        => 'Compatible amb el microbioma natiu + probiòtic/microbià',
+    'producto.subtipo_b'        => 'Compatible amb el microbioma natiu + probiòtic',
     'producto.subtipo_p'        => 'Prebiòtics, regeneradors de la microbiota nativa',
     'producto.fabricante'       => 'Fabricant',
     'fabricante.filter_tipo_active_prefix' => 'Es mostren només els productes del tipus:',
