@@ -45,7 +45,8 @@ function nav_lang_flag_html($langCode, $navLangFlagCodes) {
              . '</svg>';
     }
     $flagCode = $navLangFlagCodes[$langCode] ?? $langCode;
-    return '<img class="lang-flag" width="20" height="14" src="https://flagcdn.com/' . htmlspecialchars($flagCode) . '.svg" alt="" loading="lazy">';
+    $base = defined('BASE_PATH') ? BASE_PATH : '';
+    return '<img class="lang-flag" width="20" height="14" src="' . $base . '/media/flags/' . htmlspecialchars($flagCode) . '.svg" alt="">';
 }
 
 // Build fabricantes + productos tree for dropdown
