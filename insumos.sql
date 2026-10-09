@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-10-2026 a las 13:21:36
+-- Tiempo de generación: 09-10-2026 a las 07:52:05
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 8.1.3
 
@@ -64,14 +64,15 @@ CREATE TABLE `fabricantes` (
 --
 
 INSERT INTO `fabricantes` (`id`, `nombre`, `descripcion`, `imagen`, `slug`, `activo`) VALUES
-(1, 'Kenogard', 'Fabricante de insumos agrícolas y soluciones de protección fitosanitaria para cultivos', './media/fabricantes/kenogard/kenogard.png', 'kenogard', 'S'),
-(2, 'Arvensis', 'Fabricante de insumos agrícolas especializado en nutrición vegetal, bioestimulantes y residuo cero', './media/fabricantes/arvensis/arvensis.png', 'arvensis', 'S'),
-(3, 'Viagro', 'Fabricante de insumos agrícolas especializado en soluciones de nutrición técnica y biocontrol', './media/fabricantes/viagro/viagro.png', 'viagro', 'S'),
-(4, 'FMC', 'Fabricante de insumos agrícolas enfocado en la sanidad vegetal y tecnologías de protección de cultivos', './media/fabricantes/fmc/fmc.png', 'fmc', 'N'),
-(5, 'BASF', 'Fabricante global de insumos agrícolas, productos fitosanitarios y biotecnología para el campo', './media/fabricantes/basf/basf.png', 'basf', 'S'),
-(6, 'Seipasa', 'Fabricante de insumos agrícolas especializado en bioinsecticidas, biofungicidas y bioestimulantes de origen natural para una agricultura residuo cero', './media/fabricantes/seipasa/seipasa.webp', 'seipasa', 'N'),
-(7, 'Sipcam Inagra', 'Fabricante de insumos agrícolas enfocado en soluciones de protección de cultivos, bioestimulantes y nutrición vegetal integral', './media/fabricantes/sipcam inagra/sipcam-inagra.png', 'sipcam-inagra', 'N'),
-(8, 'Inagrosa', 'Fabricante de insumos agrícolas especializado en bioestimulantes, biofertilizantes y soluciones de bionutrición vegetal basadas en aminoácidos y tecnología biológica', './media/fabricantes/inagrosa/inagrosa.png', 'inagrosa', 'N');
+(1, 'Kenogard', 'Fabricante de insumos agrícolas y soluciones de protección fitosanitaria para cultivos', './media/fabricantes/kenogard/logo/kenogard.png', 'kenogard', 'S'),
+(2, 'Arvensis', 'Fabricante de insumos agrícolas especializado en nutrición vegetal, bioestimulantes y residuo cero', './media/fabricantes/arvensis/logo/arvensis.png', 'arvensis', 'S'),
+(3, 'Viagro', 'Fabricante de insumos agrícolas especializado en soluciones de nutrición técnica y biocontrol', './media/fabricantes/viagro/logo/viagro.png', 'viagro', 'S'),
+(4, 'FMC', 'Fabricante de insumos agrícolas enfocado en la sanidad vegetal y tecnologías de protección de cultivos', './media/fabricantes/fmc/logo/fmc.png', 'fmc', 'N'),
+(5, 'BASF', 'Fabricante global de insumos agrícolas, productos fitosanitarios y biotecnología para el campo', './media/fabricantes/basf/logo/basf.png', 'basf', 'S'),
+(6, 'Seipasa', 'Fabricante de insumos agrícolas especializado en bioinsecticidas, biofungicidas y bioestimulantes de origen natural para una agricultura residuo cero', './media/fabricantes/seipasa/logo/seipasa.webp', 'seipasa', 'N'),
+(7, 'Sipcam Inagra', 'Fabricante de insumos agrícolas enfocado en soluciones de protección de cultivos, bioestimulantes y nutrición vegetal integral', './media/fabricantes/sipcam inagra/logo/sipcam-inagra.png', 'sipcam-inagra', 'N'),
+(8, 'Inagrosa', 'Fabricante de insumos agrícolas especializado en bioestimulantes, biofertilizantes y soluciones de bionutrición vegetal basadas en aminoácidos y tecnología biológica', './media/fabricantes/inagrosa/logo/inagrosa.png', 'inagrosa', 'S'),
+(9, 'YARA', 'Fabricante global de soluciones para la nutrición de cultivos, fertilizantes de alta precisión y tecnologías agrícolas orientadas al rendimiento sostenible y la salud del suelo.', './media/fabricantes/yara/logo/yara.png', 'yara', 'N');
 
 -- --------------------------------------------------------
 
@@ -122,28 +123,37 @@ CREATE TABLE `productos` (
   `clasificacion` varchar(255) DEFAULT NULL,
   `slug` varchar(150) NOT NULL DEFAULT '',
   `sumatorio` float DEFAULT NULL,
-  `recuento` float DEFAULT NULL
+  `recuento` float DEFAULT NULL,
+  `activo` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `fabricante_id`, `imagen`, `nombre`, `descripcion`, `clasificacion`, `slug`, `sumatorio`, `recuento`) VALUES
-(1, 1, './media/fabricantes/kenogard/Dipel_DF.png', 'DIPEL DF', 'DiPel® DF es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis kurstaki.', 'Inocuo', 'dipel-df', 9.17, 10),
-(2, 1, './media/fabricantes/kenogard/Xentari_GD.png', 'XENTARI GD', 'XenTari® GD es un insecticida biológico en gránulos dispersables en agua a base de toxinas cristalinas y esporas de Bacillus thuringiensis subsp. aizawai, especializado en el control selectivo de orugas y orugas difíciles.', 'Inocuo', 'xentari-gd', 9.78, 10),
-(3, 1, './media/fabricantes/kenogard/Geoda.png', 'GEODA', 'Geoda® es un fungicida/nematicida biológico formulado a base de microorganismos antagonistas del suelo (Trichoderma / Bacillus), orientado a la protección radicular y prevención de patógenos edáficos.', 'Inocuo', 'geoda', 9.03, 10),
-(4, 2, './media/fabricantes/arvensis/ferttybyo.png', 'FERTTYBYO', 'Ferttybyo es un biofertilizante y bioestimulante orgánico formulado a base de consorcios microbianos y extractos de origen vegetal, diseñado para potenciar la actividad rizosférica y la absorción de nutrientes.', 'Afectación Leve', 'ferttybyo', 8.09, 8.33),
-(5, 5, './media/fabricantes/basf/velifer.png', 'VELIFER', 'Velifer® es un insecticida/acaricida microbiológico en dispersión oleosa formulado a base de esporas vivas de la cepa fúngica entomopatógena Beauveria bassiana, diseñado para el control de trips, mosca blanca y ácaros.', 'Inocuo', 'velifer', 9.25, 9),
-(6, 6, './media/fabricantes/seipasa/pirecris.png', 'PIRECRIS', 'Pirecris® es un insecticida natural en concentrado emulsionable a base de piretrinas naturales extraídas de Chrysanthemum cinerariifolium, formulado con efecto de choque para el control de plagas agrícolas en manejo integrado y ecológico.', 'Inocuo', 'pirecris', 9.92, 10),
-(7, 7, './media/fabricantes/sipcam inagra/elio.png', 'ELIO', 'Elio es un bioestimulante y corrector nutricional foliar formulado con complejos orgánicos y microelementos, enfocado en optimizar la floración, el cuajado y la tolerancia al estrés abiótico.', 'Inocuo', 'elio', 9.65, 10),
-(8, 3, './media/fabricantes/viagro/brio.png', 'BRIO', 'Brio es un bioestimulante antiestrés y promotor del desarrollo vegetativo formulado a base de aminoácidos libres, extractos de algas y péptidos bioactivos.', 'Inocuo', 'brio', 9.02, 10),
-(9, 3, './media/fabricantes/viagro/vitta-k-express.png', 'VITTA K EXPRESS', 'Vitta K Express es un fertilizante foliar líquido de alta concentración en potasio quelatado o complejado, diseñado para una rápida asimilación orientada a mejorar el engorde, maduración y calidad de fruto.', 'Inocuo', 'vitta-k-express', 9.86, 10),
-(10, 3, './media/fabricantes/viagro/paramon.png', 'PARAMON', 'Paramon es un bioestimulante fisiológico y activador metabólico formulado a base de fósforo móvil y microelementos, orientado al fortalecimiento de los mecanismos naturales de defensa del cultivo.', 'Afectación Leve', 'paramon', 8.12, 9),
-(11, 3, './media/fabricantes/viagro/r-gen.png', 'R-GEN', 'R-Gen es un bioestimulante y regenerador radicular formulado con ácidos húmicos, fúlvicos y reguladores de enraizamiento, diseñado para favorecer la emisión de masa radicular y el establecimiento del cultivo.', 'Afectación Leve', 'r-gen', 8.12, 9),
-(12, 3, './media/fabricantes/viagro/radiant.png', 'RADIANT', 'Radiant® es un insecticida de amplio espectro en suspensión concentrada a base de spinetoram, con alta eficacia de contacto e ingestión para el control de trips, orugas y minadores.', 'Afectación Leve', 'radiant', 8.12, 9),
-(13, 3, './media/fabricantes/viagro/cu-via.png', 'CU-VIA', 'Cu-Via es una solución líquida de cobre complejado por ácidos orgánicos o lignosulfonatos, formulada para una rápida absorción sistémica y prevención de fisiopatías por carencia de cobre con efecto fitofortificante.', 'Afectación Leve', 'cu-via', 8.59, 10),
-(14, 3, './media/fabricantes/viagro/fix.png', 'FIX', 'Fix es un agente coadyuvante tensioactivo, humectante y pegante formulado para mejorar la mojabilidad, adherencia y persistencia de los caldos fitosanitarios y nutricionales.', 'Afectación Leve', 'fix', 8.97, 10);
+INSERT INTO `productos` (`id`, `fabricante_id`, `imagen`, `nombre`, `descripcion`, `clasificacion`, `slug`, `sumatorio`, `recuento`, `activo`) VALUES
+(1, 1, './media/fabricantes/kenogard/productos/Dipel_DF.png', 'DIPEL DF', 'DiPel® DF es un insecticida biológico en granulado dispersable en agua con toxinas cristalinas y esporas de Bacillus thuringiensis kurstaki.', 'Inocuo', 'dipel-df', 9.17, 10, 'S'),
+(2, 1, './media/fabricantes/kenogard/productos/Xentari_GD.png', 'XENTARI GD', 'XenTari® GD es un insecticida biológico en gránulos dispersables en agua a base de toxinas cristalinas y esporas de Bacillus thuringiensis subsp. aizawai, especializado en el control selectivo de orugas y orugas difíciles.', 'Inocuo', 'xentari-gd', 9.78, 10, 'S'),
+(3, 1, './media/fabricantes/kenogard/productos/Geoda.png', 'GEODA', 'Geoda® es un fungicida/nematicida biológico formulado a base de microorganismos antagonistas del suelo (Trichoderma / Bacillus), orientado a la protección radicular y prevención de patógenos edáficos.', 'Inocuo', 'geoda', 9.03, 10, 'S'),
+(4, 2, './media/fabricantes/arvensis/productos/ferttybyo.png', 'FERTTYBYO', 'Ferttybyo es un biofertilizante y bioestimulante orgánico formulado a base de consorcios microbianos y extractos de origen vegetal, diseñado para potenciar la actividad rizosférica y la absorción de nutrientes.', 'Afectación Leve', 'ferttybyo', 8.09, 8.33, 'S'),
+(5, 5, './media/fabricantes/basf/productos/velifer.png', 'VELIFER', 'Velifer® es un insecticida/acaricida microbiológico en dispersión oleosa formulado a base de esporas vivas de la cepa fúngica entomopatógena Beauveria bassiana, diseñado para el control de trips, mosca blanca y ácaros.', 'Inocuo', 'velifer', 9.25, 9, 'S'),
+(6, 6, './media/fabricantes/seipasa/productos/pirecris.png', 'PIRECRIS', 'Pirecris® es un insecticida natural en concentrado emulsionable a base de piretrinas naturales extraídas de Chrysanthemum cinerariifolium, formulado con efecto de choque para el control de plagas agrícolas en manejo integrado y ecológico.', 'Inocuo', 'pirecris', 9.92, 10, 'N'),
+(7, 7, './media/fabricantes/sipcam inagra/productos/elio.png', 'ELIO', 'Elio es un bioestimulante y corrector nutricional foliar formulado con complejos orgánicos y microelementos, enfocado en optimizar la floración, el cuajado y la tolerancia al estrés abiótico.', 'Inocuo', 'elio', 9.65, 10, 'N'),
+(8, 3, './media/fabricantes/viagro/productos/brio.png', 'BRIO', 'Brio es un bioestimulante antiestrés y promotor del desarrollo vegetativo formulado a base de aminoácidos libres, extractos de algas y péptidos bioactivos.', 'Inocuo', 'brio', 9.02, 10, 'S'),
+(9, 3, './media/fabricantes/viagro/productos/vitta-k-express.png', 'VITTA K EXPRESS', 'Vitta K Express es un fertilizante foliar líquido de alta concentración en potasio quelatado o complejado, diseñado para una rápida asimilación orientada a mejorar el engorde, maduración y calidad de fruto.', 'Inocuo', 'vitta-k-express', 9.86, 10, 'S'),
+(10, 3, './media/fabricantes/viagro/productos/paramon.png', 'PARAMON', 'Paramon es un bioestimulante fisiológico y activador metabólico formulado a base de fósforo móvil y microelementos, orientado al fortalecimiento de los mecanismos naturales de defensa del cultivo.', 'Afectación Leve', 'paramon', 8.12, 9, 'S'),
+(11, 3, './media/fabricantes/viagro/productos/r-gen.png', 'R-GEN', 'R-Gen es un bioestimulante y regenerador radicular formulado con ácidos húmicos, fúlvicos y reguladores de enraizamiento, diseñado para favorecer la emisión de masa radicular y el establecimiento del cultivo.', 'Afectación Leve', 'r-gen', 8.12, 9, 'S'),
+(12, 3, './media/fabricantes/viagro/productos/radiant.png', 'RADIANT', 'Radiant® es un insecticida de amplio espectro en suspensión concentrada a base de spinetoram, con alta eficacia de contacto e ingestión para el control de trips, orugas y minadores.', 'Afectación Leve', 'radiant', 8.12, 9, 'S'),
+(13, 3, './media/fabricantes/viagro/productos/cu-via.png', 'CU-VIA', 'Cu-Via es una solución líquida de cobre complejado por ácidos orgánicos o lignosulfonatos, formulada para una rápida absorción sistémica y prevención de fisiopatías por carencia de cobre con efecto fitofortificante.', 'Afectación Leve', 'cu-via', 8.59, 10, 'S'),
+(14, 3, './media/fabricantes/viagro/productos/fix.png', 'FIX', 'Fix es un agente coadyuvante tensioactivo, humectante y pegante formulado para mejorar la mojabilidad, adherencia y persistencia de los caldos fitosanitarios y nutricionales.', 'Afectación Leve', 'fix', 8.97, 10, 'S'),
+(15, 3, NULL, 'SULVIA', 'Sulvia® es un formulado bioestimulante y nutricional en suspensión líquida con azufre de alta asimilación, diseñado para reactivar las defensas naturales del cultivo y corregir deficiencias nutricionales de forma rápida.', NULL, 'sulvia', NULL, NULL, 'N'),
+(16, 5, './media/fabricantes/basf/productos/serifel.png', 'SERIFEL', 'Serifel® es un biofungicida preventivo a base de esporas de Bacillus amyloliquefaciens (cepa MBI 600), diseñado para la colonización activa del follaje y el control eficaz de botritis, oídio y otras enfermedades fúngicas.', 'Autorizado', 'serifel', NULL, NULL, 'N'),
+(17, 4, './media/fabricantes/fmc/productos/amalgerol.png', 'AMALGEROL', 'Amalgerol® es un bioestimulante y acondicionador edáfico a base de extractos de algas, aceites vegetales y ácidos orgánicos, formulado para reactivar la microflora del suelo, estimular el desarrollo radicular y superar situaciones de estrés abiótico.', NULL, 'amalgerol', NULL, NULL, 'N'),
+(18, 4, './media/fabricantes/fmc/productos/accudo-xts.png', 'ACCUDO XTS', 'Accudo® XTS es un bioestimulante microbiano formulado a partir de la bacteria Bacillus paralicheniformis (cepa RTI184), optimizado para potenciar el crecimiento del sistema radicular, solubilizar fósforo y favorecer el vigor vegetativo general del cultivo.', NULL, 'accudo-xts', NULL, NULL, 'N'),
+(19, 4, './media/fabricantes/fmc/productos/cleopatra.png', 'CLEOPATRA', 'Cleopatra® es un insecticida biorracional diseñado para el control selectivo de lepidópteros y trips, con excelente perfil ecotoxicológico y alta compatibilidad en programas de manejo integrado de plagas (IPM).', NULL, 'cleopatra', NULL, NULL, 'N'),
+(20, 8, './media/fabricantes/inagrosa/productos/humiforte.png', 'HUMIFORTE', 'Humiforte® es un fertilizante y bioestimulante orgánico líquido rico en ácidos fúlvicos y oligopéptidos de bajo peso molecular, diseñado para una rápida absorción celular, activación del metabolismo vegetal y mejora en el engorde del fruto.', NULL, 'humiforte', NULL, NULL, 'S'),
+(21, 2, './media/fabricantes/arvensis/productos/cripthum.png', 'CRIPTHUM', 'Chripthum® es un fitofortificante y protector natural formulado con extractos botánicos de alta pureza, diseñado para fortalecer la cutícula vegetal y prevenir el daño ocasionado por plagas chupadoras y raspadoras.', 'Autorizado', 'cripthum', NULL, NULL, 'N'),
+(22, 9, './media/fabricantes/yara/productos/yara-vega.png', 'YARA VEGA', 'Yara Vega™ es un fertilizante organomineral formulado para fertirrigación, optimizado para estimular el desarrollo vegetativo inicial, mejorar la estructura del suelo y maximizar la asimilación radicular de macronutrientes.', NULL, 'yara-vega', NULL, NULL, 'N');
 
 -- --------------------------------------------------------
 
@@ -1161,7 +1171,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT de la tabla `fabricantes`
 --
 ALTER TABLE `fabricantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `microorganismos`
@@ -1173,7 +1183,7 @@ ALTER TABLE `microorganismos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `producto_especificaciones`
