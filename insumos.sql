@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-10-2026 a las 07:52:05
+-- Tiempo de generación: 09-10-2026 a las 09:39:03
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 8.1.3
 
@@ -1102,7 +1102,15 @@ INSERT INTO `traducciones` (`id`, `tabla`, `traduccion_id`, `campo`, `idioma`, `
 (693, 'producto_especificaciones', 42, 'descripcion', 'en', 'Helps successfully overcome abiotic stress situations (heat waves, salinity, or water imbalances) while maintaining production rhythm.'),
 (694, 'producto_especificaciones', 42, 'descripcion', 'pt', 'Ajuda a superar com sucesso situações de stress abiótico (ondas de calor, salinidade ou desequilíbrios hídricos), mantendo o ritmo produtivo.'),
 (695, 'producto_especificaciones', 42, 'descripcion', 'fr', 'Aide à surmonter avec succès les situations de stress abiotique (vagues de chaleur, salinité ou déséquilibres hydriques) tout en maintenant le rythme de production.'),
-(696, 'producto_especificaciones', 42, 'descripcion', 'ca', 'Ajuda a superar amb èxit situacions d\'estrès abiòtic (onades de calor, salinitat o desequilibris hídrics) mantenint el ritme productiu.');
+(696, 'producto_especificaciones', 42, 'descripcion', 'ca', 'Ajuda a superar amb èxit situacions d\'estrès abiòtic (onades de calor, salinitat o desequilibris hídrics) mantenint el ritme productiu.'),
+(697, 'fabricantes', 9, 'descripcion', 'en', 'Global manufacturer of crop nutrition solutions, high-precision fertilizers and agricultural technologies aimed at sustainable yield and soil health.'),
+(698, 'fabricantes', 9, 'descripcion', 'pt', 'Fabricante global de soluções de nutrição agrícola, fertilizantes de alta precisão e tecnologias agrícolas voltadas para o rendimento sustentável e a saúde do solo.'),
+(699, 'fabricantes', 9, 'descripcion', 'fr', 'Fabricant mondial de solutions de nutrition des cultures, d\'engrais de haute précision et de technologies agricoles visant un rendement durable et la santé des sols.'),
+(700, 'fabricantes', 9, 'descripcion', 'ca', 'Fabricant global de solucions per a la nutrició de cultius, fertilitzants d\'alta precisió i tecnologies agrícoles orientades al rendiment sostenible i la salut del terra.'),
+(701, 'productos', 20, 'descripcion', 'en', 'Humiforte® is a liquid organic fertilizer and biostimulant rich in fulvic acids and low molecular weight oligopeptides, designed for rapid cellular absorption, activation of plant metabolism and improvement in fruit fattening.'),
+(702, 'productos', 20, 'descripcion', 'pt', 'Humiforte® é um fertilizante orgânico líquido e bioestimulante rico em ácidos fúlvicos e oligopeptídeos de baixo peso molecular, desenvolvido para rápida absorção celular, ativação do metabolismo das plantas e melhora na engorda dos frutos.'),
+(703, 'productos', 20, 'descripcion', 'fr', 'Humiforte® est un engrais organique liquide et biostimulant riche en acides fulviques et en oligopeptides de faible poids moléculaire, conçu pour une absorption cellulaire rapide, l\'activation du métabolisme des plantes et l\'amélioration de l\'engraissement des fruits.'),
+(704, 'productos', 20, 'descripcion', 'ca', 'Humiforte® és un fertilitzant i bioestimulant orgànic líquid ric en àcids fúlvics i oligopèptids de baix pes molecular, dissenyat per a una ràpida absorció cel·lular, activació del metabolisme vegetal i millora en l\'engreixament del fruit.');
 
 --
 -- Índices para tablas volcadas
@@ -1201,7 +1209,7 @@ ALTER TABLE `producto_microorganismos_relacion`
 -- AUTO_INCREMENT de la tabla `traducciones`
 --
 ALTER TABLE `traducciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=705;
 
 --
 -- Restricciones para tablas volcadas
