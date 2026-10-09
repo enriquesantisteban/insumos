@@ -98,6 +98,8 @@ return [
     'producto.ver_grafica'      => 'Voir le graphique',
     'producto.otros_productos'  => 'Autres produits',
     'producto.tipo'             => 'Type',
+    'producto.tipo_autorizado'  => 'Autorisé',
+    'producto.tipo_regeneradores' => 'Régénérateurs',
     'producto.subtipo'          => 'Sous-type',
     'producto.subtipo_a'        => 'Compatible avec le microbiome natif',
     'producto.subtipo_b'        => 'Compatible avec le microbiome natif + probiotique/microbien',

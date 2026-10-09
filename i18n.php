@@ -79,6 +79,21 @@ function __t($key, $default = '') {
     return $translations[$key] ?? ($default ?: $key);
 }
 
+function __tipo_label($tipo) {
+    $value = trim((string)$tipo);
+    if ($value === '') {
+        return '';
+    }
+
+    $translationKeys = [
+        'autorizado' => 'producto.tipo_autorizado',
+        'regeneradores' => 'producto.tipo_regeneradores',
+    ];
+    $translationKey = $translationKeys[mb_strtolower($value, 'UTF-8')] ?? null;
+
+    return $translationKey ? __t($translationKey, $value) : $value;
+}
+
 function __subtipo_label($subtipo) {
     $code = strtoupper(trim((string)$subtipo));
     if ($code === '') {

@@ -168,7 +168,7 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
             <?php if ($tipoFilter !== ''): ?>
                 <p class="active-filter-note">
                     <?php echo __t('fabricante.filter_tipo_active_prefix', 'Mostrando solo productos de tipo:'); ?>
-                    <strong><?php echo htmlspecialchars($tipoFilter); ?></strong>
+                    <strong><?php echo htmlspecialchars(__tipo_label($tipoFilter)); ?></strong>
                     <a href="<?php echo htmlspecialchars(__url('fabricante', ['slug' => $slug])); ?>" class="filter-clear-link">
                         <i class="fas fa-xmark" aria-hidden="true"></i> <?php echo __t('fabricante.filter_clear', 'Ver todos los productos'); ?>
                     </a>
@@ -186,7 +186,7 @@ $initials = mb_strtoupper(mb_substr($fabricante['nombre'], 0, 2));              
                     $prodImg = $imageColumnExists ? ($prod['imagen'] ?? null) : null;    // obtiene la URL de la imagen del producto si existe, de lo contrario, será null
                     
                     $tipoText = !empty($prod['tipo'])
-                        ? __tdb($mysqli, 'productos', $prod['id'], 'tipo', $prod['tipo'])
+                        ? __tipo_label($prod['tipo'])
                         : '';
                 ?> 
                     <article class="product-card">                                      <!-- tarjeta individual para cada producto que muestra su imagen, nombre, descripción y número de productos -->

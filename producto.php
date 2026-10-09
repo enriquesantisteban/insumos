@@ -106,7 +106,7 @@ foreach ($microorganismos as $micro) {                                    // Ite
 }
 
 $tipoText = !empty($producto['tipo'])
-    ? __tdb($mysqli, 'productos', $producto['id'], 'tipo', $producto['tipo'])
+    ? __tipo_label($producto['tipo'])
     : '';
 $subtipoText = __subtipo_label($producto['subtipo'] ?? '');
 
@@ -357,7 +357,7 @@ $hasProductData = !empty($producto['descripcion'])
                             $otherImg  = $imageColumnExists ? ($other['imagen'] ?? null) : null;    // Obtiene la URL de la imagen del producto si existe, de lo contrario, será null
                             
                             $otherTipo = !empty($other['tipo'])
-                                ? __tdb($mysqli, 'productos', $other['id'], 'tipo', $other['tipo'])
+                                ? __tipo_label($other['tipo'])
                                 : '';
                             $otherSubtipo = __subtipo_label($other['subtipo'] ?? '');
                         ?>

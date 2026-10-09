@@ -310,7 +310,7 @@ if ($countsResult) {
                     <select id="filterTipo">
                         <option value=""><?php echo __t('index.filter_all', 'Todos'); ?></option>
                         <?php foreach ($tipoOptions as $tipo): ?>
-                            <option value="<?php echo htmlspecialchars($tipo); ?>"><?php echo htmlspecialchars($tipo); ?></option>
+                            <option value="<?php echo htmlspecialchars($tipo); ?>"><?php echo htmlspecialchars(__tipo_label($tipo)); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
