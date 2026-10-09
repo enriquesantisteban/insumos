@@ -16,11 +16,11 @@ $imageColumnExists = tableHasColumn($mysqli, 'productos', 'imagen');    // Verif
 
 // Fetch product
 $detailSql = 'SELECT p.id, p.nombre, p.slug, p.descripcion, p.clasificacion, p.sumatorio, p.recuento';
-if ($imageColumnExists) { $detailSql .= ', p.imagen'; }               // Si existe una columna de imagen, la agrega a la consulta
+if ($imageColumnExists) { $detailSql .= ', p.imagen'; }
 $detailSql .= ', f.id AS fabricante_id, f.nombre AS fabricante_nombre, f.slug AS fabricante_slug
      FROM productos p
-    JOIN fabricantes f ON p.fabricante_id = f.id AND f.activo = \'S\'
-     WHERE p.slug = ?';
+     JOIN fabricantes f ON p.fabricante_id = f.id AND UPPER(f.activo) = \'S\'
+     WHERE p.slug = ? AND UPPER(p.activo) = \'S\'';
 
 $stmt = $mysqli->prepare($detailSql);                                   // Prepara la consulta SQL para obtener los detalles del producto
 if (!$stmt) { echo 'Error en la consulta del producto: ' . $mysqli->error; exit; }   // Si la preparación falla, muestra un mensaje de error y termina la ejecución
@@ -41,8 +41,8 @@ if ($espStmt) {                                                           // Ver
 
 // Fetch other products by same fabricante
 $otherSql = 'SELECT id, nombre, slug, descripcion, clasificacion';
-if ($imageColumnExists) { $otherSql .= ', imagen'; }                    // Si la columna de imagen existe, agrega la columna a la consulta
-$otherSql .= ' FROM productos WHERE id <> ? AND fabricante_id = ? ORDER BY nombre';     // Agrega la consulta paara obtener los productos diferenets a este
+if ($imageColumnExists) { $otherSql .= ', imagen'; }                   // Si la columna de imagen existe, agrega la columna a la consulta
+$otherSql .= ' FROM productos WHERE id <> ? AND fabricante_id = ? AND UPPER(activo) = \'S\' ORDER BY nombre';     // Agrega la consulta paara obtener los productos diferenets a este
 $otherStmt = $mysqli->prepare($otherSql);                               // Prepara la consulta para obtener los productos diferentes
 $otherProducts = false;                                                  // Inicializa la variable para almacenar los productos diferentes
 if ($otherStmt) {                                                       // Verifica si la consulta se pudo preparar

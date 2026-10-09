@@ -36,7 +36,9 @@ elseif (tableHasColumn($mysqli, 'fabricantes', 'logo'))   { $fabricanteImageColu
 // Fetch fabricante
 $sqlFab = 'SELECT id, nombre, descripcion, slug';                                     // Selecciona los campos id, nombre y descripcion de la tabla fabricantes
 if ($fabricanteImageColumn) { $sqlFab .= ', ' . $fabricanteImageColumn; }       // Si existe una columna de imagen, la agrega a la consulta
-$sqlFab .= $slug !== '' ? ' FROM fabricantes WHERE slug = ? AND activo = \'S\'' : ' FROM fabricantes WHERE id = ? AND activo = \'S\'';
+$sqlFab .= $slug !== ''
+        ? ' FROM fabricantes WHERE slug = ? AND UPPER(activo) = \'S\''
+        : ' FROM fabricantes WHERE id = ? AND UPPER(activo) = \'S\'';
 
 $fabStmt = $mysqli->prepare($sqlFab);                                           // Prepara la consulta SQL
 if (!$fabStmt) { echo 'Error al cargar el fabricante.'; exit; }                 // Si la preparación falla, muestra un mensaje de error y termina la ejecución
@@ -54,9 +56,9 @@ $imageColumnExists = tableHasColumn($mysqli, 'productos', 'imagen');            
 $clasificacionFilter = isset($_GET['clasificacion']) ? trim($_GET['clasificacion']) : '';
 
 // Fetch products
-$sqlProd = 'SELECT id, nombre, slug, descripcion';                                            // Selecciona los campos id, nombre y descripcion de la tabla productos
+$sqlProd = 'SELECT id, nombre, slug, descripcion';                                           // Selecciona los campos id, nombre y descripcion de la tabla productos
 if ($imageColumnExists) { $sqlProd .= ', imagen'; }                                     // Si existe una columna de imagen, la agrega a la consulta
-$sqlProd .= ', clasificacion FROM productos WHERE fabricante_id = ?';
+$sqlProd .= ', clasificacion FROM productos WHERE fabricante_id = ? AND UPPER(activo) = \'S\'';
 $bindTypes  = 'i';
 $bindParams = [$fabricanteId];
 if ($clasificacionFilter !== '') {

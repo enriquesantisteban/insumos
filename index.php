@@ -104,11 +104,11 @@ if ($fabricanteImageColumn) { $sql .= ', f.' . $fabricanteImageColumn; }        
     // sus productos, separados por '||' para poder
     // trocearlos en PHP y usarlos como filtro en la sección "Explora por fabricante".
         $sql .= ', COUNT(p.id) AS num_productos, GROUP_CONCAT(DISTINCT NULLIF(TRIM(p.clasificacion), \'\') SEPARATOR \'||\') AS clasificaciones_raw
-            FROM fabricantes f                                                     
-            LEFT JOIN productos p ON p.fabricante_id = f.id                         
-            WHERE f.activo = \'S\'
-            GROUP BY f.id                                                          
-         ORDER BY f.nombre';                                                    // ordena los resultados por el nombre del fabricante
+                FROM fabricantes f                                                     
+                LEFT JOIN productos p ON p.fabricante_id = f.id AND UPPER(p.activo) = \'S\'
+                WHERE UPPER(f.activo) = \'S\'
+                GROUP BY f.id                                                          
+            ORDER BY f.nombre';                                                    // ordena los resultados por el nombre del fabricante
 $fabricantesResult = $mysqli->query($sql);                                      // ejecuta la consulta y almacena el resultado en la variable $fabricantesResult
 
 // Totals for stats bar
@@ -130,9 +130,11 @@ $totalMicro = (int)$mysqli->query('SELECT COUNT(*) AS c FROM microorganismos')->
 // Conteo de productos por fabricante y clasificación para actualizar las tarjetas y sus enlaces.
 $clasificacionCounts = [];                                                // [fabricante_id => [clasificacion => count]]
 $countsResult = $mysqli->query(
-    "SELECT fabricante_id, NULLIF(TRIM(clasificacion), '') AS clasificacion, COUNT(*) AS cnt
-     FROM productos
-     GROUP BY fabricante_id, clasificacion"
+    "SELECT p.fabricante_id, NULLIF(TRIM(p.clasificacion), '') AS clasificacion, COUNT(*) AS cnt
+     FROM productos p
+     JOIN fabricantes f ON p.fabricante_id = f.id AND UPPER(f.activo) = 'S'
+     WHERE UPPER(p.activo) = 'S'
+     GROUP BY p.fabricante_id, p.clasificacion"
 );
 if ($countsResult) {
     while ($row = $countsResult->fetch_assoc()) {
