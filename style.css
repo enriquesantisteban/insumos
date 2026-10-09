@@ -1845,6 +1845,7 @@ footer {
     font-size: 1.1rem; /* Tamaño optimizado para iconos FontAwesome */
     text-decoration: none;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 }
 
 .share-btn:hover {
@@ -1881,6 +1882,62 @@ footer {
     background-color: #2563eb;
     border-color: #2563eb;
     color: #ffffff;
+}
+
+.email-share-dialog {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    width: min(440px, calc(100% - 2rem));
+    max-width: 440px;
+    max-height: calc(100% - 2rem);
+    margin: auto;
+    padding: 2rem;
+    border: 0;
+    border-radius: 16px;
+    color: var(--dark);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+}
+
+.email-share-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.email-share-dialog form {
+    position: relative;
+}
+
+.email-share-dialog h2 {
+    margin: 0 2rem 0.5rem 0;
+    font-size: 1.35rem;
+}
+
+.email-share-dialog p {
+    margin-bottom: 1rem;
+    color: var(--muted);
+}
+
+.email-share-close {
+    position: absolute;
+    top: -1.25rem;
+    right: -1rem;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.email-share-options {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.email-share-options .btn {
+    display: block;
+    margin: 0;
+    text-decoration: none;
 }
 
 /* Responsive para pantallas móviles */

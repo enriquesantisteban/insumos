@@ -146,12 +146,73 @@ $shareUrl = static function (string $baseUrl, array $parameters): string {
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
 
-                    <a href="<?php echo htmlspecialchars($shareUrl('mailto:', ['subject' => $titulo, 'body' => 'Te comparto este artículo: ' . $currentUrl]), ENT_QUOTES, 'UTF-8'); ?>" 
-                    class="share-btn share-email" title="Enviar por Email">
+                    <button type="button" class="share-btn share-email" id="emailShareOpen"
+                            title="<?php echo htmlspecialchars(__t('blog.share_email', 'Compartir por email'), ENT_QUOTES, 'UTF-8'); ?>"
+                            aria-label="<?php echo htmlspecialchars(__t('blog.share_email', 'Compartir por email'), ENT_QUOTES, 'UTF-8'); ?>"
+                            aria-haspopup="dialog" aria-controls="emailShareDialog">
                         <i class="fas fa-envelope"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
+
+            <?php
+            $emailSubject = $titulo;
+            $emailBody = 'Te comparto este artículo: ' . $currentUrl;
+            $emailShareUrl = 'mailto:?' . http_build_query(
+                ['subject' => $emailSubject, 'body' => $emailBody],
+                '',
+                '&',
+                PHP_QUERY_RFC3986
+            );
+            $gmailShareUrl = $shareUrl('https://mail.google.com/mail/', [
+                'view' => 'cm',
+                'fs' => '1',
+                'to' => '',
+                'su' => $emailSubject,
+                'body' => $emailBody,
+            ]);
+            ?>
+            <dialog class="email-share-dialog" id="emailShareDialog" aria-labelledby="emailShareTitle">
+                <form method="dialog">
+                    <button type="submit" class="email-share-close" aria-label="<?php echo htmlspecialchars(__t('blog.share_close', 'Cerrar'), ENT_QUOTES, 'UTF-8'); ?>">&times;</button>
+                    <h2 id="emailShareTitle"><?php echo __t('blog.share_email_title', 'Compartir por email'); ?></h2>
+                    <p><?php echo __t('blog.share_email_prompt', 'Elige cómo quieres enviar este artículo:'); ?></p>
+                    <div class="email-share-options">
+                        <a class="btn" href="<?php echo htmlspecialchars($gmailShareUrl, ENT_QUOTES, 'UTF-8'); ?>"
+                           target="_blank" rel="noopener noreferrer" data-close-email-dialog>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <?php echo __t('blog.share_open_gmail', 'Abrir Gmail'); ?>
+                        </a>
+                        <a class="btn btn-outline" href="<?php echo htmlspecialchars($emailShareUrl, ENT_QUOTES, 'UTF-8'); ?>"
+                           data-close-email-dialog>
+                            <i class="fas fa-desktop" aria-hidden="true"></i>
+                            <?php echo __t('blog.share_open_email_app', 'Aplicación de correo predeterminada'); ?>
+                        </a>
+                    </div>
+                </form>
+            </dialog>
+            <script>
+            (function () {
+                var openButton = document.getElementById('emailShareOpen');
+                var dialog = document.getElementById('emailShareDialog');
+                if (!openButton || !dialog) return;
+
+                if (typeof dialog.showModal === 'function') {
+                    openButton.addEventListener('click', function () {
+                        dialog.showModal();
+                    });
+                    dialog.querySelectorAll('[data-close-email-dialog]').forEach(function (link) {
+                        link.addEventListener('click', function () {
+                            dialog.close();
+                        });
+                    });
+                } else {
+                    openButton.addEventListener('click', function () {
+                        window.location.href = <?php echo json_encode($emailShareUrl, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+                    });
+                }
+            })();
+            </script>
         </article>
     </div>
 
