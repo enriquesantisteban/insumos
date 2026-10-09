@@ -660,6 +660,72 @@ sudo chmod -R 755 /var/www/regenerative-agro-platform
 
 ```
 
+
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+#                                                                           GIT (REPOSITORIO + BASE DE DATOS) --> ACTUALIZAR                                                               #
+
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+
+1. Crear un archivo que encapsule toda la secuencia en un único archivo ejecutable en el servidor. Así, cuando quieras actualizar, solo ejecutas ./update.sh
+
+```bash
+
+sudo nano /var/www/regenerative-agro-platform/update.sh
+
+```
+
+2. Pega el siguiente contenido (el set -e asegura que si un paso crítico falla, el script se detenga de inmediato):
+
+```bash
+
+#!/usr/bin/env bash
+set -e
+
+PROJECT_DIR="/var/www/regenerative-agro-platform"
+cd "$PROJECT_DIR"
+
+echo "==> Actualizando repositorio..."
+git fetch origin main
+git reset --hard origin/main
+
+echo "==> Actualizando base de datos..."
+if [ -f "insumos.sql" ]; then
+    mysql -e "DROP DATABASE IF EXISTS insumos; CREATE DATABASE insumos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    mysql insumos < insumos.sql
+    echo "Base de datos restaurada correctamente."
+else
+    echo "Aviso: insumos.sql no encontrado, se omite el paso de base de datos."
+fi
+
+echo "==> Ajustando permisos..."
+chown -R www-data:www-data "$PROJECT_DIR"
+chmod -R 755 "$PROJECT_DIR"
+
+echo "==> ¡Despliegue completado con éxito!"
+
+```
+
+3. Dar permisos de ejecución:
+
+```bash
+
+sudo chmod +x /var/www/regenerative-agro-platform/update.sh
+
+```
+
+4. A partir de ahora, cada vez que quieras desplegar, solo lanzas:
+
+```bash
+
+sudo /var/www/regenerative-agro-platform/update.sh
+
+```
+
+
+
+
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
 
 #                                                                             PROBLEMA CAMBIO DE NOMRBES                                                                                   #
